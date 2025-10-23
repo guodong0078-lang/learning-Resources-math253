@@ -3,85 +3,411 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>数学253班 - 学习资料中心</title>
+    <title>河工大数学253班 - 学习资料中心</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { 
-            font-family: 'Microsoft YaHei', sans-serif; 
-            margin: 0; 
-            padding: 20px; 
-            background-color: #f0f2f5; 
-            color: #333; 
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --english-color: #e67e22;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
         }
-        .container { 
-            max-width: 900px; 
-            margin: 0 auto; 
-            background: white; 
-            padding: 30px; 
-            border-radius: 15px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        h1 { 
-            color: #1a5276; 
-            text-align: center; 
-            border-bottom: 2px solid #3498db; 
-            padding-bottom: 15px; 
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
         }
-        .description { 
-            text-align: center; 
-            margin-bottom: 30px; 
-            color: #7f8c8d; 
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .nav-links { 
-            list-style: none; 
-            padding: 0; 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-            gap: 15px; 
+        
+        /* 头部样式 */
+        header {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            color: white;
+            padding: 30px 0;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
         }
-        .nav-links li { 
-            margin: 0; 
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
+            z-index: 1;
         }
-        .nav-links a { 
-            display: block; 
-            padding: 20px; 
-            background: linear-gradient(135deg, #3498db, #2c3e50); 
-            color: white; 
-            text-decoration: none; 
-            border-radius: 8px; 
-            text-align: center; 
-            transition: transform 0.3s, box-shadow 0.3s; 
-            font-weight: bold; 
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
         }
-        .nav-links a:hover { 
-            transform: translateY(-3px); 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
-        footer { 
-            text-align: center; 
-            margin-top: 40px; 
-            padding-top: 20px; 
-            border-top: 1px solid #ecf0f1; 
-            color: #95a5a6; 
-            font-size: 0.9em; 
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
         }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+        }
+        
+        /* 导航卡片样式 */
+        .nav-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .nav-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .nav-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-icon {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .card-content h3 {
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .card-content p {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .btn:hover {
+            background: var(--secondary-color);
+        }
+        
+        /* 特色区域样式 */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .feature-icon {
+            background: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        /* 页脚样式 */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            border-top: 1px solid #ddd;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .nav-card, .feature-card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        .nav-card:nth-child(2) { animation-delay: 0.1s; }
+        .nav-card:nth-child(3) { animation-delay: 0.2s; }
+        .nav-card:nth-child(4) { animation-delay: 0.3s; }
+        .nav-card:nth-child(5) { animation-delay: 0.4s; }
+        .nav-card:nth-child(6) { animation-delay: 0.5s; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🏫 河北工业大学 数学253班</h1>
-        <p class="description">学习资料共享与分析中心 | 2025级</p>
-
-        <ul class="nav-links">
-            <li><a href="./Mathematical%20Analysis/">📘 数学分析资料</a></li>
-            <li><a href="./Linear%20Algebra/">📗 线性代数资料</a></li>
-            <li><a href="./Course%20Notes/">📓 课程笔记汇总</a></li>
-            <li><a href="./Past%20Exams/">📂 历年试卷与解析</a></li>
-            <li><a href="./Data%20Analysis/">📊 学习数据分析</a></li>
-        </ul>
-
+        <header>
+            <div class="header-content">
+                <h1><i class="fas fa-graduation-cap"></i> 河北工业大学 数学253班</h1>
+                <p class="subtitle">学习资料共享与分析中心 | 2025级</p>
+                <div class="stats">
+                    <div class="stat-item"><i class="fas fa-book"></i> 6个学科资料库</div>
+                    <div class="stat-item"><i class="fas fa-file-alt"></i> 132份学习资料</div>
+                    <div class="stat-item"><i class="fas fa-users"></i> 42位班级成员</div>
+                </div>
+            </div>
+        </header>
+        
+        <main>
+            <div class="nav-cards">
+                <div class="nav-card">
+                    <div class="card-icon" style="background: #3498db;">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>数学分析资料</h3>
+                        <p>包含课程讲义、习题解答、重点难点解析等完整学习资料</p>
+                        <a href="./Mathematical%20Analysis/" class="btn">查看资料</a>
+                    </div>
+                </div>
+                
+                <div class="nav-card">
+                    <div class="card-icon" style="background: #2ecc71;">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>线性代数资料</h3>
+                        <p>矩阵理论、向量空间、线性变换等核心内容详解与练习题</p>
+                        <a href="./Linear%20Algebra/" class="btn">查看资料</a>
+                    </div>
+                </div>
+                
+                <div class="nav-card">
+                    <div class="card-icon" style="background: #e74c3c;">
+                        <i class="fas fa-sticky-note"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>课程笔记汇总</h3>
+                        <p>精选课堂笔记、知识梳理图、易错点总结等高效学习资源</p>
+                        <a href="./Course%20Notes/" class="btn">查看资料</a>
+                    </div>
+                </div>
+                
+                <div class="nav-card">
+                    <div class="card-icon" style="background: #f39c12;">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>历年试卷与解析</h3>
+                        <p>近五年考试真题、模拟试题及详细解析，助力备考复习</p>
+                        <a href="./Past%20Exams/" class="btn">查看资料</a>
+                    </div>
+                </div>
+                
+                <!-- 新增的四六级资料版块 -->
+                <div class="nav-card">
+                    <div class="card-icon" style="background: #e67e22;">
+                        <i class="fas fa-language"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>英语四六级资料</h3>
+                        <p>四六级考试报名流程、备考资料、考试注意事项等全套材料</p>
+                        <a href="./46%E7%BA%A7/" class="btn">查看资料</a>
+                    </div>
+                </div>
+                
+                <div class="nav-card">
+                    <div class="card-icon" style="background: #9b59b6;">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>学习数据分析</h3>
+                        <p>学习进度统计、成绩分布、资源热度等可视化数据分析</p>
+                        <a href="./Data%20Analysis/" class="btn">查看分析</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div>
+                        <h3>实时更新</h3>
+                        <p>学习资料与课程进度同步更新，确保您获取最新资源</p>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div>
+                        <h3>多端适配</h3>
+                        <p>完美支持电脑、平板和手机访问，随时随地学习</p>
+                    </div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <div>
+                        <h3>一键下载</h3>
+                        <p>所有资料支持快速下载，方便离线学习与打印</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
         <footer>
-            <p>本网站基于 GitHub Pages 构建 | <a href="https://github.com/guodong0078-lang/learning-Resources-math253" style="color: #3498db;">访问项目仓库</a></p>
+            <p>本网站基于 GitHub Pages 构建 | 最后更新: 2023年10月</p>
+            <div class="footer-links">
+                <a href="https://github.com/guodong0078-lang/learning-Resources-math253"><i class="fab fa-github"></i> 访问项目仓库</a>
+                <a href="mailto:example@example.com"><i class="fas fa-envelope"></i> 联系管理员</a>
+                <a href="#"><i class="fas fa-question-circle"></i> 使用帮助</a>
+            </div>
         </footer>
     </div>
+
+    <script>
+        // 添加简单的交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为统计数字添加动画效果
+            const statItems = document.querySelectorAll('.stat-item');
+            statItems.forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+            });
+            
+            // 延迟显示统计项
+            setTimeout(() => {
+                statItems.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.style.transition = 'all 0.5s ease';
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }, index * 200);
+                });
+            }, 500);
+            
+            // 添加卡片点击效果
+            const cards = document.querySelectorAll('.nav-card');
+            cards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (e.target.tagName !== 'A') {
+                        const link = this.querySelector('a');
+                        if (link) {
+                            window.location.href = link.href;
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

@@ -158,9 +158,18 @@
             text-decoration: none;
         }
         
+        .creator {
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+        
         @media (max-width: 768px) {
             .nav-cards {
                 grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
             }
         }
     </style>
@@ -174,7 +183,7 @@
                 <div class="stats">
                     <div class="stat-item"><i class="fas fa-book"></i> 5个学科资料库</div>
                     <div class="stat-item"><i class="fas fa-file-alt"></i> 127份学习资料</div>
-                    <div class="stat-item"><i class="fas fa-users"></i> 42位班级成员</div>
+                    <div class="stat-item"><i class="fas fa-users"></i> 35位班级成员</div>
                 </div>
             </div>
         </header>
@@ -188,7 +197,7 @@
                     <div class="card-content">
                         <h3>数学分析资料</h3>
                         <p>包含课程讲义、习题解答、重点难点解析等完整学习资料</p>
-                        <a href="./" class="btn">查看资料</a>
+                        <a href="#" class="btn">查看资料</a>
                     </div>
                 </div>
                 
@@ -199,7 +208,29 @@
                     <div class="card-content">
                         <h3>线性代数资料</h3>
                         <p>矩阵理论、向量空间、线性变换等核心内容详解与练习题</p>
-                        <a href="../Linear%20Algebra/" class="btn">查看资料</a>
+                        <a href="#" class="btn">查看资料</a>
+                    </div>
+                </div>
+                
+                <div class="nav-card">
+                    <div class="card-icon" style="background: #9b59b6;">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>概率论与统计</h3>
+                        <p>概率模型、随机变量、统计推断等知识点与实例分析</p>
+                        <a href="#" class="btn">查看资料</a>
+                    </div>
+                </div>
+                
+                <div class="nav-card">
+                    <div class="card-icon" style="background: #e67e22;">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>数值分析</h3>
+                        <p>数值计算方法、算法实现与误差分析等实用技术资料</p>
+                        <a href="#" class="btn">查看资料</a>
                     </div>
                 </div>
             </div>
@@ -207,8 +238,11 @@
         
         <footer>
             <p>本网站基于 GitHub Pages 构建</p>
+            <div class="creator">
+                <p>制作人：程渤栋</p>
+            </div>
             <div class="footer-links">
-                <a href="https://github.com/guodong0078-lang/learning-Resources-math253"><i class="fab fa-github"></i> 访问项目仓库</a>
+                <a href="#"><i class="fab fa-github"></i> 访问项目仓库</a>
             </div>
         </footer>
     </div>

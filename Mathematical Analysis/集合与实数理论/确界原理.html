@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1.3 确界原理 - 数学分析</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --math-color: #e74c3c;
+            --definition-color: #2ecc71;
+            --theorem-color: #9b59b6;
+            --example-color: #f39c12;
+            --proof-color: #16a085;
+            --background-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --header-gradient: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: var(--background-gradient);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: var(--header-gradient);
+            color: white;
+            padding: 30px 0;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
+            z-index: 1;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .breadcrumb a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .math-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin: 30px 0 20px 0;
+        }
+        
+        h3 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px 0;
+            padding-left: 10px;
+            border-left: 3px solid var(--primary-color);
+        }
+        
+        h4 {
+            color: var(--secondary-color);
+            margin: 20px 0 10px 0;
+        }
+        
+        p {
+            margin: 15px 0;
+        }
+        
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        /* 特殊内容样式 */
+        .definition, .theorem, .example, .proof {
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .definition:hover, .theorem:hover, .example:hover, .proof:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .definition {
+            background: #e8f4fd;
+            border-left: 4px solid var(--definition-color);
+        }
+        
+        .theorem {
+            background: #f4eef8;
+            border-left: 4px solid var(--theorem-color);
+        }
+        
+        .example {
+            background: #fef9e7;
+            border-left: 4px solid var(--example-color);
+        }
+        
+        .proof {
+            background: #e8f6f3;
+            border-left: 4px solid var(--proof-color);
+        }
+        
+        .math-block {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .math-inline {
+            color: var(--math-color);
+            font-weight: 500;
+        }
+        
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+            margin: 30px 0;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: #666;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+        }
+        
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .toc li {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .toc li:before {
+            content: "•";
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+        }
+        
+        .toc a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        
+        .math-equation {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        
+        .math-note {
+            background: #fffaf0;
+            border-left: 4px solid #ffa500;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .important {
+            background: #fff0f0;
+            border-left: 4px solid #ff6b6b;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .math-content {
+                padding: 20px;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer-links a {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1><i class="fas fa-chart-line"></i> 1.3 确界原理</h1>
+                <p class="subtitle">数学分析 - 第一章：集合与实数理论</p>
+                <div class="breadcrumb">
+                    <a href="../../index.html">网站首页</a>
+                    <span>→</span>
+                    <a href="../index.html">数学分析主页</a>
+                    <span>→</span>
+                    <a href="index.html">第一章：集合与实数理论</a>
+                    <span>→</span>
+                    <span>1.3 确界原理</span>
+                </div>
+            </div>
+        </header>
+        
+        <div class="toc">
+            <h3>目录</h3>
+            <ul>
+                <li><a href="#一有界集和无界集">一、有界集和无界集</a></li>
+                <li><a href="#二上确界和下确界">二、上确界和下确界</a></li>
+                <li><a href="#三确界原理">三、确界原理</a></li>
+                <li><a href="#四相关定理和例子">四、相关定理和例子</a></li>
+                <li><a href="#五上下确界唯一性证明">五、上（下）确界唯一性证明</a></li>
+            </ul>
+        </div>
+        
+        <div class="math-content">
+            <h2 id="一有界集和无界集">一、有界集和无界集</h2>
+            
+            <h3>1. 有界集和无界集的定义</h3>
+            
+            <div class="definition">
+                <h4>有界集</h4>
+                <p>数集 $S$ 有界当且仅当存在 $M \in \mathbb{R}^+$，使得对于所有 $x \in S$，有 $|x| \leq M$。</p>
+                <p>$$S \text{ 有界 } \Leftrightarrow \exists M \in \mathbb{R}^+, \forall x \in S, |x| \leq M$$</p>
+            </div>
+            
+            <div class="definition">
+                <h4>无界集</h4>
+                <p>数集 $S$ 无界当且仅当对于所有 $M \in \mathbb{R}^+$，存在 $x_0 \in S$，使得 $|x_0| > M$。</p>
+                <p>$$S \text{ 无界 } \Leftrightarrow \forall M \in \mathbb{R}^+, \exists x_0 \in S, |x_0| > M$$</p>
+            </div>
+            
+            <div class="definition">
+                <h4>有上界</h4>
+                <p>数集 $S$ 有上界当且仅当存在 $M \in \mathbb{R}$，使得对于所有 $x \in S$，有 $x \leq M$。</p>
+                <p>$$S \text{ 有上界 } \Leftrightarrow \exists M \in \mathbb{R}, \forall x \in S, x \leq M$$</p>
+            </div>
+            
+            <div class="definition">
+                <h4>无上界</h4>
+                <p>数集 $S$ 无上界当且仅当对于所有 $M \in \mathbb{R}$，存在 $x_0 \in S$，使得 $x_0 > M$。</p>
+                <p>$$S \text{ 无上界 } \Leftrightarrow \forall M \in \mathbb{R}, \exists x_0 \in S, x_0 > M$$</p>
+            </div>
+            
+            <div class="definition">
+                <h4>有下界</h4>
+                <p>数集 $S$ 有下界当且仅当存在 $M \in \mathbb{R}$，使得对于所有 $x \in S$，有 $x \geq M$。</p>
+                <p>$$S \text{ 有下界 } \Leftrightarrow \exists M \in \mathbb{R}, \forall x \in S, x \geq M$$</p>
+            </div>
+            
+            <div class="definition">
+                <h4>无下界</h4>
+                <p>数集 $S$ 无下界当且仅当对于所有 $M \in \mathbb{R}$，存在 $x_0 \in S$，使得 $x_0 < -M$。</p>
+                <p>$$S \text{ 无下界 } \Leftrightarrow \forall M \in \mathbb{R}, \exists x_0 \in S, x_0 < -M$$</p>
+            </div>
+            
+            <h3>2. 例子</h3>
+            
+            <div class="example">
+                <h4>有界集例子</h4>
+                <ul>
+                    <li>$[a, b]$, $(a, b)$, $(a, b]$（其中 $a, b$ 为有限数）是有界集。</li>
+                    <li>$E = \{ y : y = \sin x, x \in (-\infty, +\infty) \}$ 是有界集。</li>
+                </ul>
+            </div>
+            
+            <div class="example">
+                <h4>无界集例子</h4>
+                <ul>
+                    <li>$(-\infty, +\infty)$, $(-\infty, 0)$, $(0, +\infty)$ 是无界集。</li>
+                    <li>$E = \left\{ y : y = \frac{1}{x}, x \in (0, 1) \right\}$ 是无界集。</li>
+                </ul>
+            </div>
+            
+            <div class="example">
+                <h4>例1：证明 $E = \left\{ y : y = \frac{1}{x}, x \in (0, 1) \right\}$ 是无界集</h4>
+                <div class="proof">
+                    <p><strong>证明</strong>：对于任意 $M > 0$，取 $x = \frac{1}{M+1} \in (0, 1)$，则 $y = \frac{1}{x} = M+1 > M$。因此，$E$ 是无界集。</p>
+                </div>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <h2 id="二上确界和下确界">二、上确界和下确界</h2>
+            
+            <h3>1. 上确界的定义</h3>
+            
+            <div class="definition">
+                <h4>上确界定义</h4>
+                <p>设 $S$ 为 $\mathbb{R}$ 中的一个数集。若数 $\eta$ 满足：</p>
+                <ol>
+                    <li>对一切 $x \in S$，有 $x \leq \eta$（即 $\eta$ 是 $S$ 的上界）；</li>
+                    <li>对任何 $\alpha < \eta$，存在 $x_0 \in S$，使得 $x_0 > \alpha$（即 $\eta$ 是 $S$ 的最小上界），</li>
+                </ol>
+                <p>则称数 $\eta$ 为数集 $S$ 的上确界，记作 $\eta = \sup S$。</p>
+            </div>
+            
+            <h3>2. 上确界的充要条件</h3>
+            
+            <div class="theorem">
+                <h4>命题1</h4>
+                <p>$\eta = \sup S$ 的充要条件为：</p>
+                <ol>
+                    <li>$\eta$ 是 $S$ 的上界；</li>
+                    <li>$\forall \varepsilon > 0$, $\exists y \in S$，使得 $y > \eta - \varepsilon$。</li>
+                </ol>
+            </div>
+            
+            <div class="proof">
+                <h4>证明</h4>
+                <p><strong>必要性</strong>：用反证法。假设条件2不成立，则存在 $\varepsilon_0 > 0$，使得对于所有 $x \in S$，有 $x \leq \eta - \varepsilon_0$，这与 $\eta$ 是上确界矛盾。</p>
+                <p><strong>充分性</strong>：用反证法。假设 $\eta$ 不是 $S$ 的上确界，则存在 $\lambda$ 是 $S$ 的上界，但 $\eta > \lambda$。令 $\varepsilon = \eta - \lambda > 0$，由条件2，存在 $y \in S$，使得 $y > \eta - \varepsilon = \lambda$，与 $\lambda$ 是上界矛盾。</p>
+            </div>
+            
+            <h3>3. 下确界的定义</h3>
+            
+            <div class="definition">
+                <h4>下确界定义</h4>
+                <p>设 $S$ 为 $\mathbb{R}$ 中的一个数集。若数 $\xi$ 满足：</p>
+                <ol>
+                    <li>对一切 $x \in S$，有 $x \geq \xi$（即 $\xi$ 是 $S$ 的下界）；</li>
+                    <li>对任何 $\beta > \xi$，存在 $x_0 \in S$，使得 $x_0 < \beta$（即 $\xi$ 是 $S$ 的最大下界），</li>
+                </ol>
+                <p>则称数 $\xi$ 为数集 $S$ 的下确界，记作 $\xi = \inf S$。</p>
+            </div>
+            
+            <h3>4. 下确界的充要条件</h3>
+            
+            <div class="theorem">
+                <h4>命题2</h4>
+                <p>$\xi = \inf S$ 的充要条件为：</p>
+                <ol>
+                    <li>$\xi$ 是 $S$ 的下界；</li>
+                    <li>$\forall \varepsilon > 0$, $\exists y \in S$，使得 $y < \xi + \varepsilon$。</li>
+                </ol>
+            </div>
+            
+            <div class="math-note">
+                <p><strong>注</strong>：对于无上界的数集 $S$，规定 $\sup S = +\infty$；对于无下界的数集 $S$，规定 $\inf S = -\infty$。</p>
+            </div>
+            
+            <h3>5. 例子</h3>
+            
+            <div class="example">
+                <h4>例子1</h4>
+                <p>设 $S = \left\{ 1 + \frac{(-1)^n}{n} \right\}$，则 $\sup S = \frac{3}{2}$, $\inf S = 0$。</p>
+            </div>
+            
+            <div class="example">
+                <h4>例子2</h4>
+                <p>设 $S = (0, 1) \cap \mathbb{Q}$，则 $\sup S = 1$, $\inf S = 0$。</p>
+            </div>
+            
+            <h3>6. 相关命题</h3>
+            
+            <div class="theorem">
+                <h4>命题3</h4>
+                <p>设数集 $S$ 有上确界，则 $\eta = \sup S \in S$ 当且仅当 $\eta = \max S$。</p>
+            </div>
+            
+            <div class="theorem">
+                <h4>命题4</h4>
+                <p>设数集 $S$ 有上（下）确界，则这上（下）确界是唯一的。</p>
+            </div>
+            
+            <div class="proof">
+                <h4>证明</h4>
+                <p>假设 $\beta$ 和 $\alpha$ 都是 $S$ 的上确界，且 $\beta \neq \alpha$。不妨设 $\alpha < \beta$。取 $\varepsilon = \beta - \alpha$，由 $\beta$ 是上确界，存在 $x_\varepsilon \in S$ 使得 $x_\varepsilon > \beta - \varepsilon = \alpha$，但这与 $\alpha$ 是上确界矛盾。因此上确界唯一。</p>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <h2 id="三确界原理">三、确界原理</h2>
+            
+            <div class="theorem">
+                <h4>定理1（确界原理）</h4>
+                <p>设 $S$ 为非空数集。若 $S$ 有上界，则 $S$ 必有上确界；若 $S$ 有下界，则 $S$ 必有下确界。（非空有界集合必有确界）</p>
+            </div>
+            
+            <div class="math-note">
+                <p>确界原理刻画了实数集的完备性，即实数是连续的，没有缝隙。</p>
+            </div>
+            
+            <div class="math-note">
+                <p><strong>注</strong>：对于无上界的数集 $S$，规定 $\sup S = +\infty$；对于无下界的数集 $S$，规定 $\inf S = -\infty$。</p>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <h2 id="四相关定理和例子">四、相关定理和例子</h2>
+            
+            <div class="theorem">
+                <h4>定理1.7</h4>
+                <p>设数集 $S$ 有上（下）确界，则这上（下）确界是唯一的。</p>
+            </div>
+            
+            <div class="theorem">
+                <h4>定理1.8</h4>
+                <p>如果数集 $A \subseteq B$，则 $\sup A \leq \sup B$ 和 $\inf A \geq \inf B$。</p>
+            </div>
+            
+            <div class="proof">
+                <h4>证明</h4>
+                <p>只证 $\sup A \leq \sup B$。设 $\sup B = \beta$，则对于所有 $x \in B$，有 $x \leq \beta$。由于 $A \subseteq B$，所以 $\beta$ 也是 $A$ 的上界，因此 $\sup A \leq \beta$。</p>
+            </div>
+            
+            <div class="theorem">
+                <h4>定理1.9</h4>
+                <p>如果数集 $A$ 有最大数，那么最大数就是上确界；如果数集 $A$ 有最小数，那么最小数就是下确界。</p>
+            </div>
+            
+            <div class="proof">
+                <h4>证明</h4>
+                <p>只证第一个结论。设 $a = \max A$，则 $a \in A$，且对于所有 $x \in A$，有 $x \leq a$。对于任何 $\varepsilon > 0$，有 $a > a - \varepsilon$，所以 $a$ 也是 $A$ 的上确界。</p>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <h2 id="五上下确界唯一性证明">五、上（下）确界唯一性证明</h2>
+            
+            <div class="theorem">
+                <h4>定理陈述</h4>
+                <p>设 $S \subseteq \mathbb{R}$ 是非空数集。若 $S$ 有上确界（或下确界），则这个上确界（或下确界）是唯一的。</p>
+            </div>
+            
+            <h3>1. 证明思路</h3>
+            
+            <div class="proof">
+                <p>采用<strong>反证法</strong>证明唯一性。假设存在两个不同的上确界，通过分析它们的大小关系，利用上确界的定义和实数序关系的性质推导出矛盾。</p>
+            </div>
+            
+            <h3>2. 上确界唯一性证明</h3>
+            
+            <div class="proof">
+                <h4>证明</h4>
+                <p><strong>假设</strong>：设 $\eta$ 和 $\eta'$ 都是 $S$ 的上确界，且 $\eta \neq \eta'$。</p>
+                
+                <p><strong>推导矛盾</strong>：根据上确界的定义：</p>
+                <ol>
+                    <li>$\eta$ 是上确界 ⇒ $\eta$ 是 $S$ 的上界，且是最小的上界</li>
+                    <li>$\eta'$ 是上确界 ⇒ $\eta'$ 是 $S$ 的上界，且是最小的上界</li>
+                </ol>
+                
+                <p>由于 $\eta'$ 是 $S$ 的上界，而 $\eta$ 是上确界（最小上界），所以：</p>
+                <p>$$\eta \leq \eta'$$</p>
+                
+                <p>同理，由于 $\eta$ 是 $S$ 的上界，而 $\eta'$ 是上确界，所以：</p>
+                <p>$$\eta' \leq \eta$$</p>
+                
+                <p>由实数序关系的反对称性，得：</p>
+                <p>$$\eta = \eta'$$</p>
+                
+                <p>这与假设 $\eta \neq \eta'$ 矛盾。</p>
+                
+                <p><strong>结论</strong>：假设错误，故上确界唯一。</p>
+            </div>
+            
+            <h3>3. 下确界唯一性证明</h3>
+            
+            <div class="proof">
+                <h4>证明</h4>
+                <p>证明过程与上确界情形完全类似，利用下确界的定义和相同的逻辑推导。</p>
+            </div>
+            
+            <h3>4. 证明关键点</h3>
+            
+            <div class="math-note">
+                <ul>
+                    <li><strong>核心依据</strong>：实数序关系的反对称性</li>
+                    <li><strong>逻辑方法</strong>：反证法</li>
+                    <li><strong>本质</strong>：唯一性源于"最小上界"或"最大下界"定义中蕴含的极值特性</li>
+                </ul>
+            </div>
+            
+            <h3>5. 几何解释</h3>
+            
+            <div class="math-note">
+                <p>在数轴上，上确界对应的是 $S$ 的"最小上界点"。如果存在两个不同的点都满足这个条件，则必然有一个更小的点，矛盾。</p>
+            </div>
+            
+            <h3>6. 应用意义</h3>
+            
+            <div class="math-note">
+                <p>确界的唯一性保证了数学分析中极限运算的确定性，为后续的极限理论、连续性等概念奠定了坚实基础。</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>数学253班学习资料中心 - 确界原理</p>
+            <div class="footer-links">
+                <a href="实数系统.html"><i class="fas fa-arrow-left"></i> 上一节：实数系统</a>
+                <a href="index.html">返回第一章目录</a>
+                <a href="../index.html">返回数学分析主页</a>
+                <a href="../../index.html"><i class="fas fa-home"></i> 返回网站首页</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入KaTeX数学公式渲染库 -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+    <script>
+        // 自动渲染页面中的数学公式
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\(", right: "\\)", display: false},
+                    {left: "\\[", right: "\\]", display: true}
+                ],
+                throwOnError: false
+            });
+        });
+    </script>
+</body>
+</html>

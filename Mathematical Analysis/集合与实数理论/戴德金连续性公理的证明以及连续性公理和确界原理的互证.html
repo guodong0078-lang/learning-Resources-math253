@@ -44,7 +44,7 @@
             color: white;
             padding: 30px 0;
             border-radius: 10px;
-            margin-bottom: 30极;
+            margin-bottom: 30px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             text-align: center;
             position: relative;
@@ -88,7 +88,7 @@
         }
         
         .breadcrumb a {
-            color: rgba(255, 255, 255, 极.8);
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             transition: color 0.3s;
         }
@@ -182,11 +182,11 @@
         .math-inline {
             color: var(--math-color);
             font-weight: 500;
-极        }
+        }
         
         .section-divider {
             height: 2px;
-            background: linear-gradient(90deg, transparent极 var(--primary-color), transparent);
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
             margin: 30px 0;
         }
         
@@ -212,7 +212,7 @@
             align-items: center;
             gap: 5px;
             padding: 8px 15px;
-            border-radius: 5极;
+            border-radius: 5px;
             background: white;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             transition: all 0.3s;
@@ -271,7 +271,7 @@
             text-align: center;
             margin: 20px 0;
             padding: 15px;
-            background: #极f9fa;
+            background: #f8f9fa;
             border-radius: 8px;
             overflow-x: auto;
         }
@@ -301,7 +301,7 @@
                 padding: 20px;
             }
             
-            .footer-l极ks {
+            .footer-links {
                 flex-direction: column;
                 align-items: center;
             }
@@ -323,7 +323,7 @@
                     <a href="../../index.html">网站首页</a>
                     <span>→</span>
                     <a href="../index.html">数学分析主页</a>
-                    <span极→</span>
+                    <span>→</span>
                     <a href="index.html">第一章：集合与实数理论</a>
                     <span>→</span>
                     <span>戴德金连续性公理</span>
@@ -351,9 +351,9 @@
                 <ol>
                     <li>$A \cup B = \mathbb{R}$ （<strong>不漏性</strong>）</li>
                     <li>若 $a \in A$ 且 $b \in B$，则 $a < b$ （<strong>不乱性</strong>）</li>
-                    <li>$A$ 和 $B$ 均非空集 （<strong>不空极</strong>）</li>
+                    <li>$A$ 和 $B$ 均非空集 （<strong>不空性</strong>）</li>
                 </ol>
-                <p>则存在唯一的实数 $c$，使得：</极>
+                <p>则存在唯一的实数 $c$，使得：</p>
                 <ul>
                     <li>对一切 $a \in A$ 和 $b \in B$，有 $a \leq c \leq b$</li>
                     <li>这个数 $c$ 要么是集合 $A$ 的<strong>最大值</strong>，要么是集合 $B$ 的<strong>最小值</strong></li>
@@ -385,8 +385,8 @@
                 <ol>
                     <li>证明 $A$ 有上界，$B$ 有下界</li>
                     <li>应用确界存在原理，得到 $c = \sup A$</li>
-                    <li>证明 $c$ 满足中介点条件 $a \leq c \leq b$</极>
-                    <li>证明 $c极 是 $A$ 的最大元或 $B$ 的最小元</li>
+                    <li>证明 $c$ 满足中介点条件 $a \leq c \leq b$</li>
+                    <li>证明 $c$ 是 $A$ 的最大元或 $B$ 的最小元</li>
                     <li>证明 $c$ 的唯一性</li>
                 </ol>
             </div>
@@ -407,7 +407,7 @@
             
             <div class="proof">
                 <h4>2. 应用确界存在原理</h4>
-                <p>因为 $A$ 是非空有上界的实数子集，根据<strong>确界存在原理</strong>，$极$ 在 $\mathbb{R}$ 中存在上确界，记作 $c = \sup A$。</p>
+                <p>因为 $A$ 是非空有上界的实数子集，根据<strong>确界存在原理</strong>，$A$ 在 $\mathbb{R}$ 中存在上确界，记作 $c = \sup A$。</p>
             </div>
             
             <div class="proof">
@@ -424,18 +424,18 @@
                     <li>但这与戴德金分割的"不乱性"（$A$ 中所有元素都应小于 $B$ 中所有元素）矛盾。</li>
                 </ul>
                 <p>因此，假设不成立，对任意 $b \in B$，均有 $c \leq b$。</p>
-                <p>结合(i)可知，对任意 $a \in A$ 和 $b \in B$，极 $a \leq c \leq b$。故 $c$ 是满足中介点条件的实数。</p>
+                <p>结合(i)可知，对任意 $a \in A$ 和 $b \in B$，有 $a \leq c \leq b$。故 $c$ 是满足中介点条件的实数。</p>
             </div>
             
             <div class="proof">
                 <h4>4. 证明 $c$ 是 $A$ 的最大元或 $B$ 的最小元</h4>
-                <p>$c$ 是 $A$ 的上确界，它可能属于 $A$，也可能不属于 $A$。</极>
+                <p>$c$ 是 $A$ 的上确界，它可能属于 $A$，也可能不属于 $A$。</p>
                 <ul>
                     <li><strong>情况1</strong>：如果 $c \in A$，则 $c$ 就是 $A$ 的最大元。</li>
                     <li><strong>情况2</strong>：如果 $c \notin A$，由于 $A \cup B = \mathbb{R}$，则必有 $c \in B$。我们证明此时 $c$ 是 $B$ 的最小元。
                         <ul>
                             <li>假设 $c$ 不是 $B$ 的最小元，则存在 $b'' \in B$ 使得 $b'' < c$。</li>
-                            <li>由于 $c$ 是 $A$ 的上确界，且 $b'' < c$，则存在 $a'' \in A极 使得 $b'' < a''$。</li>
+                            <li>由于 $c$ 是 $A$ 的上确界，且 $b'' < c$，则存在 $a'' \in A$ 使得 $b'' < a''$。</li>
                             <li>这再次与分割的"不乱性"矛盾。</li>
                         </ul>
                     </li>
@@ -475,7 +475,7 @@
             
             <div class="proof">
                 <h4>证明</h4>
-                <p><strong>假设</strong>戴德金公理成立。设 $S$ 是一个非空且有上界的实数集，需证明 $S极 有上确界。</p>
+                <p><strong>假设</strong>戴德金公理成立。设 $S$ 是一个非空且有上界的实数集，需证明 $S$ 有上确界。</p>
                 <p>构造集合：</p>
                 <ul>
                     <li>$B = \{ y \in \mathbb{R} \mid y \geq s \text{ 对于所有 } s \in S \}$（$S$ 的所有上界的集合）</li>
@@ -483,7 +483,7 @@
                 </ul>
                 <p>验证 $(A, B)$ 是戴德金分割：</p>
                 <ol>
-                    <li><strong>不空性</strong>：由于 $S$ 非空，存在 $s \in S$，则 $s-1 \in A$（因为 $s-1$ 不是 $S$ 的上界），故 $A \neq \emptyset$。由于 $S$ 有上极，$B \neq \emptyset$。</li>
+                    <li><strong>不空性</strong>：由于 $S$ 非空，存在 $s \in S$，则 $s-1 \in A$（因为 $s-1$ 不是 $S$ 的上界），故 $A \neq \emptyset$。由于 $S$ 有上界，$B \neq \emptyset$。</li>
                     <li><strong>不漏性</strong>：由定义 $A \cup B = \mathbb{R}$。</li>
                     <li><strong>不乱性</strong>：若 $a \in A$ 和 $b \in B$，则 $a$ 不是 $S$ 的上界，故存在 $s \in S$ 使得 $a < s$；而 $b$ 是上界，故 $s \leq b$。因此 $a < s \leq b$，即 $a < b$。</li>
                 </ol>
@@ -521,88 +521,97 @@
             </div>
             
             <div class="section-divider"></div>
-<h2 id="五结论">五、结论</h2>
+            
+            <h2 id="五结论">五、结论</h2>
+            
+            <div class="math-block">
+                <p>综上，我们证明了戴德金连续性公理与确界原理的等价性，两者都刻画了实数系的完备性。</p>
+                <p>戴德金公理深刻地揭示了实数系的<strong>完备性</strong>（或连续性），即实数与数轴上的点可以一一对应，数轴上是没有"缝隙"的。这是有理数集不具备的性质。</p>
+            </div>
+            
+            <div class="important">
+                <h4>核心结论</h4>
+                <ol>
+                    <li><strong>等价性证明完成</strong>：戴德金连续性公理与确界原理可以相互推导，是实数系完备性的两种等价表述。</li>
+                    <li><strong>实数完备性</strong>：实数系的连续性保证了任何戴德金分割都有唯一的中介点，这是实数区别于有理数的根本特征。</li>
+                    <li><strong>数学基础意义</strong>：戴德金分割提供了一种从有理数构造实数的严格方法，填补了数学基础的空白。</li>
+                </ol>
+            </div>
+            
+            <div class="math-note">
+                <h4>历史意义</h4>
+                <p>戴德金分割是理查德·戴德金（Richard Dedekind）在1872年提出的，它：</p>
+                <ul>
+                    <li>解决了微积分严格化运动中的基础问题</li>
+                    <li>提供了一种从有理数构造实数的严格方法</li>
+                    <li>与康托尔、魏尔斯特拉斯等人的工作共同奠定了现代实数理论的基础</li>
+                    <li>为现代分析学的发展提供了坚实的理论基础</li>
+                </ul>
+            </div>
+            
+            <div class="proof">
+                <h4>与其他完备性公理的等价性</h4>
+                <p>戴德金连续性公理还与以下表述等价：</p>
+                <ul>
+                    <li><strong>单调有界定理</strong>：单调有界数列必收敛</li>
+                    <li><strong>区间套定理</strong>：闭区间套的交集为非空单点集</li>
+                    <li><strong>有限覆盖定理</strong>：闭区间的任何开覆盖都有有限子覆盖</li>
+                    <li><strong>柯西收敛准则</strong>：柯西序列必收敛</li>
+                </ul>
+                <p>这些等价性共同构成了实数系完备性的完整图景。</p>
+            </div>
+            
+            <div class="example">
+                <h4>应用示例</h4>
+                <p>戴德金公理在数学分析中有广泛应用：</p>
+                <ol>
+                    <li><strong>连续函数性质证明</strong>：如介值定理、极值定理</li>
+                    <li><strong>微积分基本定理</strong>：保证可积性与原函数存在性</li>
+                    <li><strong>函数空间理论</strong>：为希尔伯特空间、巴拿赫空间提供基础</li>
+                    <li><strong>实分析拓展</strong>：勒贝格测度与积分理论的建设</li>
+                </ol>
+            </div>
+            
+            <div class="math-block">
+                <h4>思考与延伸</h4>
+                <p>戴德金公理不仅是一个技术工具，更是一种数学哲学：</p>
+                <ul>
+                    <li>它体现了数学中对"连续"与"完整"的追求</li>
+                    <li>展示了如何通过离散对象（有理数）构造连续对象（实数）</li>
+                    <li>为现代数学的公理化方法提供了典范</li>
+                    <li>在计算机科学中，影响可计算实数理论的发展</li>
+                </ul>
+                
+                <p class="math-equation">$\mathbb{R}$的完备性 = 戴德金公理 ≡ 确界原理 ≡ 柯西准则 ≡ ...</p>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <h3>参考文献与进一步阅读</h3>
+            <ul>
+                <li>Dedekind, R. (1872). <em>Stetigkeit und irrationale Zahlen</em> (连续性与无理数)</li>
+                <li>Rudin, W. (1976). <em>Principles of Mathematical Analysis</em> (数学分析原理)</li>
+                <li>陶哲轩 (2006). <em>实分析</em></li>
+                <li>北京大学数学系 (2020). <em>数学分析讲义</em></li>
+            </ul>
+        </div>
+        
+        <div class="footer">
+            <p>数学分析 - 戴德金连续性公理</p>
+            <div class="footer-links">
+                <a href="实数系统.html"><i class="fas fa-arrow-left"></i> 上一节：实数系统</a>
+                <a href="index.html">返回第一章目录</a>
+                <a href="../index.html">返回数学分析主页</a>
+                <a href="../../index.html"><i class="fas fa-home"></i> 返回网站首页</a>
+            </div>
+        </div>
+    </div>
 
-<div class="math-block">
-    <p>综上，我们证明了戴德金连续性公理与确界原理的等价性，两者都刻画了实数系的完备性。</p>
-    <p>戴德金公理深刻地揭示了实数系的<strong>完备性</strong>（或连续性），即实数与数轴上的点可以一一对应，数轴上是没有"缝隙"的。这是有理数集不具备的性质。</p>
-</div>
-
-<div class="important">
-    <h4>核心结论</h4>
-    <ol>
-        <li><strong>等价性证明完成</strong>：戴德金连续性公理与确界原理可以相互推导，是实数系完备性的两种等价表述。</li>
-        <li><strong>实数完备性</strong>：实数系的连续性保证了任何戴德金分割都有唯一的中介点，这是实数区别于有理数的根本特征。</li>
-        <li><strong>数学基础意义</strong>：戴德金分割提供了一种从有理数构造实数的严格方法，填补了数学基础的空白。</li>
-    </ol>
-</div>
-
-<div class="math-note">
-    <h4>历史意义</h4>
-    <p>戴德金分割是理查德·戴德金（Richard Dedekind）在1872年提出的，它：</p>
-    <ul>
-        <li>解决了微积分严格化运动中的基础问题</li>
-        <li>提供了一种从有理数构造实数的严格方法</li>
-        <li>与康托尔、魏尔斯特拉斯等人的工作共同奠定了现代实数理论的基础</li>
-        <li>为现代分析学的发展提供了坚实的理论基础</li>
-    </ul>
-</div>
-
-<div class="proof">
-    <h4>与其他完备性公理的等价性</h4>
-    <p>戴德金连续性公理还与以下表述等价：</p>
-    <ul>
-        <li><strong>单调有界定理</strong>：单调有界数列必收敛</li>
-        <li><strong>区间套定理</strong>：闭区间套的交集为非空单点集</li>
-        <li><strong>有限覆盖定理</strong>：闭区间的任何开覆盖都有有限子覆盖</li>
-        <li><strong>柯西收敛准则</strong>：柯西序列必收敛</li>
-    </ul>
-    <p>这些等价性共同构成了实数系完备性的完整图景。</p>
-</div>
-
-<div class="example">
-    <h4>应用示例</h4>
-    <p>戴德金公理在数学分析中有广泛应用：</p>
-    <ol>
-        <li><strong>连续函数性质证明</strong>：如介值定理、极值定理</li>
-        <li><strong>微积分基本定理</strong>：保证可积性与原函数存在性</li>
-        <li><strong>函数空间理论</strong>：为希尔伯特空间、巴拿赫空间提供基础</li>
-        <li><strong>实分析拓展</strong>：勒贝格测度与积分理论的建设</li>
-    </ol>
-</div>
-
-<div class="math-block">
-    <h4>思考与延伸</h4>
-    <p>戴德金公理不仅是一个技术工具，更是一种数学哲学：</p>
-    <ul>
-        <li>它体现了数学中对"连续"与"完整"的追求</li>
-        <li>展示了如何通过离散对象（有理数）构造连续对象（实数）</li>
-        <li>为现代数学的公理化方法提供了典范</li>
-        <li>在计算机科学中，影响可计算实数理论的发展</li>
-    </ul>
-    
-    <p class="math-equation">$\mathbb{R}$的完备性 = 戴德金公理 ≡ 确界原理 ≡ 柯西准则 ≡ ...</p>
-</div>
-
-<div class="section-divider"></div>
-
-<h3>参考文献与进一步阅读</h3>
-<ul>
-    <li>Dedekind, R. (1872). <em>Stetigkeit und irrationale Zahlen</em> (连续性与无理数)</li>
-    <li>Rudin, W. (1976). <em>Principles of Mathematical Analysis</em> (数学分析原理)</li>
-    <li>陶哲轩 (2006). <em>实分析</em></li>
-    <li>北京大学数学系 (2020). <em>数学分析讲义</em></li>
-</ul>
-
-</div>
-</div>
-
-<!-- 引入KaTeX数学公式渲染库 -->
-<script src="https://cdn.jsdelivflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
-
-<script>
-    // 自动渲染页面中的数学公式
+    <!-- 引入KaTeX数学公式渲染库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+    <script>
+        // 自动渲染页面中的数学公式
         document.addEventListener("DOMContentLoaded", function() {
             renderMathInElement(document.body, {
                 delimiters: [
@@ -612,18 +621,6 @@
                     {left: "\\[", right: "\\]", display: true}
                 ],
                 throwOnError: false
-            });
-        });
-        
-        // 初始化Mermaid图表
-        document.addEventListener("DOMContentLoaded", function() {
-            mermaid.initialize({
-                startOnLoad: true,
-                theme: 'default',
-                flowchart: {
-                    useMaxWidth: true,
-                    htmlLabels: true
-                }
             });
         });
     </script>

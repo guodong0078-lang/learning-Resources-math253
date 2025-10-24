@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>河工大数学253班 - 学习资料中心</title>
+    <title>数学分析资料 - 河工大数学253班</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -66,28 +66,32 @@
             margin-bottom: 20px;
         }
         
-        .stats {
+        .breadcrumb {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 20px;
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 0.9rem;
         }
         
-        .stat-item {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 10px 20px;
-            border-radius: 50px;
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
         }
         
-        .nav-cards {
+        .breadcrumb a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .chapter-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 25px;
             margin-bottom: 40px;
         }
         
-        .nav-card {
+        .chapter-card {
             background: white;
             border-radius: 15px;
             overflow: hidden;
@@ -95,48 +99,70 @@
             transition: var(--transition);
         }
         
-        .nav-card:hover {
+        .chapter-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
         
-        .card-icon {
-            height: 100px;
+        .chapter-icon {
+            height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 3rem;
             color: white;
+            background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
         }
         
-        .card-content {
+        .chapter-content {
             padding: 20px;
         }
         
-        .card-content h3 {
+        .chapter-content h3 {
             margin-bottom: 10px;
             color: var(--dark-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        .card-content p {
+        .chapter-content p {
             color: #666;
             font-size: 0.9rem;
             margin-bottom: 15px;
         }
         
-        .btn {
-            display: inline-block;
+        .resources {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .resource-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
             background: var(--primary-color);
             color: white;
-            padding: 8px 15px;
+            padding: 6px 12px;
             border-radius: 5px;
             text-decoration: none;
-            font-weight: 500;
+            font-size: 0.85rem;
             transition: var(--transition);
         }
         
-        .btn:hover {
+        .resource-btn:hover {
             background: var(--secondary-color);
+        }
+        
+        .resource-btn.secondary {
+            background: #ecf0f1;
+            color: #2c3e50;
+        }
+        
+        .resource-btn.secondary:hover {
+            background: #d5dbdb;
         }
         
         footer {
@@ -158,13 +184,31 @@
             text-decoration: none;
         }
         
-        .creator {
-            margin-top: 10px;
-            font-size: 0.9rem;
+        .progress-section {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: #ecf0f1;
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2ecc71, #3498db);
+            width: 65%;
+            border-radius: 5px;
         }
         
         @media (max-width: 768px) {
-            .nav-cards {
+            .chapter-cards {
                 grid-template-columns: 1fr;
             }
             
@@ -178,73 +222,170 @@
     <div class="container">
         <header>
             <div class="header-content">
-                <h1><i class="fas fa-graduation-cap"></i> 河北工业大学 数学253班</h1>
-                <p class="subtitle">学习资料共享与分析中心 | 2025级</p>
-                <div class="stats">
-                    <div class="stat-item"><i class="fas fa-book"></i> 5个学科资料库</div>
-                    <div class="stat-item"><i class="fas fa-file-alt"></i> 127份学习资料</div>
-                    <div class="stat-item"><i class="fas fa-users"></i> 35位班级成员</div>
+                <h1><i class="fas fa-calculator"></i> 数学分析</h1>
+                <p class="subtitle">河北工业大学数学253班 - 完整学习资料体系</p>
+                <div class="breadcrumb">
+                    <a href="../index.html"><i class="fas fa-home"></i> 网站首页</a>
+                    <span><i class="fas fa-chevron-right"></i></span>
+                    <span>数学分析资料</span>
                 </div>
             </div>
         </header>
         
+        <div class="progress-section">
+            <h3><i class="fas fa-chart-line"></i> 学习进度概览</h3>
+            <p>已完成 7 个章节中的 5 个章节资料整理</p>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #666;">
+                <span>0%</span>
+                <span>65%</span>
+                <span>100%</span>
+            </div>
+        </div>
+        
         <main>
-            <div class="nav-cards">
-                <div class="nav-card">
-                    <div class="card-icon" style="background: #3498db;">
+            <div class="chapter-cards">
+                <div class="chapter-card">
+                    <div class="chapter-icon">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <div class="chapter-content">
+                        <h3><span class="chapter-number">1</span> 集合与实数理论</h3>
+                        <p>集合的基本概念、实数理论、确界原理、区间套定理等基础理论。</p>
+                        <div class="resources">
+                            <a href="#" class="resource-btn"><i class="fas fa-file-pdf"></i> 讲义</a>
+                            <a href="#" class="resource-btn secondary"><i class="fas fa-play-circle"></i> 视频</a>
+                            <a href="#" class="resource-btn secondary"><i class="fas fa-question-circle"></i> 习题</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chapter-card">
+                    <div class="chapter-icon">
+                        <i class="fas fa-sort-numeric-down"></i>
+                    </div>
+                    <div class="chapter-content">
+                        <h3><span class="chapter-number">2</span> 数列极限</h3>
+                        <p>数列极限的定义、性质、收敛判定、重要极限、柯西收敛准则等内容。</p>
+                        <div class="resources">
+                            <a href="#" class="resource-btn"><i class="fas fa-file-pdf"></i> 讲义</a>
+                            <a href="#" class="resource-btn secondary"><i class="fas fa-play-circle"></i> 视频</a>
+                            <a href="#" class="resource-btn secondary"><i class="fas fa-question-circle"></i> 习题</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chapter-card">
+                    <div class="chapter-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="chapter-content">
+                        <h3><span class="chapter-number">3</span> 函数极限和连续性</h3>
+                        <p>函数极限、连续性概念、间断点分类、连续函数性质、一致连续性。</p>
+                        <div class="resources">
+                            <a href="#" class="resource-btn"><i class="fas fa-file-pdf"></i> 讲义</a>
+                            <a href="#" class="resource-btn secondary"><i class="fas fa-play-circle"></i> 视频</a>
+                            <a href="#" class="resource-btn secondary"><i class="fas fa-question-circle"></i> 习题</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chapter-card">
+                    <div class="chapter-icon">
+                        <i class="fas fa-bezier-curve"></i>
+                    </div>
+                    <div class="chapter-content">
+                        <h3><span class="chapter-number">4</span> 导数与微分</h3>
+                        <p>导数概念、求导法则、高阶导数、微分概念与应用、隐函数求导。</p>
+                        <div class="resources">
+                            <a href="#" class="resource-btn"><i class="fas fa-file-pdf"></i> 讲义</a>
+                            <a href="#" class="resource-btn secondary"><i class="fas fa-play-circle"></i> 视频</a>
+                            <a href="#" class="resource-btn secondary"><i class="fas fa-question-circle"></i> 习题</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chapter-card">
+                    <div class="chapter-icon">
                         <i class="fas fa-calculator"></i>
                     </div>
-                    <div class="card-content">
-                        <h3>数学分析资料</h3>
-                        <p>包含课程讲义、习题解答、重点难点解析等完整学习资料</p>
-                        <a href="#" class="btn">查看资料</a>
+                    <div class="chapter-content">
+                        <h3><span class="chapter-number">5</span> 微积分学基本定理及导数应用</h3>
+                        <p>微积分基本定理、中值定理、洛必达法则、函数图像研究、最值问题。</p>
+                        <div class="resources">
+                            <a href="#" class="resource-btn"><i class="fas fa-file-pdf"></i> 讲义</a>
+                            <a href="#" class="resource-btn secondary"><i class="fas fa-play-circle"></i> 视频</a>
+                            <a href="#" class="resource-btn secondary"><i class="fas fa-question-circle"></i> 习题</a>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="nav-card">
-                    <div class="card-icon" style="background: #2ecc71;">
-                        <i class="fas fa-project-diagram"></i>
+                <div class="chapter-card">
+                    <div class="chapter-icon">
+                        <i class="fas fa-integral"></i>
                     </div>
-                    <div class="card-content">
-                        <h3>线性代数资料</h3>
-                        <p>矩阵理论、向量空间、线性变换等核心内容详解与练习题</p>
-                        <a href="#" class="btn">查看资料</a>
-                    </div>
-                </div>
-                
-                <div class="nav-card">
-                    <div class="card-icon" style="background: #9b59b6;">
-                        <i class="fas fa-chart-bar"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>概率论与统计</h3>
-                        <p>概率模型、随机变量、统计推断等知识点与实例分析</p>
-                        <a href="#" class="btn">查看资料</a>
+                    <div class="chapter-content">
+                        <h3><span class="chapter-number">6</span> 不定积分</h3>
+                        <p>不定积分概念、基本积分公式、换元积分法、分部积分法、有理函数积分。</p>
+                        <div class="resources">
+                            <a href="#" class="resource-btn"><i class="fas fa-file-pdf"></i> 讲义</a>
+                            <a href="#" class="resource-btn secondary"><i class="fas fa-play-circle"></i> 视频</a>
+                            <a href="#" class="resource-btn secondary"><i class="fas fa-question-circle"></i> 习题</a>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="nav-card">
-                    <div class="card-icon" style="background: #e67e22;">
-                        <i class="fas fa-code"></i>
+                <div class="chapter-card">
+                    <div class="chapter-icon">
+                        <i class="fas fa-book-open"></i>
                     </div>
-                    <div class="card-content">
-                        <h3>数值分析</h3>
-                        <p>数值计算方法、算法实现与误差分析等实用技术资料</p>
-                        <a href="#" class="btn">查看资料</a>
+                    <div class="chapter-content">
+                        <h3><span class="chapter-number">7</span> 习题库</h3>
+                        <p>各章节习题汇总、历年考题、模拟试题、详细解答与解题技巧。</p>
+                        <div class="resources">
+                            <a href="#" class="resource-btn"><i class="fas fa-file-pdf"></i> 章节练习</a>
+                            <a href="#" class="resource-btn secondary"><i class="fas fa-file-alt"></i> 模拟试题</a>
+                            <a href="#" class="resource-btn secondary"><i class="fas fa-lightbulb"></i> 解题技巧</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
         
         <footer>
-            <p>本网站基于 GitHub Pages 构建</p>
-            <div class="creator">
-                <p>制作人：程渤栋</p>
-            </div>
+            <p>数学253班学习资料中心 - 数学分析资料库</p>
             <div class="footer-links">
-                <a href="#"><i class="fab fa-github"></i> 访问项目仓库</a>
+                <a href="../index.html"><i class="fas fa-home"></i> 返回首页</a>
+                <a href="#"><i class="fas fa-download"></i> 下载全部资料</a>
+                <a href="https://github.com/guodong0078-lang/learning-Resources-math253"><i class="fab fa-github"></i> 项目仓库</a>
             </div>
         </footer>
     </div>
+
+    <script>
+        // 添加简单的交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为章节卡片添加点击效果
+            const chapterCards = document.querySelectorAll('.chapter-card');
+            chapterCards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    if (e.target.tagName !== 'A') {
+                        const chapterTitle = this.querySelector('h3').textContent;
+                        alert(`即将进入 ${chapterTitle} 的详细资料页面`);
+                        // 实际应用中这里应该跳转到对应页面
+                    }
+                });
+            });
+            
+            // 添加进度条动画
+            const progressFill = document.querySelector('.progress-fill');
+            setTimeout(() => {
+                progressFill.style.transition = 'width 1s ease';
+                progressFill.style.width = '65%';
+            }, 500);
+        });
+    </script>
 </body>
 </html>

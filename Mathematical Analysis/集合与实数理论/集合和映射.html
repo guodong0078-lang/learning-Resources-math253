@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1.1 集合和映射 - 数学分析</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --math-color: #e74c3c;
+            --definition-color: #2ecc71;
+            --example-color: #f39c12;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        
+        .math-container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: var(--secondary-color);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        h2 {
+            color: var(--secondary-color);
+            margin: 30px 0 15px 0;
+            padding-left: 10px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        h3 {
+            color: var(--secondary-color);
+            margin: 25px 0 10px 0;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 10px 20px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* 数学内容特殊样式 */
+        .math-block {
+            background: #f8f9fa;
+            border-left: 4px solid var(--math-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            overflow-x: auto;
+        }
+        
+        .math-inline {
+            color: var(--math-color);
+            font-weight: 500;
+        }
+        
+        .definition {
+            background: #e8f4fd;
+            border-left: 4px solid var(--definition-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .example {
+            background: #fef9e7;
+            border-left: 4px solid var(--example-color);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .theorem {
+            background: #f9ebea;
+            border-left: 4px solid #c0392b;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        /* 确保数学公式显示正常 */
+        .katex {
+            font-size: 1.1em;
+        }
+        
+        .katex-display {
+            margin: 1em 0;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+        
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> 
+        <span>返回数学分析主页</span>
+    </a>
+    
+    <div class="math-container">
+        <h1>1.1 集合和映射</h1>
+        
+        <h2>一、集合及其运算</h2>
+        
+        <h3>1. 集合的基本概念</h3>
+        <div class="definition">
+            <strong>集合</strong>：具有某种确定性质的对象的全体<br>
+            <strong>元素</strong>：组成集合的对象
+        </div>
+        
+        <div class="math-block">
+            <p><strong>表示法：</strong></p>
+            <ul>
+                <li>\( a \in A \)（属于）</li>
+                <li>\( a \notin B \)（不属于）</li>
+            </ul>
+            <p><strong>子集</strong>：若 \( \forall x \in A \)，则必 \( x \in B \)，称 \( A \) 是 \( B \) 的子集，记作 \( A \subseteq B \)</p>
+        </div>
+        
+        <h3>2. 常用数集符号</h3>
+        <div class="math-block">
+            <ul>
+                <li>\( \mathbb{N} \)：自然数集</li>
+                <li>\( \mathbb{Z} \)：整数集</li>
+                <li>\( \mathbb{Q} \)：有理数集</li>
+                <li>\( \mathbb{R} \)：实数集</li>
+            </ul>
+        </div>
+        
+        <h3>3. 集合的表示方法</h3>
+        
+        <h4>(1) 列举法</h4>
+        <div class="example">
+            <ul>
+                <li>有限集合：\( A = \{a_1, a_2, \cdots, a_n\} = \{a_i\}_{i=1}^n \)</li>
+                <li>自然数集：\( \mathbb{N} = \{0, 1, 2, \cdots, n, \cdots\} \)</li>
+            </ul>
+        </div>
+        
+        <h4>(2) 描述法</h4>
+        <div class="math-block">
+            <p>\( M = \{x \mid x\text{所具有的特征}\} \)</p>
+            <ul>
+                <li>整数集：\( \mathbb{Z} = \{x \mid x \in \mathbb{N} \text{ 或 } -x \in \mathbb{N}^+\} \)</li>
+                <li>有理数集：\( \mathbb{Q} = \left\{\frac{p}{q} \middle| p \in \mathbb{Z}, q \in \mathbb{N}^+, p\text{与}q\text{互质}\right\} \)</li>
+            </ul>
+        </div>
+        
+        <h3>4. 集合运算</h3>
+        
+        <h4>基本运算</h4>
+        <div class="math-block">
+            <ul>
+                <li><strong>并集</strong>：\( A \cup B = \{x \mid x \in A \text{ 或 } x \in B\} \)</li>
+                <li><strong>交集</strong>：\( A \cap B = \{x \mid x \in A \text{ 且 } x \in B\} \)</li>
+                <li><strong>差集</strong>：\( A \setminus B = \{x \mid x \in A \text{ 且 } x \notin B\} \)</li>
+            </ul>
+        </div>
+        
+        <h4>特殊概念</h4>
+        <div class="math-block">
+            <ul>
+                <li><strong>补集</strong>：设 \( X \) 为全集，\( B^c = X \setminus B \)</li>
+                <li><strong>幂集</strong>：\( \mathscr{P}(A) = \{B \mid B \subseteq A\} \)</li>
+            </ul>
+        </div>
+        
+        <h4>运算律</h4>
+        <div class="math-block">
+            <ul>
+                <li><strong>交换律</strong>：\( A \cup B = B \cup A \)，\( A \cap B = B \cap A \)</li>
+                <li><strong>结合律</strong>：\( (A \cup B) \cup C = A \cup (B \cup C) \)</li>
+                <li><strong>分配律</strong>：\( A \cap (B \cup C) = (A \cap B) \cup (A \cap C) \)</li>
+                <li><strong>德摩根律</strong>：\( (A \cap B)^c = A^c \cup B^c \)，\( (A \cup B)^c = A^c \cap B^c \)</li>
+            </ul>
+        </div>
+        
+        <h3>5. 笛卡尔积</h3>
+        
+        <h4>有序对概念</h4>
+        <div class="definition">
+            <ul>
+                <li><strong>定义</strong>：\( (a, b) \) 是以 \( a \) 为第一元素、\( b \) 为第二元素的有序二元组</li>
+                <li><strong>性质</strong>：当 \( a \neq b \) 时，\( (a, b) \neq (b, a) \)</li>
+            </ul>
+        </div>
+        
+        <h4>笛卡尔积定义</h4>
+        <div class="math-block">
+            <p>\( A \times B = \{(a, b) \mid a \in A, b \in B\} \)</p>
+        </div>
+        
+        <div class="example">
+            <p><strong>例子：</strong></p>
+            <ul>
+                <li>\( A = \{1, 2\}, B = \{a, b, c\} \)</li>
+                <li>\( A \times B = \{(1, a), (2, a), (1, b), (2, b), (1, c), (2, c)\} \)</li>
+                <li>\( \mathbb{R}^2 = \mathbb{R} \times \mathbb{R} \)</li>
+            </ul>
+        </div>
+        
+        <div class="section-divider"></div>
+        
+        <h2>二、ZFC公理系统</h2>
+        
+        <h3>1. ZFC公理系统概述</h3>
+        <div class="definition">
+            <p><strong>全称</strong>: 策梅洛-弗兰克尔公理系统 (Zermelo-Fraenkel Axioms) + 选择公理 (Axiom of Choice)</p>
+            <p><strong>作用</strong>: 为集合论提供严格的形式化框架，奠定了大部分现代数学的严格基础。</p>
+            <p><strong>核心思想</strong>： 从"集合"这一原始概念出发，通过一系列公理来限定集合的构造方式，从而避免罗素悖论等自相矛盾的情况。</p>
+        </div>
+        
+        <div class="math-block">
+            <p>ZFC系统包含以下9条基本公理（除选择公理外）：</p>
+            <ol>
+                <li><strong>外延公理</strong>：规定两个集合相等当且仅当它们拥有相同的元素。</li>
+                <li><strong>配对公理</strong>：对任意两个集合，存在一个集合包含它们俩作为其仅有的元素。</li>
+                <li><strong>并集公理</strong>：对任意集合族，其所有元素的并集也是一个集合。</li>
+                <li><strong>幂集公理</strong>：对任意集合，其所有子集构成的集合（幂集）也存在。</li>
+                <li><strong>无穷公理</strong>：承认存在一个无限集（如自然数集）。</li>
+                <li><strong>分离公理模式</strong>：允许从已知集合中分离出满足特定性质的子集。</li>
+                <li><strong>替换公理模式</strong>：如果一个类函数定义在一个集合上，那么它的像也是一个集合。</li>
+                <li><strong>正则公理</strong>：禁止集合包含自身作为元素等异常情况，确保集合论的良基性。</li>
+                <li><strong>选择公理</strong>： (见下节)</li>
+            </ol>
+        </div>
+        
+        <h3>2. 选择公理 (Axiom of Choice, AC)</h3>
+        <div class="definition">
+            <p><strong>定义</strong></p>
+            <p>对于任意一族非空集合 \( \{A_i\}_{i \in I} \)（其中 \(I\) 为指标集），存在一个<strong>选择函数</strong>:</p>
+            <p>\[ f: I \rightarrow \bigcup_{i \in I} A_i \quad \text{使得} \quad \forall i \in I, f(i) \in A_i \]</p>
+            <p><strong>直观解释</strong>： 即使这族集合有无穷多个，且集合内部没有明显的结构，我们也可以"同时"从每一个集合 \(A_i\) 中恰好选取一个元素。</p>
+        </div>
+        
+        <h3>3. 选择公理的数学应用</h3>
+        <div class="math-block">
+            <p>选择公理是现代数学中许多重要结论的基石，以下是一些经典应用：</p>
+            <ul>
+                <li><strong>证明任意向量空间有基</strong>：任何向量空间都拥有一组基（线性无关的生成集）。</li>
+                <li><strong>Tychonoff定理</strong>：任意一族紧拓扑空间的积空间仍然是紧的。</li>
+                <li><strong>构造不可测集</strong>：在实数集 \(\mathbb{R}\) 上存在不是勒贝格可测的集合。</li>
+            </ul>
+        </div>
+        
+        <div class="section-divider"></div>
+        
+        <h2>三、映射</h2>
+        
+        <h3>1. 映射的基本概念</h3>
+        <div class="definition">
+            <p><strong>定义</strong></p>
+            <p>设 \(X, Y\) 是两个非空集合，若存在对应规则 \(f\)，使得：</p>
+            <p>\[ \forall x \in X, \exists y \in Y \quad \text{满足} \quad y = f(x) \]</p>
+            <p>则称 \(f\) 为从 \(X\) 到 \(Y\) 的映射，记作 \(f: X \to Y\)</p>
+        </div>
+        
+        <h3>2. 特殊类型的映射</h3>
+        <div class="math-block">
+            <ul>
+                <li><strong>满射</strong>：\( f(X) = Y \)</li>
+                <li><strong>单射</strong>：\( \forall x_1, x_2 \in X, x_1 \neq x_2 \Rightarrow f(x_1) \neq f(x_2) \)</li>
+                <li><strong>双射</strong>：既是满射又是单射</li>
+            </ul>
+        </div>
+        
+        <h3>3. 逆映射与复合映射</h3>
+        
+        <h4>逆映射定义</h4>
+        <div class="math-block">
+            <p>若 \( f: D \to f(D) \) 为单射，则存在逆映射 \( f^{-1}: f(D) \to D \)</p>
+        </div>
+        
+        <h4>复合映射定义</h4>
+        <div class="math-block">
+            <p>设有 \( D \xrightarrow{g} D_1 \xrightarrow{f} Y \)，当 \( g(D) \subset D_1 \) 时，可定义：</p>
+            <p>\[ f \circ g: D \to Y, \quad (f \circ g)(x) = f(g(x)) \]</p>
+        </div>
+        
+        <div class="section-divider"></div>
+        
+        <h2>四、康托-伯恩斯坦-施罗德定理</h2>
+        
+        <div class="theorem">
+            <p><strong>定理陈述</strong></p>
+            <p>若存在单射 \( f: A \to B \) 和单射 \( g: B \to A \)，则存在双射 \( h: A \to B \)</p>
+        </div>
+        
+        <div class="example">
+            <p><strong>应用例子</strong></p>
+            <p><strong>证明</strong> \( \mathbb{N} \sim \mathbb{Z} \)：</p>
+            <ol>
+                <li>\( f: \mathbb{N} \to \mathbb{Z}, f(n) = n \)（单射）</li>
+                <li>\( g: \mathbb{Z} \to \mathbb{N}, g(n) = \begin{cases} 2n & n \geq 0 \\ -2n-1 & n < 0 \end{cases} \)（单射）</li>
+                <li>由定理知存在双射，故 \( \mathbb{N} \sim \mathbb{Z} \)</li>
+            </ol>
+        </div>
+        
+        <div class="section-divider"></div>
+        
+        <h2>五、集合的基数</h2>
+        
+        <h3>1. 等势概念</h3>
+        <div class="definition">
+            <p>\( A \sim B \) 当且仅当存在双射 \( f: A \to B \)</p>
+        </div>
+        
+        <h3>2. 康托定理（幂集定理）</h3>
+        
+        <div class="theorem">
+            <p><strong>定理陈述</strong>：对任意集合 \( A \)，不存在从 \( A \) 到其幂集 \( \mathscr{P}(A) \) 的满射。</p>
+            <p><strong>等价表述</strong>：</p>
+            <ol>
+                <li>不存在单射 \( \mathscr{P}(A) \to A \)</li>
+                <li>不存在满射 \( A \to \mathscr{P}(A) \)</li>
+            </ol>
+        </div>
+        
+        <div class="math-block">
+            <p><strong>证明（康托对角线法）</strong></p>
+            <p>设 \( g: A \to \mathscr{P}(A) \) 是任意映射。构造集合：</p>
+            <p>\[ B = \{ x \in A \mid x \notin g(x) \} \]</p>
+            <p><strong>证明 \( B \notin g(A) \)</strong>：</p>
+            <p>假设存在 \( b \in A \) 使得 \( B = g(b) \)，则考虑 \( b \) 是否属于 \( B \)：</p>
+            <ul>
+                <li>如果 \( b \in B \)，则根据 \( B \) 的定义，\( b \notin g(b) = B \)，矛盾</li>
+                <li>如果 \( b \notin B \)，则根据 \( B \) 的定义，\( b \in g(b) = B \)，矛盾</li>
+            </ul>
+            <p>因此，\( B \) 不在 \( g \) 的像集中，故 \( g \) 不是满射。</p>
+        </div>
+        
+        <div class="math-block">
+            <p><strong>推论</strong></p>
+            <ul>
+                <li>对任意集合 \( A \)，有 \( |A| < |\mathscr{P}(A)| \)</li>
+                <li>特别地，\( |\mathbb{Z}_+| < |\mathscr{P}(\mathbb{Z}_+)| \)，即存在不同大小的无穷集合</li>
+            </ul>
+        </div>
+        
+        <div class="section-divider"></div>
+        
+        <h2>六、实数集的不可数性</h2>
+        
+        <div class="theorem">
+            <p><strong>定理陈述</strong></p>
+            <p>开区间 \( (0,1) \) 是不可数集合，因此实数集 \( \mathbb{R} \) 也是不可数集合。</p>
+        </div>
+        
+        <div class="math-block">
+            <p><strong>证明（康托对角线法）</strong></p>
+            
+            <h4>第一步：假设可数</h4>
+            <p>假设 \( (0,1) \) 是可数集，则存在双射 \( f: \mathbb{N} \to (0,1) \)。将 \( (0,1) \) 中所有实数排列为序列：</p>
+            <p>\[ r_1, r_2, r_3, \cdots \]</p>
+            
+            <h4>第二步：小数表示</h4>
+            <p>将每个实数表示为无限小数（避免以无限多个9结尾）：</p>
+            <p>\[
+            \begin{aligned}
+            r_1 &= 0.a_{11}a_{12}a_{13}\cdots \\
+            r_2 &= 0.a_{21}a_{22}a_{23}\cdots \\
+            r_3 &= 0.a_{31}a_{32}a_{33}\cdots \\
+            &\vdots
+            \end{aligned}
+            \]</p>
+            <p>其中 \( a_{ij} \in \{0,1,2,\ldots,9\} \)</p>
+            
+            <h4>第三步：构造对角线数</h4>
+            <p>定义新实数 \( b = 0.b_1b_2b_3\cdots \)，其中每一位满足：</p>
+            <p>\[
+            b_i = \begin{cases}
+            1 & \text{若 } a_{ii} \neq 1 \\
+            2 & \text{若 } a_{ii} = 1
+            \end{cases}
+            \]</p>
+            
+            <h4>第四步：导出矛盾</h4>
+            <ol>
+                <li>\( b \in (0,1) \)，因为 \( b \) 是 \( (0,1) \) 区间内的无限小数</li>
+                <li>但对任意 \( i \in \mathbb{N} \)，有 \( b_i \neq a_{ii} \)，故 \( b \neq r_i \)</li>
+                <li>这意味着 \( b \) 不在原序列中，与"序列包含所有 \( (0,1) \) 内实数"的假设矛盾</li>
+            </ol>
+            <p>因此 \( (0,1) \) 不可数。</p>
+        </div>
+        
+        <div class="math-block">
+            <p><strong>实数不可数的等价证明</strong></p>
+            <p>由于存在双射 \( (0,1) \sim \mathbb{R} \)（如 \( g(x) = \tan(\pi x - \frac{\pi}{2}) \)），故 \( \mathbb{R} \) 也不可数。</p>
+        </div>
+        
+        <h3>连续统假设</h3>
+        <div class="definition">
+            <p><strong>历史背景</strong></p>
+            <p>1878年，康托尔提出猜想：在可数无穷 \( |\mathbb{Z}_+| \) 和实数无穷 \( |\mathbb{R}| \) 之间不存在其他大小的无穷集合。</p>
+            
+            <p><strong>数学表述</strong></p>
+            <p>不存在集合 \( A \) 满足：</p>
+            <p>\[ \mathbb{Z}_+ \prec A \prec \mathbb{R} \]</p>
+            <p>其中 \( \prec \) 表示严格小于（即存在单射但不存在双射）。</p>
+            
+            <p><strong>等价表述</strong>：\( |\mathbb{R}| = 2^{\aleph_0} = \aleph_1 \)</p>
+        </div>
+        
+        <div class="math-block">
+            <p><strong>连续统假设的现状</strong></p>
+            <ul>
+                <li><strong>CH</strong>：\( 2^{\aleph_0} = \aleph_1 \)</li>
+                <li><strong>GCH（广义连续统假设）</strong>：对任意序数 \( \alpha \)，有 \( 2^{\aleph_\alpha} = \aleph_{\alpha+1} \)</li>
+                <li>大多数现代数学在ZFC框架内进行，不依赖CH的真假</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>最后更新: 2023年10月 | 河北工业大学数学253班 | 制作人: 程渤栋</p>
+        <p>本页面专为数学公式优化显示</p>
+    </div>
+
+    <!-- 引入KaTeX数学公式渲染库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+    <script>
+        // 自动渲染页面中的数学公式
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\(", right: "\\)", display: false},
+                    {left: "\\[", right: "\\]", display: true}
+                ],
+                throwOnError: false
+            });
+        });
+    </script>
+</body>
+</html>

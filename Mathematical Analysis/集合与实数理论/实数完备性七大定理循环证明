@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实数完备性七大定理 - 数学分析</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --math-color: #e74c3c;
+            --definition-color: #2ecc71;
+            --theorem-color: #9b59b6;
+            --example-color: #f39c12;
+            --proof-color: #16a085;
+            --background-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --header-gradient: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: var(--background-gradient);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: var(--header-gradient);
+            color: white;
+            padding: 30px 0;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4极 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
+            z-index: 1;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .breadcrumb a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .math-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin: 30px 0 20px 0;
+        }
+        
+        h3 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px 0;
+            padding-left: 10px;
+            border-left: 3px solid var(--primary-color);
+        }
+        
+        h4 {
+            color: var(--secondary-color);
+            margin: 20px 0 10px 0;
+        }
+        
+        p {
+            margin: 15px 0;
+        }
+        
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        /* 特殊内容样式 */
+        .definition, .theorem, .example, .proof {
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .definition:hover, .theorem:hover, .example:hover, .proof:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .definition {
+            background: #e8f4fd;
+            border-left: 4px solid var(--definition-color);
+        }
+        
+        .theorem {
+            background: #f4eef8;
+            border-left: 4px solid var(--theorem-color);
+        }
+        
+        .example {
+            background: #fef9e7;
+            border-left: 4px solid var(--example-color);
+        }
+        
+        .proof {
+            background: #e8f6f3;
+            border-left: 4px solid var(--proof-color);
+        }
+        
+        .math-block {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 极;
+            overflow-x: auto;
+        }
+        
+        .math-inline {
+            color: var(--math-color);
+            font-weight: 500;
+        }
+        
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+            margin: 30px 0;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: #666;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 15px;
+            border-radius: 5px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+        }
+        
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .toc li {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .toc li:before {
+            content: "•";
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+        }
+        
+        .toc a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        
+        .math-equation {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        
+        .math-note {
+            background: #fffaf0;
+            border-left: 4px solid #ffa500;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .important {
+            background: #fff0f0;
+            border-left: 4px solid #ff6极6b;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .mermaid-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .math-content {
+                padding: 20px;
+            }
+            
+            .footer-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer-links a {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1><i class="fas fa-infinity"></i> 实数完备性七大定理</h1>
+                <p class="subtitle">数学分析 - 实数系统的完备性</p>
+                <div class="breadcrumb">
+                    <a href="../../index.html">网站首页</a>
+                    <span>→</span>
+                    <a href="../index.html">数学分析主页</a>
+                    <span>→</span>
+                    <a href="index.html">第一章：实数理论</a>
+                    <span>→</span>
+                    <span>完备性定理</span>
+                </div>
+            </div>
+        </header>
+        
+        <div class="toc">
+            <h3>目录</h3>
+            <ul>
+                <li><a href="#一概述">一、概述</a></li>
+                <li><a href="#二定理循环证明">二、定理循环证明</a></li>
+                <li><a href="#三等价性总结">三、等价性总结</a></li>
+                <li><a href="#四应用与意义">四、应用与意义</a></li>
+            </ul>
+        </div>
+        
+        <div class="math-content">
+            <h2 id="一概述">一、概述</h2>
+            
+            <div class="definition">
+                <h4>实数完备性</h4>
+                <p>实数系统的<strong>完备性</strong>是指实数集 $\mathbb{R}$ 具有"无缝隙"的特性，这是实数区别于有理数的根本特征。</p>
+                <p>实数完备性有多种等价表述，其中最著名的七大定理是：</p>
+                <ol>
+                    <li><strong>确界原理</strong>：有上界的非空实数集必有上确界</li>
+                    <li><strong>单调有界定理</strong>：单调有界数列必收敛</li>
+                    <li><strong>区间套定理</strong>：闭区间套必有唯一公共点</li>
+                    <li><strong>有限覆盖定理</strong>：闭区间的开覆盖必有有限子覆盖</li>
+                    <li><strong>聚点定理</strong>：有界无限点集必有聚点</li>
+                    <li><strong>柯西收敛准则</strong>：数列收敛的充要条件是它是柯西列</li>
+                    <li><strong>戴德金分割原理</strong>：实数集的戴德金分割必有中介点</li>
+                </ol>
+            </div>
+            
+            <div class="mermaid-container">
+                <div class="mermaid">
+                    graph TD
+                    A[实数完备性定理] --> B[确界原理]
+                    A --> C[单调有界定理]
+                    A --> D[区间套定理]
+                    A --> E[有限覆盖定理]
+                    A --> F[聚点定理]
+                    A --> G[柯西收敛准则]
+                    A --> H[戴德金分割原理]
+                    B --> C
+                    C --> D
+                    D --> E
+                    E --> F
+                    F --> G
+                    G --> B
+                    B --> H
+                    H --> B
+
+                    style A fill:#e1f5fe
+                    style B fill:#e8f5e8
+                    style C fill:#f3e5f5
+                    style D fill:#fff3e0
+                    style E fill:#e0f2f1
+                    style F fill:#fce4ec
+                    style G fill:#fff8e1
+                    style H fill:#f1f8e9
+                </div>
+            </div>
+            
+            <div class="math-note">
+                <h4>证明策略</h4>
+                <p>我们将采用<strong>循环证明</strong>的方式，证明这些定理的等价性：</p>
+                <p>确界原理 ⇒ 单调有界定理 ⇒ 区间套定理 ⇒ 有限覆盖定理 ⇒ 聚点定理 ⇒ 柯西准则 ⇒ 确界原理</p>
+                <p>同时证明确界原理与戴德金分割原理的等价性。</p>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <h2 id="二定理循环证明">二、定理循环证明</h2>
+            
+            <h3>1. 确界原理 ⇒ 单调有界定理</h3>
+            
+            <div class="theorem">
+                <h4>单调有界定理</h4>
+                <p>单调递增且有上界的数列必收敛。</p>
+            </div>
+            
+            <div class="proof">
+                <h4>证明</h4>
+                <ol>
+                    <li>设数列 $\{x_n\}$ 单调递增且有上界，即 $x_1 \leq x_2 \leq \cdots \leq x_n \leq \cdots$ 且存在 $M$ 使得 $x_n \leq M$ 对所有 $n$ 成立</li>
+                    <li>考虑集合 $S = \{x_n \mid n \in \mathbb{N}\}$，由确界原理，$S$ 有上确界，记作 $\alpha = \sup S$</li>
+                    <li>由上确界定义：
+                        <ul>
+                            <li>$\alpha$ 是 $S$ 的上界：$x_n \leq \alpha$ 对所有 $n$ 成立</li>
+                            <li>对任意 $\varepsilon > 0$，存在 $x_N \in S$ 使得 $x_N > \alpha - \varepsilon$</li>
+                        </ul>
+                    </li>
+                    <li>由于数列单调递增，当 $n \geq N$ 时：
+                        $$\alpha - \varepsilon < x_N \leq x_n \leq \alpha < \alpha + \varepsilon$$
+                    </li>
+                    <li>因此 $|x_n - \alpha| < \varepsilon$ 对所有 $n \geq N$ 成立</li>
+                    <li>故 $\lim_{n \to \infty} x_n = \alpha$</li>
+                </ol>
+                <p>单调递减且有下界的情况证明类似。 ∎</p>
+            </div>
+            
+            <h3>2. 单调有界定理 ⇒ 区间套定理</h3>
+            
+            <div class="theorem">
+                <h4>区间套定理</h4>
+                <p>设 $\{[a_n, b_n]\}$ 是一列闭区间，满足：</p>
+                <ol>
+                    <li>$[a_{n+1}, b_{n+1}] \subseteq [a_n, b_n]$（区间套叠）</li>
+                    <li>$\lim_{n \to \infty} (b_n - a_n) = 0$（区间长度趋于零）</li>
+                </ol>
+                <p>则存在唯一实数 $c$ 属于所有闭区间。</p>
+            </div>
+            
+            <div class="proof">
+                <h4>证明</h4>
+                <ol>
+                    <li>由区间套条件，$\{a_n\}$ 单调递增且有上界（如 $b_1$），$\{b_n\}$ 单调递减且有下界（如 $a_1$）</li>
+                    <li>由单调有界定理：
+                        $$\lim_{n \to \infty} a_n = \alpha, \quad \lim_{n \to \infty} b_n = \beta$$
+                    </li>
+                    <li>由条件 (2)：$\lim_{n \to \infty} (b_n - a_n) = \beta - \alpha = 0$，故 $\alpha = \beta$</li>
+                    <li>对任意 $n$，有 $a_n \leq \alpha \leq b_n$，即 $\alpha \in [a_n, b_n]$</li>
+                    <li>唯一性：若存在 $c \neq \alpha$ 也属于所有区间，则 $|c - \alpha| \leq b_n - a_n \to 0$，矛盾 ∎</li>
+                </ol>
+            </div>
+            
+            <h3>3. 区间套定理 ⇒ 有限覆盖定理</h3>
+            
+            <div class="theorem">
+                <h4>有限覆盖定理</h4>
+                <p>闭区间 $[a, b]$ 的任意开覆盖都有有限子覆盖。</p>
+            </div>
+            
+            <div class="proof">
+                <h4>证明（反证法）</h4>
+                <ol>
+                    <li>假设 $[a, b]$ 不能被开覆盖 $\mathcal{U}$ 的任意有限子集覆盖</li>
+                    <li>将 $[a, b]$ 二等分，则至少有一个子区间不能被有限覆盖，记为 $[a_1, b_1]$</li>
+                    <li>重复此过程，得到闭区间套 $\{[a_n, b_n]\}$ 满足：
+                        <ul>
+                            <li>$[a_n, b_n] \subseteq [a_{n-1}, b_{极-1}]$</li>
+                            <li>$b_n - a_n = \frac{b-a}{2^n} \to 0$</li>
+                            <li>每个 $[a_n, b_n]$ 都不能被 $\mathcal{U}$ 有限覆盖</li>
+                        </ul>
+                    </li>
+                    <li>由闭区间套定理，存在唯一 $c \in \bigcap_{n=1}^{\infty} [a_n, b_n]$</li>
+                    <li>由于 $\mathcal{U}$ 是开覆盖，存在开集 $U \in \mathcal{U}$ 使得 $c \in U$</li>
+                    <li>由开集性质，存在 $\varepsilon > 0$ 使得 $(c-\varepsilon, c+\varepsilon) \subseteq U$</li>
+                    <li>当 $n$ 足够大时，$[a_n, b_n] \subseteq (c-\varepsilon, c+\varepsilon) \subseteq U$</li>
+                    <li>这与"$[a_n, b_n]$ 不能被有限覆盖"矛盾 ∎</li>
+                </ol>
+            </div>
+            
+            <h3>4. 有限覆盖定理 ⇒ 聚点定理</h3>
+            
+            <div class="theorem">
+                <h4>聚点定理</h4>
+                <p>有界无限点集必有聚点。</p>
+            </div>
+            
+            <div class="proof">
+                <h4>证明（反证法）</h4>
+                <ol>
+                    <li>设 $E$ 是有界无限点集，假设 $E$ 没有聚点</li>
+                    <li>则对任意 $x \in [a, b]$（$E$ 所在区间），存在邻域 $U_x$ 只包含 $E$ 的有限个点</li>
+                    <li>$\{U_x\}_{x \in [a,b]}$ 构成 $[a, b]$ 的开覆盖</li>
+                    <li>由有限覆盖定理，存在有限子覆盖 $U_{x_1}, \ldots, U_{x_n}$</li>
+                    <li>每个 $U_{x_i}$ 只包含 $E$ 的有限个点，因此 $E$ 是有限集，矛盾 ∎</li>
+                </ol>
+            </div>
+            
+            <h3>5. 聚点定理 ⇒ 柯西收敛准则</h3>
+            
+            <div class="theorem">
+                <h4>柯西收敛准则</h4>
+                <p>数列收敛当且仅当它是柯西列。</p>
+            </div>
+            
+            <div class="proof">
+                <h4>证明</h4>
+                <p><strong>必要性</strong>：若 $\lim_{n \to \infty} x_n = a$，则对任意 $\varepsilon > 0$，存在 $N$ 使得当 $n > N$ 时 $|x_n - a| < \varepsilon/2$。于是当 $m, n > N$ 时：
+                    $$|x_m - x_n| \leq |x_m - a| + |a - x_n| < \varepsilon$$
+                </p>
+                
+                <p><strong>充分性</strong>：</p>
+                <ol>
+                    <li>设 $\{x_n\}$ 是柯西列，则它有界（存在 $N$ 使得 $|x_n - x_N| < 1$ 对 $n > N$）</li>
+                    <li>若 $\{x_n\}$ 只有有限多项，显然收敛</li>
+                    <li>若 $\{x_n\}$ 有无限多项，由聚点定理，存在聚点 $a$</li>
+                    <li>对任意 $\varepsilon > 0$：
+                        <ul>
+                            <li>由柯西条件，存在 $N_1$ 使得当 $m, n > N_1$ 时 $|x_m - x_n| < \varepsilon/2$</li>
+                            <li>由聚点定义，存在 $n_0 > N_1$ 使得 $|x_{n_0} - a| < \varepsilon/2$</li>
+                        </ul>
+                    </li>
+                    <li>于是当 $n > N_1$ 时：
+                        $$|x_n - a| \leq |x_n - x_{n_0}| + |x_{n_0} - a| < \varepsilon$$
+                    </li>
+                    <li>故 $\lim_{n \to \infty} x_n = a$ ∎</li>
+                </ol>
+            </div>
+            
+            <h3>6. 柯西收敛准则 ⇒ 确界原理</h3>
+            
+            <div class="theorem">
+                <h4>确界原理</h4>
+                <p>有上界的非空实数集必有上确界。</p>
+            </div>
+            
+            <div class="proof">
+                <h4>证明</h4>
+                <ol>
+                    <li>设 $S$ 是非空有上界集合，取 $a_1 \in S$，$b_1$ 为 $S$ 的一个上界</li>
+                    <li>构造区间套：令 $c_n = \frac{a_n + b_n}{2}$
+                        <ul>
+                            <li>若 $c_n$ 是 $S$ 的上界，则令 $a_{n+1} = a_n$, $b_{n+1} = c_n$</li>
+                            <li>否则令 $a_{n+1} = c_n$, $b_{n+1} = b_n$</li>
+                        </ul>
+                    </li>
+                    <li>易验证 $\{a_n\}$ 单调递增，$\{b_n\}$ 单调递减，且 $b_n - a_n = \frac{b_1 - a_1}{2^{n-1}} \to 0$</li>
+                    <li>由柯西准则，$\{a_n\}$ 和 $\{b_n\}$ 都收敛于同一极限 $\alpha$</li>
+                    <li>证明 $\alpha$ 就是 $S$ 的上确界：
+                        <ul>
+                            <li>$\alpha$ 是上界：若存在 $x \in S$ 使 $x > \alpha$，则当 $b_n < x$ 时矛盾</li>
+                            <li>$\alpha$ 是最小上界：对任意 $\varepsilon > 0$，存在 $a_n > \alpha - \varepsilon$ 且 $a_n \in S$ ∎</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+            
+            <h3>7. 确界原理 ⇔ 戴德金分割原理</h3>
+            
+            <div class="theorem">
+                <h4>戴德金分割原理</h4>
+                <p>实数集的戴德金分割必有中介点。</p>
+            </div>
+            
+            <div class="proof">
+                <h4>等价性证明</h4>
+                <p>确界原理与戴德金分割原理的等价性证明已在前面的章节中详细给出，这里不再重复。</p>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <h2 id="三等价性总结">三、等价性总结</h2>
+            
+            <div class="math-block">
+                <p>通过上述循环证明，我们证明了实数完备性七大定理的等价性：</p>
+                <p>确界原理 ⇔ 单调有界定理 ⇔ 区间套定理 ⇔ 有限覆盖定理 ⇔ 聚点定理 ⇔ 柯西准则 ⇔ 戴德金分割原理</p>
+            </div>
+            
+            <div class="mermaid-container">
+                <div class="mermaid">
+                    graph LR
+                    A[确界原理] --> B[单调有界定理]
+                    B --> C[区间套定理]
+                    C --> D[有限覆盖定理]
+                    D --> E[聚点定理]
+                    E --> F[柯西准则]
+                    F --> A
+                    A --> G[戴德金分割]
+                    G --> A
+
+                    style A fill:#e8f5e8
+                    style B fill:#f3e5f5
+                    style C fill:#fff3e0
+                    style D fill:#e0f2f1
+                    style E fill:#fce4ec
+                    style F fill:#fff8e1
+                    style G fill:#f1f8e9
+                </div>
+            </div>
+            
+            <div class="important">
+                <h4>数学意义</h4>
+                <p>实数完备性七大定理的等价性表明，实数系统的"无缝隙"特性可以从多个不同角度来刻画，这些定理在数学分析中各有其独特的应用价值。</p>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <h2 id="四应用与意义">四、应用与意义</h2>
+            
+            <div class="math-block">
+                <h3>4.1 各定理的应用领域</h3>
+                <ul>
+                    <li><strong>确界原理</strong>：用于证明函数的最值存在性</li>
+                    <li><strong>单调有界定理</strong>：用于证明递推数列的收敛性</li>
+                    <li><strong>区间套定理</strong>：用于构造实数（如证明零点存在定理）</li>
+                    <li><strong>有限覆盖定理</strong>：用于证明一致连续性</li>
+                    <li><strong>聚点定理</strong>：用于证明有界数列有收敛子列</li>
+                    <li><strong>柯西准则</strong>：用于判断数列收敛性</li>
+                    <li><strong>戴德金分割</strong>：用于实数构造和完备性证明</li>
+                </ul>
+            </div>
+            
+            <div class="math-block">
+                <h3>4.2 历史意义</h3>
+                <p>实数完备性定理的发展历史：</p>
+                <ol>
+                    <li><strong>柯西</strong>（19世纪初）提出了柯西收敛准则</li>
+                    <li><strong>波尔查诺</strong>（1817）发现了聚点定理</li>
+                    <li><strong>魏尔斯特拉斯</strong>（1860s）提出了确界原理和单调有界定理</li>
+                    <li><strong>戴德金</strong>（1872）提出了戴德金分割原理</li>
+                    <li><strong>海涅</strong>（1872）提出了有限覆盖定理</li>
+                    <li><strong>康托尔</strong>（1872）提出了区间套定理</li>
+                </ol>
+                <p>这些工作共同奠定了实数理论和数学分析的严格基础。</p>
+            </div>
+            
+            <div class="math-note">
+                <h4>现代意义</h4>
+                <p>实数完备性定理不仅是数学分析的基础，也影响了现代数学的多个领域：</p>
+                <ul>
+                    <li>为泛函分析中的巴拿赫空间和希尔伯特空间理论提供基础</li>
+                    <li>在拓扑学中推广为紧致性和完备性概念</li>
+                    <li>在数理逻辑中引发了对数学基础的研究</li>
+                    <li>在计算数学中影响了数值分析的误差估计方法</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>数学分析 - 实数完备性定理</p>
+            <div class="footer-links">
+                <a href="戴德金连续性公理.html"><i class="fas fa-arrow-left"></i> 上一节：戴德金连续性公理</a>
+                <a href="index.html">返回第一章目录</a>
+                <a href="../index.html">返回数学分析主页</a>
+                <a href="../../index.html"><i class="fas fa-home"></i> 返回网站首页</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入KaTeX数学公式渲染库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+    <script>
+        // 自动渲染页面中的数学公式
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\(", right: "\\)", display: false},
+                    {left: "\\[", right: "\\]", display: true}
+                ],
+                throwOnError: false
+            });
+        });
+        
+        // 初始化Mermaid图表
+        document.addEventListener("DOMContentLoaded", function() {
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: 'default',
+                flowchart: {
+                    useMaxWidth: true,
+                    htmlLabels: true
+                }
+            });
+        });
+    </script>
+</body>
+</html>

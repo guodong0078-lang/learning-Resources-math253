@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>戴德金连续性公理证明 - 数学分析</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --math-color: #e74c3c;
+            --definition-color: #2ecc71;
+            --theorem-color: #9b59b6;
+            --example-color: #f39c12;
+            --proof-color: #16a085;
+            --background-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --header-gradient: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: var(--background-gradient);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: var(--header-gradient);
+            color: white;
+            padding: 30px 0;
+            border-radius: 10px;
+            margin-bottom: 30极;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
+            z-index: 1;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 极.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .breadcrumb a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .math-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin: 30px 0 20px 0;
+        }
+        
+        h3 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px 0;
+            padding-left: 10px;
+            border-left: 3px solid var(--primary-color);
+        }
+        
+        h4 {
+            color: var(--secondary-color);
+            margin: 20px 0 10px 0;
+        }
+        
+        p {
+            margin: 15px 0;
+        }
+        
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        /* 特殊内容样式 */
+        .definition, .theorem, .example, .proof {
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .definition:hover, .theorem:hover, .example:hover, .proof:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .definition {
+            background: #e8f4fd;
+            border-left: 4px solid var(--definition-color);
+        }
+        
+        .theorem {
+            background: #f4eef8;
+            border-left: 4px solid var(--theorem-color);
+        }
+        
+        .example {
+            background: #fef9e7;
+            border-left: 4px solid var(--example-color);
+        }
+        
+        .proof {
+            background: #e8f6f3;
+            border-left: 4px solid var(--proof-color);
+        }
+        
+        .math-block {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .math-inline {
+            color: var(--math-color);
+            font-weight: 500;
+极        }
+        
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent极 var(--primary-color), transparent);
+            margin: 30px 0;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: #666;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 15px;
+            border-radius: 5极;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .footer-links a:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+        }
+        
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .toc li {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .toc li:before {
+            content: "•";
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+        }
+        
+        .toc a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        
+        .math-equation {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #极f9fa;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        
+        .math-note {
+            background: #fffaf0;
+            border-left: 4px solid #ffa500;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .important {
+            background: #fff0f0;
+            border-left: 4px solid #ff6b6b;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .math-content {
+                padding: 20px;
+            }
+            
+            .footer-l极ks {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer-links a {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1><i class="fas fa-infinity"></i> 戴德金连续性公理证明</h1>
+                <p class="subtitle">数学分析 - 实数系统的完备性</p>
+                <div class="breadcrumb">
+                    <a href="../../index.html">网站首页</a>
+                    <span>→</span>
+                    <a href="../index.html">数学分析主页</a>
+                    <span极→</span>
+                    <a href="index.html">第一章：集合与实数理论</a>
+                    <span>→</span>
+                    <span>戴德金连续性公理</span>
+                </div>
+            </div>
+        </header>
+        
+        <div class="toc">
+            <h3>目录</h3>
+            <ul>
+                <li><a href="#一公理陈述">一、公理陈述</a></li>
+                <li><a href="#二证明思路">二、证明思路</a></li>
+                <li><a href="#三证明过程">三、证明过程</a></li>
+                <li><a href="#四等价性证明">四、等价性证明</a></li>
+                <li><a href="#五结论">五、结论</a></li>
+            </ul>
+        </div>
+        
+        <div class="math-content">
+            <h2 id="一公理陈述">一、公理陈述</h2>
+            
+            <div class="definition">
+                <h4>戴德金连续性公理</h4>
+                <p>设 $A$ 和 $B$ 是实数集 $\mathbb{R}$ 的两个非空子集，满足以下三个条件：</p>
+                <ol>
+                    <li>$A \cup B = \mathbb{R}$ （<strong>不漏性</strong>）</li>
+                    <li>若 $a \in A$ 且 $b \in B$，则 $a < b$ （<strong>不乱性</strong>）</li>
+                    <li>$A$ 和 $B$ 均非空集 （<strong>不空极</strong>）</li>
+                </ol>
+                <p>则存在唯一的实数 $c$，使得：</极>
+                <ul>
+                    <li>对一切 $a \in A$ 和 $b \in B$，有 $a \leq c \leq b$</li>
+                    <li>这个数 $c$ 要么是集合 $A$ 的<strong>最大值</strong>，要么是集合 $B$ 的<strong>最小值</strong></li>
+                </ul>
+                <p>这样的一个分划 $(A, B)$ 称为 $\mathbb{R}$ 的一个<strong>戴德金分割</strong>（Dedekind Cut）</p>
+            </div>
+            
+            <div class="example">
+                <h4>例子</h4>
+                <p>有理数集 $\mathbb{Q}$ 的戴德金分割：</p>
+                <ul>
+                    <li>$A = \{x \in \mathbb{Q} \mid x < \sqrt{2}\}$</li>
+                    <li>$B = \{x \in \mathbb{Q} \mid x > \sqrt{2}\}$</li>
+                </ul>
+                <p>在 $\mathbb{Q}$ 中，这个分割没有中介点（因为 $\sqrt{2} \notin \mathbb{Q}$），但在 $\mathbb{R}$ 中，中介点 $c = \sqrt{2}$ 存在。</p>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <h2 id="二证明思路">二、证明思路</h2>
+            
+            <div class="math-block">
+                <p>戴德金连续性公理与实数的<strong>确界存在原理</strong>（任何有上界的非空实数集必有上确界）是<strong>等价</strong>的。</p>
+                <p>证明的核心思路是：对于给定的一个戴德金分割 $(A, B)$，通过分析集合 $A$ 和 $B$ 的界性，利用确界存在原理找出那个唯一的中介数 $c$，并验证它满足公理的要求。</p>
+            </div>
+            
+            <div class="math-note">
+                <h4>证明策略</h4>
+                <ol>
+                    <li>证明 $A$ 有上界，$B$ 有下界</li>
+                    <li>应用确界存在原理，得到 $c = \sup A$</li>
+                    <li>证明 $c$ 满足中介点条件 $a \leq c \leq b$</极>
+                    <li>证明 $c极 是 $A$ 的最大元或 $B$ 的最小元</li>
+                    <li>证明 $c$ 的唯一性</li>
+                </ol>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <h2 id="三证明过程">三、证明过程</h2>
+            
+            <h3>第一步：存在性的证明</h3>
+            
+            <div class="proof">
+                <h4>1. 证明 $A$ 有上界，$B$ 有下界</h4>
+                <ul>
+                    <li>由于 $B$ 非空，任取 $b_0 \in B$。根据分割的"不乱性"，对任意 $a \in A$，都有 $a < b_0$。因此，$b_0$ 是 $A$ 的一个上界，故 $A$ 是有上界的非空集合。</li>
+                    <li>同理，由于 $A$ 非空，任取 $a_0 \in A$。对任意 $b \in B$，有 $a_0 < b$。因此，$a_0$ 是 $B$ 的一个下界，故 $B$ 是有下界的非空集合。</li>
+                </ul>
+            </div>
+            
+            <div class="proof">
+                <h4>2. 应用确界存在原理</h4>
+                <p>因为 $A$ 是非空有上界的实数子集，根据<strong>确界存在原理</strong>，$极$ 在 $\mathbb{R}$ 中存在上确界，记作 $c = \sup A$。</p>
+            </div>
+            
+            <div class="proof">
+                <h4>3. 证明 $c$ 是中介点</h4>
+                <p>由上确界的定义：</p>
+                <ul>
+                    <li>(i) 对任意 $a \in A$，有 $a \leq c$。</li>
+                    <li>(ii) 对任意 $\epsilon > 0$，存在 $a_\epsilon \in A$，使得 $c - \epsilon < a_\epsilon$。</li>
+                </ul>
+                <p>现在需要证明对任意 $b \in B$，有 $c \leq b$。采用反证法：</p>
+                <ul>
+                    <li>假设存在某个 $b' \in B$，使得 $b' < c$。</li>
+                    <li>取 $\epsilon = c - b' > 0$，根据上确界定义的性质(ii)，存在 $a' \in A$，使得 $c - \epsilon < a'$，即 $b' < a'$。</li>
+                    <li>但这与戴德金分割的"不乱性"（$A$ 中所有元素都应小于 $B$ 中所有元素）矛盾。</li>
+                </ul>
+                <p>因此，假设不成立，对任意 $b \in B$，均有 $c \leq b$。</p>
+                <p>结合(i)可知，对任意 $a \in A$ 和 $b \in B$，极 $a \leq c \leq b$。故 $c$ 是满足中介点条件的实数。</p>
+            </div>
+            
+            <div class="proof">
+                <h4>4. 证明 $c$ 是 $A$ 的最大元或 $B$ 的最小元</h4>
+                <p>$c$ 是 $A$ 的上确界，它可能属于 $A$，也可能不属于 $A$。</极>
+                <ul>
+                    <li><strong>情况1</strong>：如果 $c \in A$，则 $c$ 就是 $A$ 的最大元。</li>
+                    <li><strong>情况2</strong>：如果 $c \notin A$，由于 $A \cup B = \mathbb{R}$，则必有 $c \in B$。我们证明此时 $c$ 是 $B$ 的最小元。
+                        <ul>
+                            <li>假设 $c$ 不是 $B$ 的最小元，则存在 $b'' \in B$ 使得 $b'' < c$。</li>
+                            <li>由于 $c$ 是 $A$ 的上确界，且 $b'' < c$，则存在 $a'' \in A极 使得 $b'' < a''$。</li>
+                            <li>这再次与分割的"不乱性"矛盾。</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p>因此，$c$ 要么是 $A$ 的最大元，要么是 $B$ 的最小元。</p>
+            </div>
+            
+            <h3>第二步：唯一性的证明</h3>
+            
+            <div class="proof">
+                <h4>证明 $c$ 的唯一性</h4>
+                <p>假设存在两个不同的实数 $c_1$ 和 $c_2$（不妨设 $c_1 < c_2$）都满足戴德金公理的要求。</p>
+                <ol>
+                    <li>考虑数 $d = (c_1 + c_2)/2$，显然 $c_1 < d < c_2$。</li>
+                    <li>根据分割的"不漏性"，$d$ 必然属于 $A$ 或 $B$。</li>
+                    <li>如果 $d \in A$，则 $d$ 应该 $\leq c_1$（因为 $c_1$ 是 $A$ 中所有数的上界），但这与 $d > c_1$ 矛盾。</li>
+                    <li>如果 $d \in B$，则 $d$ 应该 $\geq c_2$（因为 $c_2$ 是 $B$ 中所有数的下界），但这与 $d < c_2$ 矛盾。</li>
+                </ol>
+                <p>因此，假设错误，满足条件的 $c$ 是唯一的。</p>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <h2 id="四等价性证明">四、等价性证明</h2>
+            
+            <h3>公理陈述</h3>
+            
+            <div class="math-block">
+                <h4>戴德金连续性公理</h4>
+                <p>设 $(A, B)$ 是实数集 $\mathbb{R}$ 的一个戴德金分割，则存在唯一的实数 $c$，使得 $c$ 是 $A$ 的最大元或 $B$ 的最小元。</p>
+                
+                <h4>确界原理（分界数公理）</h4>
+                <p>任何非空且有上界的实数子集 $S \subseteq \mathbb{R}$ 必有上确界（最小上界）。</p>
+            </div>
+            
+            <h3>第一部分：戴德金公理 $\Rightarrow$ 确界原理</h3>
+            
+            <div class="proof">
+                <h4>证明</h4>
+                <p><strong>假设</strong>戴德金公理成立。设 $S$ 是一个非空且有上界的实数集，需证明 $S极 有上确界。</p>
+                <p>构造集合：</p>
+                <ul>
+                    <li>$B = \{ y \in \mathbb{R} \mid y \geq s \text{ 对于所有 } s \in S \}$（$S$ 的所有上界的集合）</li>
+                    <li>$A = \mathbb{R} \setminus B$</li>
+                </ul>
+                <p>验证 $(A, B)$ 是戴德金分割：</p>
+                <ol>
+                    <li><strong>不空性</strong>：由于 $S$ 非空，存在 $s \in S$，则 $s-1 \in A$（因为 $s-1$ 不是 $S$ 的上界），故 $A \neq \emptyset$。由于 $S$ 有上极，$B \neq \emptyset$。</li>
+                    <li><strong>不漏性</strong>：由定义 $A \cup B = \mathbb{R}$。</li>
+                    <li><strong>不乱性</strong>：若 $a \in A$ 和 $b \in B$，则 $a$ 不是 $S$ 的上界，故存在 $s \in S$ 使得 $a < s$；而 $b$ 是上界，故 $s \leq b$。因此 $a < s \leq b$，即 $a < b$。</li>
+                </ol>
+                <p>由戴德金公理，存在唯一实数 $c$，使得 $c$ 是 $A$ 的最大元或 $B$ 的最小元。</p>
+                <p><strong>证明 $c$ 是 $B$ 的最小元</strong>（即 $c$ 是 $S$ 的上确界）：</p>
+                <ul>
+                    <li>假设 $c$ 是 $A$ 的最大元。则 $c \in A$，故 $c$ 不是 $S$ 的上界，存在 $s \in S$ 使得 $s > c$。但 $s \in A$（因为 $s$ 不是上界），与 $c$ 是 $A$ 的最大元矛盾（因 $s > c$）。故 $c$ 不能是 $A$ 的最大元。</li>
+                    <li>因此 $c$ 必须是 $B$ 的最小元，即 $c \in B$ 且对任意 $b \in B$ 有 $c \leq b$。故 $c$ 是 $S$ 的最小上界（上确界）。</li>
+                </ul>
+                <p>确界原理得证。</p>
+            </div>
+            
+            <h3>第二部分：确界原理 $\Rightarrow$ 戴德金公理</h3>
+            
+            <div class="proof">
+                <h4>证明</h4>
+                <p><strong>假设</strong>确界原理成立。设 $(A, B)$ 是 $\mathbb{R}$ 的戴德金分割，需证明存在唯一 $c$ 是 $A$ 的最大元或 $B$ 的最小元。</p>
+                <p>由于 $A$ 非空且 $B$ 非空，$B$ 中任意元素都是 $A$ 的上界，故 $A$ 有上界。由确界原理，$A$ 有上确界 $c = \sup A$。</p>
+                <p><strong>证明 $c$ 满足戴德金公理</strong>：</p>
+                <ul>
+                    <li>由确界定义，对任意 $a \in A$ 有 $a \leq c$，对任意 $b \in B$ 有 $c \leq b$（因 $b$ 是上界）。</li>
+                    <li>由于 $A \cup B = \mathbb{R}$，$c$ 必属于 $A$ 或 $B$。
+                        <ul>
+                            <li>若 $c \in A$，则 $c$ 是 $A$ 的最大元（因对任意 $a \in A$ 有 $a \leq c$）。</li>
+                            <li>若 $c \notin A$，则 $c \in B$，且 $c$ 是 $B$ 的最小元（因对任意 $b \in B$ 有 $c \leq b$）。</li>
+                        </ul>
+                    </li>
+                </ul>
+                <p><strong>唯一性证明</strong>：假设存在另一个 $c'$ 满足条件。不妨设 $c < c'$，令 $d = (c + c')/2$，则 $c < d < c'$。由分割性质，$d \in A$ 或 $d \in B$。</p>
+                <ul>
+                    <li>若 $d \in A$，则 $d \leq c$（如果 $c$ 是 $A$ 的最大元）或 $d \geq c'$（如果 $c'$ 是 $B$ 的最小元），但 $d < c'$ 且 $d > c$，矛盾。</li>
+                    <li>若 $d \in B$，同理矛盾。故 $c$ 唯一。</li>
+                </ul>
+                <p>戴德金公理得证。</p>
+            </div>
+            
+            <div class="section-divider"></div>
+<h2 id="五结论">五、结论</h2>
+
+<div class="math-block">
+    <p>综上，我们证明了戴德金连续性公理与确界原理的等价性，两者都刻画了实数系的完备性。</p>
+    <p>戴德金公理深刻地揭示了实数系的<strong>完备性</strong>（或连续性），即实数与数轴上的点可以一一对应，数轴上是没有"缝隙"的。这是有理数集不具备的性质。</p>
+</div>
+
+<div class="important">
+    <h4>核心结论</h4>
+    <ol>
+        <li><strong>等价性证明完成</strong>：戴德金连续性公理与确界原理可以相互推导，是实数系完备性的两种等价表述。</li>
+        <li><strong>实数完备性</strong>：实数系的连续性保证了任何戴德金分割都有唯一的中介点，这是实数区别于有理数的根本特征。</li>
+        <li><strong>数学基础意义</strong>：戴德金分割提供了一种从有理数构造实数的严格方法，填补了数学基础的空白。</li>
+    </ol>
+</div>
+
+<div class="math-note">
+    <h4>历史意义</h4>
+    <p>戴德金分割是理查德·戴德金（Richard Dedekind）在1872年提出的，它：</p>
+    <ul>
+        <li>解决了微积分严格化运动中的基础问题</li>
+        <li>提供了一种从有理数构造实数的严格方法</li>
+        <li>与康托尔、魏尔斯特拉斯等人的工作共同奠定了现代实数理论的基础</li>
+        <li>为现代分析学的发展提供了坚实的理论基础</li>
+    </ul>
+</div>
+
+<div class="proof">
+    <h4>与其他完备性公理的等价性</h4>
+    <p>戴德金连续性公理还与以下表述等价：</p>
+    <ul>
+        <li><strong>单调有界定理</strong>：单调有界数列必收敛</li>
+        <li><strong>区间套定理</strong>：闭区间套的交集为非空单点集</li>
+        <li><strong>有限覆盖定理</strong>：闭区间的任何开覆盖都有有限子覆盖</li>
+        <li><strong>柯西收敛准则</strong>：柯西序列必收敛</li>
+    </ul>
+    <p>这些等价性共同构成了实数系完备性的完整图景。</p>
+</div>
+
+<div class="example">
+    <h4>应用示例</h4>
+    <p>戴德金公理在数学分析中有广泛应用：</p>
+    <ol>
+        <li><strong>连续函数性质证明</strong>：如介值定理、极值定理</li>
+        <li><strong>微积分基本定理</strong>：保证可积性与原函数存在性</li>
+        <li><strong>函数空间理论</strong>：为希尔伯特空间、巴拿赫空间提供基础</li>
+        <li><strong>实分析拓展</strong>：勒贝格测度与积分理论的建设</li>
+    </ol>
+</div>
+
+<div class="math-block">
+    <h4>思考与延伸</h4>
+    <p>戴德金公理不仅是一个技术工具，更是一种数学哲学：</p>
+    <ul>
+        <li>它体现了数学中对"连续"与"完整"的追求</li>
+        <li>展示了如何通过离散对象（有理数）构造连续对象（实数）</li>
+        <li>为现代数学的公理化方法提供了典范</li>
+        <li>在计算机科学中，影响可计算实数理论的发展</li>
+    </ul>
+    <p class="math-equation">$\mathbb{R}$ 的完备性 = 戴德金公理 ≡ 确界原理 ≡ 柯西准则 ≡ ...</p>
+</div>
+
+<div class="section-divider"></div>
+
+<h3>参考文献与进一步阅读</h3>
+<ul>
+    <li>Dedekind, R. (1872). <em>Stetigkeit und irrationale Zahlen</em> (连续性与无理数)</li>
+    <li>Rudin, W. (1976). <em>Principles of Mathematical Analysis</em> (数学分析原理)</li>
+    <li>陶哲轩 (2006). <em>实分析</em></li>
+    <li>北京大学数学系 (2020). <em>数学分析讲义</em></li>
+</ul>

@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1.2 实数系统 - 数学分析</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --math-color: #e74c3c;
+            --definition-color: #2ecc71;
+            --theorem-color: #9b59b6;
+            --example-color: #f39c12;
+            --proof-color: #16a085;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            color: white;
+            padding: 30px 0;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(30deg);
+            z-index: 1;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .math-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin: 30px 0 20px 0;
+        }
+        
+        h3 {
+            color: var(--secondary-color);
+            margin: 25px 0 15px 0;
+            padding-left: 10px;
+            border-left: 3px solid var(--primary-color);
+        }
+        
+        h4 {
+            color: var(--secondary-color);
+            margin: 20px 0 10px 0;
+        }
+        
+        p {
+            margin: 15px 0;
+        }
+        
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        /* 特殊内容样式 */
+        .definition {
+            background: #e8f4fd;
+            border-left: 4px solid var(--definition-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .theorem {
+            background: #f4eef8;
+            border-left: 4px solid var(--theorem-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .example {
+            background: #fef9e7;
+            border-left: 4px solid var(--example-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .proof {
+            background: #e8f6f3;
+            border-left: 4px solid var(--proof-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .math-block {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .math-inline {
+            color: var(--math-color);
+            font-weight: 500;
+        }
+        
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+            margin: 30px 0;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: #666;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .toc {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+        }
+        
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .toc li {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .toc li:before {
+            content: "•";
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+        }
+        
+        .toc a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .math-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1><i class="fas fa-square-root-alt"></i> 1.2 实数系统</h1>
+                <p class="subtitle">数学分析 - 第一章：集合与实数理论</p>
+                <div class="breadcrumb">
+                    <a href="../index.html"><i class="fas fa-home"></i> 网站首页</a>
+                    <span>→</span>
+                    <a href="../Mathematical%20Analysis/">数学分析主页</a>
+                    <span>→</span>
+                    <a href="./">第一章：集合与实数理论</a>
+                    <span>→</span>
+                    <span>1.2 实数系统</span>
+                </div>
+            </div>
+        </header>
+        
+        <div class="toc">
+            <h3>目录</h3>
+            <ul>
+                <li><a href="#一实数的概念">一、实数的概念</a></li>
+                <li><a href="#二实数的构造">二、实数的构造</a></li>
+                <li><a href="#三实数的性质">三、实数的性质</a></li>
+                <li><a href="#四完备性等价定理">四、完备性等价定理</a></li>
+            </ul>
+        </div>
+        
+        <div class="math-content">
+            <h2 id="一实数的概念">一、实数的概念</h2>
+            
+            <h3>1.1 数集的扩张</h3>
+            
+            <div class="definition">
+                <h4>自然数集 $\mathbb{N}$</h4>
+                <p><strong>Peano公理</strong>：自然数集 $\mathbb{N}$ 满足：</p>
+                <ol>
+                    <li>$0 \in \mathbb{N}$</li>
+                    <li>$\forall n \in \mathbb{N}, s(n) \in \mathbb{N}$</li>
+                    <li>$\forall n \in \mathbb{N}, s(n) \neq 0$</li>
+                    <li>$\forall m, n \in \mathbb{N}, s(m) = s(n) \Rightarrow m = n$</li>
+                    <li>若 $S \subseteq \mathbb{N}$ 满足：$0 \in S$ 且 $\forall n \in S, s(n) \in S$，则 $S = \mathbb{N}$</li>
+                </ol>
+            </div>
+            
+            <div class="definition">
+                <h4>从 $\mathbb{N}$ 到 $\mathbb{Z}$</h4>
+                <p>$\mathbb{N}$ 的主要问题：不能进行减法运算（如 $1-2 = -1 \notin \mathbb{N}$）</p>
+                <p>$\mathbb{Z} = \{\ldots, -2, -1, 0, 1, 2, \ldots\}$ 解决了减法封闭性问题</p>
+            </div>
+            
+            <div class="definition">
+                <h4>从 $\mathbb{Z}$ 到 $\mathbb{Q}$</h4>
+                <p>$\mathbb{Z}$ 的主要问题：不能进行除法运算（如 $\frac{1}{2} \notin \mathbb{Z}$）</p>
+                <p>$\mathbb{Q} = \left\{\frac{a}{b} \middle| a,b \in \mathbb{Z}, b \neq 0\right\}$ 是一个有序域</p>
+            </div>
+            
+            <div class="definition">
+                <h4>从 $\mathbb{Q}$ 到 $\mathbb{R}$</h4>
+                <p>$\mathbb{Q}$ 的主要缺陷：存在"缝隙"（如 $\sqrt{2} \notin \mathbb{Q}$）</p>
+                <p>实数 $\mathbb{R}$ 的关键特性：具有最小上界性质（上确界性质）</p>
+            </div>
+            
+            <h3>1.2 上确界</h3>
+            
+            <div class="definition">
+                <h4>上确界定义</h4>
+                <p>设 $X$ 是有序集，$A \subseteq X$</p>
+                <ul>
+                    <li><strong>上界</strong>：元素 $x \in X$ 满足 $(\forall a \in A) a \leq x$</li>
+                    <li><strong>上确界</strong> $\sup A$：满足：
+                        <ol>
+                            <li>$(\forall a \in A) a \leq x$</li>
+                            <li>$(\forall y < x)(\exists a \in A) a > y$</li>
+                        </ol>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="example">
+                <h4>例子</h4>
+                <ul>
+                    <li>$\sup(0,1) = 1$</li>
+                    <li>$\{x \in \mathbb{Q}: x^2 < 2\}$ 在 $\mathbb{Q}$ 中无上确界（因为 $\sqrt{2} \notin \mathbb{Q}$）</li>
+                </ul>
+            </div>
+            
+            <div class="definition">
+                <h4>上确界性质</h4>
+                <p>若有序集 $X$ 的每个有上界非空子集都有上确界，则称 $X$ 有上确界性质</p>
+            </div>
+            
+            <h3>1.3 域的定义</h3>
+            
+            <div class="definition">
+                <h4>域的定义</h4>
+                <p><strong>域</strong>：集合 $F$ 上有两种运算 $+$ 和 $\times$ 满足：</p>
+                <ul>
+                    <li>加法交换律、结合律</li>
+                    <li>存在加法单位元 $0$</li>
+                    <li>每个元素有加法逆元</li>
+                    <li>乘法交换律、结合律</li>
+                    <li>存在乘法单位元 $1$</li>
+                    <li>每个非零元有乘法逆元</li>
+                    <li>分配律：$a(b+c) = ab + ac$</li>
+                </ul>
+            </div>
+            
+            <div class="example">
+                <h4>例子</h4>
+                <p>$\mathbb{Q}, \mathbb{R}, \mathbb{C}, \mathbb{Z}_p$ 都是域</p>
+            </div>
+            
+            <div class="definition">
+                <h4>有序域</h4>
+                <p><strong>有序域</strong>：域 $F$ 上有关系 $<$ 使得：</p>
+                <ol>
+                    <li>传递性：$x < y$ 且 $y < z \Rightarrow x < z$</li>
+                    <li>三歧性：$x < y, x = y, y < x$ 恰有一个成立</li>
+                    <li>保序性：$x < y \Rightarrow x+z < y+z$</li>
+                    <li>正元保序：$x < y$ 且 $z > 0 \Rightarrow xz < yz$</li>
+                </ol>
+            </div>
+            
+            <div class="theorem">
+                <h4>引理</h4>
+                <p>设 $F$ 是有序域，$x^2 \geq 0 \quad \text{对于所有} \quad x \in F$，则 $x^2 \geq 0$</p>
+            </div>
+            
+            <h3>1.4 实数的定义</h3>
+            
+            <div class="definition">
+                <h4>实数的定义</h4>
+                <p><strong>实数</strong>：具有上确界性质的有序域</p>
+                <p>关键区别：$\mathbb{R}$ 满足上确界性质，而 $\mathbb{Q}$ 不满足</p>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <h2 id="二实数的构造">二、实数的构造</h2>
+            
+            <h3>2.1 戴德金分割</h3>
+            
+            <div class="definition">
+                <h4>戴德金分割定义</h4>
+                <p>设 $A, B \subset \mathbb{Q}$，若满足：</p>
+                <ol>
+                    <li>$A \cup B = \mathbb{Q}$, $A \neq \emptyset$, $B \neq \emptyset$, $A \cap B = \emptyset$</li>
+                    <li>若 $a \in A$, $b \in B$，则 $a < b$</li>
+                    <li>$A$ 不包含最大元素</li>
+                </ol>
+                <p>则称有序对 $(A,B)$ 是 $\mathbb{Q}$ 的一个分割，记作 $x = A|B$</p>
+            </div>
+            
+            <div class="definition">
+                <h4>实数定义</h4>
+                <p>$\mathbb{Q}$ 的所有分割构成的集合称为 $\mathbb{R}$</p>
+            </div>
+            
+            <div class="example">
+                <h4>例子</h4>
+                <ol>
+                    <li><strong>有理分割</strong>：$A|B = \{r \in \mathbb{Q}: r < 1\} | \{r \in \mathbb{Q}: r \geq 1\}$（代表有理数 $1$）</li>
+                    <li><strong>无理分割</strong>：$A|B = \{r \in \mathbb{Q}: r \leq 0 \text{ 或 } r^2 < 2\} | \{r \in \mathbb{Q}: r > 0 \text{ 且 } r^2 \geq 2\}$（代表无理数 $\sqrt{2}$）</li>
+                </ol>
+            </div>
+            
+            <h3>2.2 特殊数的构造</h3>
+            
+            <div class="example">
+                <h4>$e$ 的构造</h4>
+                <p>$$e = \left\{r \in \mathbb{Q}: r < \sum_{n=0}^N \frac{1}{n!} \text{ 对某个 } N\right\}$$</p>
+            </div>
+            
+            <div class="example">
+                <h4>$\pi$ 的构造</h4>
+                <p>$$\pi = \left\{r \in \mathbb{Q} : r < \frac{2 \cdot 2 \cdot 4 \cdot 4 \cdot 6 \cdot 6 \cdots}{1 \cdot 3 \cdot 3 \cdot 5 \cdot 5 \cdot 7 \cdots}\right\}$$</p>
+            </div>
+            
+            <h3>2.3 分割的序关系</h3>
+            
+            <div class="definition">
+                <h4>分割的序关系</h4>
+                <p>若 $A \subset C$，则称分割 $x = A|B$ 小于或等于分割 $y = C|D$，记作 $x \leq y$</p>
+            </div>
+            
+            <div class="theorem">
+                <h4>性质</h4>
+                <ul>
+                    <li>传递性：$x < y < z \Rightarrow x < z$</li>
+                    <li>三歧性：$x < y, y < x, x = y$ 恰有一个成立</li>
+                    <li>$\mathbb{R}$ 在上述序关系下构成有序集</li>
+                </ul>
+            </div>
+            
+            <h3>2.4 实数的完备性（确界原理）</h3>
+            
+            <div class="theorem">
+                <h4>定理</h4>
+                <p>由戴德金分割得到的集合 $\mathbb{R}$ 是完备的</p>
+            </div>
+            
+            <div class="proof">
+                <h4>证明</h4>
+                <p>设 $S \subset \mathbb{R}$ 是非空有上界子集</p>
+                <ul>
+                    <li>令 $C = \bigcup\{A: A|B \in S\}$, $D = \mathbb{Q} \setminus C$</li>
+                    <li>则 $z = C|D$ 是一个分割</li>
+                    <li>$z$ 是 $S$ 的上界</li>
+                    <li>对 $S$ 的任意上界 $z' = C'|D'$，有 $C \subset C'$，故 $z \leq z'$</li>
+                    <li>因此 $z$ 是 $S$ 的最小上界</li>
+                </ul>
+            </div>
+            
+            <h3>2.5 实数集 $\mathbb{R}$ 构成域</h3>
+            
+            <div class="definition">
+                <h4>加法运算</h4>
+                <p>对 $x = A|B$, $y = C|D$，定义 $x+y = E|F$，其中：</p>
+                <p>$$E = \{a+c: a \in A, c \in C\}, \quad F = \mathbb{Q} \setminus E$$</p>
+                <ul>
+                    <li><strong>零元</strong>：$0^* = \{r \in \mathbb{Q}: r < 0\} | \{r \in \mathbb{Q}: r \geq 0\}$</li>
+                    <li><strong>负元</strong>：$-x = C|D$，其中 $C = \{-b: b \in B, b \text{ 不是 } B \text{ 的最小元}\}$</li>
+                </ul>
+            </div>
+            
+            <div class="definition">
+                <h4>乘法运算</h4>
+                <p>对非负分割 $x = A|B$, $y = C|D$，定义 $x \cdot y = E|F$，其中：</p>
+                <p>$$E = \{r \in \mathbb{Q}: r < 0 \text{ 或 } \exists a \in A, c \in C (a > 0, c > 0, r = ac)\}$$</p>
+                <ul>
+                    <li><strong>单位元</strong>：$1^*$</li>
+                    <li><strong>逆元</strong>：对 $x \neq 0$，逆元为 $x^{-1} = C|D$，其中：
+                        $$C = \left\{r \in \mathbb{Q}: r < 0 \text{ 或 } \exists b \极 B \left(b \text{ 不是最小元}, r = -\frac{1}{b}\right)\right\}$$
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="theorem">
+                <h4>定理</h4>
+                <p>$\mathbb{Q}$ 的所有分割组成的集合 $\mathbb{R}$ 是完备的有序域，且 $\mathbb{Q}$ 是 $\mathbb{R}$ 的有序子域</p>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <h2 id="三实数的性质">三、实数的性质</h2>
+            
+            <h3>3.1 阿基米德性质</h3>
+            
+            <div class="theorem">
+                <h4>定理1</h4>
+                <p>对任意 $x \in \mathbb{R}$，存在整数 $n$，使得 $n > x$</p>
+            </div>
+            
+            <div class="proof">
+                <h4>证明</h4>
+                <p>对分割 $极 = A|B$，取 $r \in B$ 和整数 $n > r$，则 $n > x$</p>
+            </div>
+            
+            <div class="theorem">
+                <h4>定理2</h4>
+                <p>对任意正实数 $a, b$，存在自然数 $n$，使得 $na > b$</p>
+            </div>
+            
+            <div class="proof">
+                <h4>证明</h4>
+                <p>等价于 $n > \frac{b}{a}$，由定理1立得</p>
+            </div>
+            
+            <h3>3.2 有理数和无理数的稠密性</h3>
+            
+            <div class="theorem">
+                <h4>定理</h4>
+                <p>任意区间 $(a, b)$ 都包含有理数和无理数</p>
+            </div>
+            
+            <div class="proof">
+                <h4>证明</h4>
+                <ul>
+                    <li>$(0,1)$ 包含 $\frac{1}{2}$（有理数）和 $\frac{1}{\sqrt{2}}$（无理数）</li>
+                    <li>对一般区间 $(a, b)$，存在有理数 $r, s$ 使得 $a \leq r < s \leq b$</li>
+                   极 <li>映射 $T(t) = r + (s-r)t$ 将 $(0,1)$ 映射到 $(r, s)$</li>
+                    <li>$T$ 保持有理性和无理性</li>
+                    <li>故 $(r, s)$ 同时包含有理数和无理数</li>
+                </ul>
+            </div>
+            
+            <div class="theorem">
+                <h4>重要事实</h4>
+                <ol>
+                    <li>区间 $(0,1)$ 中没有最小的有理数</li>
+                    <li>区间 $(0,1)$ 中没有最小的无理数</li>
+                    <li>区间 $(0,1)$ 中无理数比有理数"多得多"</li>
+                </ol>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <h2 id="四完备性等价定理">四、完备性等价定理</h2>
+            
+            <div class="theorem">
+                <h4>实数完备性的七个等价定理</h4>
+                <ol>
+                    <li><strong>确界原理</strong>：任意非空有上（下）界数集必有上（下）确界</li>
+                    <li><strong>单调有界定理</strong>：单调有界数列必有极限</li>
+                    <li><strong>区间套定理</strong>：若 $\{[a_n, b_n]\}$ 是区间套，则 $\bigcap_n [a_n, b_n]$ 为单点集</li>
+                    <li><strong>致密性定理</strong>：任意有界数列必有收敛子列</li>
+                    <li><strong>聚点定理</strong>：实数轴上任意有界的无限点集均有聚点</li>
+                    <li><strong>有限覆盖定理</strong>：若开区间族覆盖 $[a,b]$，则可选出有限子覆盖</li>
+                    <li><strong>柯西收敛准则</strong>：数列收敛当且仅当它是基本序列</li>
+                </ol>
+            </div>
+            
+            <div class="proof">
+                <h4>证明</h4>
+                <p>详见：<a href="../第一章集合和实数理论/实数完备性七大定理循环证明.html">实数完备性七大定理循环证明</a></p>
+            </div>
+            
+            <h3>4.1 连续统假设</h3>
+            
+            <div class="definition">
+                <h4>历史背景</h4>
+                <p>1878年，康托尔提出猜想：在可数无穷 $|\mathbb{Z}_+|$ 和实数无穷 $|\mathbb{R}|$ 之间不存在其他大小的无穷集合。</p>
+            </div>
+            
+            <div class="definition">
+                <h4>数学表述</h4>
+                <p>不存在集合 $A$ 满足：</p>
+                <p>$$\mathbb{Z}_+ \prec A \prec \mathbb{R}$$</p>
+                <p>其中 $\prec$ 表示严格小于（即存在单射但不存在双射）。</p>
+            </div>
+            
+            <div class="definition">
+                <h4>等价表述</h4>
+                <p>$|\mathbb{R}| = 2^{\aleph_0} = \aleph_1$</p>
+            </div>
+            
+            <div class="theorem">
+                <h4>康托定理的推广</h4>
+                <p>对于任意基数 $\kappa$，有 $2^\kappa > \kappa$，这导致了无穷基数的层次结构：</p>
+                <p>$$\aleph_0, 2^{\aleph_0}, 2^{2^{\aleph_0}}, \ldots$$</p>
+            </div>
+            
+            <div class="theorem">
+                <h4>连续统假设的现状</h4>
+                <ul>
+                    <li><strong>CH</strong>：$2^{\aleph_0} = \aleph_1$</li>
+                    <li><strong>GCH（广义连续统假设）</strong>：对任意序数 $\alpha$，有 $2^{\aleph_\alpha} = \aleph_{\alpha+1}$</li>
+                    <li>大多数现代数学在ZFC框架内进行，不依赖CH的真假</li>
+                </ul>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <h2>结论</h2>
+            
+            <div class="math-block">
+                <p>从ZFC公理出发，通过严谨的数学构造，逐步建立了自然数、整数、有理数和实数系统。戴德金分割方法成功构造了具有完备性的实数系 $\mathbb{R}$，为数学分析奠定了坚实基础。</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>数学253班学习资料中心 - 实数系统</p>
+            <div class="footer-links">
+                <a href="./集合和映射.html"><i class="fas fa-arrow-left"></i> 上一节：集合和映射</a>
+                <a href="./">返回第一章目录</a>
+                <a href="../Mathematical%20Analysis/">返回数学分析主页</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入KaTeX数学公式渲染库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+    <script>
+        // 自动渲染页面中的数学公式
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\(", right: "\\)", display: false},
+                    {left: "\\[", right: "\\]", display: true}
+                ],
+                throwOnError: false
+            });
+        });
+    </script>
+</body>
+</html>

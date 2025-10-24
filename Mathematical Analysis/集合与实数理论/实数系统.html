@@ -320,6 +320,8 @@
                 <h1><i class="fas fa-square-root-alt"></i> 1.2 实数系统</h1>
                 <p class="subtitle">数学分析 - 第一章：集合与实数理论</p>
                 <div class="breadcrumb">
+                    <a href="../../index.html">网站首页</a>
+                    <span>→</span>
                     <a href="../index.html">数学分析主页</a>
                     <span>→</span>
                     <a href="index.html">第一章：集合与实数理论</a>
@@ -544,7 +546,7 @@
                 <ul>
                     <li><strong>单位元</strong>：$1^*$</li>
                     <li><strong>逆元</strong>：对 $x \neq 0$，逆元为 $x^{-1} = C|D$，其中：
-                        $$C = \left\{r \in \mathbb{Q}: r < 0 \text{ 或 } \exists b \极 B \left(b \text{ 不是最小元}, r = -\frac{1}{b}\right)\right\}$$
+                        $$C = \left\{r \in \mathbb{Q}: r < 0 \text{ 或 } \exists b \in B \left(b \text{ 不是最小元}, r = -\frac{1}{b}\right)\right\}$$
                     </li>
                 </ul>
             </div>
@@ -567,7 +569,7 @@
             
             <div class="proof">
                 <h4>证明</h4>
-                <p>对分割 $极 = A|B$，取 $r \in B$ 和整数 $n > r$，则 $n > x$</p>
+                <p>对分割 $x = A|B$，取 $r \in B$ 和整数 $n > r$，则 $n > x$</p>
             </div>
             
             <div class="theorem">
@@ -592,7 +594,7 @@
                 <ul>
                     <li>$(0,1)$ 包含 $\frac{1}{2}$（有理数）和 $\frac{1}{\sqrt{2}}$（无理数）</li>
                     <li>对一般区间 $(a, b)$，存在有理数 $r, s$ 使得 $a \leq r < s \leq b$</li>
-                   极 <li>映射 $T(t) = r + (s-r)t$ 将 $(0,1)$ 映射到 $(r, s)$</li>
+                    <li>映射 $T(t) = r + (s-r)t$ 将 $(0,1)$ 映射到 $(r, s)$</li>
                     <li>$T$ 保持有理性和无理性</li>
                     <li>故 $(r, s)$ 同时包含有理数和无理数</li>
                 </ul>
@@ -626,7 +628,7 @@
             
             <div class="proof">
                 <h4>证明</h4>
-                <p>详见：<a href="../第一章集合和实数理论/实数完备性七大定理循环证明.html">实数完备性七大定理循环证明</a></p>
+                <p>详见：<a href="实数完备性七大定理循环证明.html">实数完备性七大定理循环证明</a></p>
             </div>
             
             <h3>4.1 连续统假设</h3>
@@ -675,16 +677,17 @@
         <div class="footer">
             <p>数学253班学习资料中心 - 实数系统</p>
             <div class="footer-links">
-                <a href="./集合和映射.html"><i class="fas fa-arrow-left"></i> 上一节：集合和映射</a>
-                <a href="./">返回第一章目录</a>
-                <a href="../Mathematical%20Analysis/">返回数学分析主页</a>
+                <a href="集合和映射.html"><i class="fas fa-arrow-left"></i> 上一节：集合和映射</a>
+                <a href="index.html">返回第一章目录</a>
+                <a href="../index.html">返回数学分析主页</a>
+                <a href="../../index.html"><i class="fas fa-home"></i> 返回网站首页</a>
             </div>
         </div>
     </div>
 
     <!-- 引入KaTeX数学公式渲染库 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
     <script>
         // 自动渲染页面中的数学公式
         document.addEventListener("DOMContentLoaded", function() {
@@ -700,9 +703,4 @@
         });
     </script>
 </body>
-
 </html>
-
-
-
-

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -417,7 +417,7 @@
                 <ul>
                     <li><a href="#"><i class="fas fa-home"></i> 首页</a></li>
                     <li><a href="#"><i class="fas fa-book"></i> 学习资源</a></li>
-                    <li><a href="#"><i class="年终统计.html""</i> 数据分析</a></li>
+                    <li><a href="#"><i class="fas fa-chart-bar"></i> 数据分析</a></li>
                     <li><a href="#"><i class="fas fa-project-diagram"></i> 项目实战</a></li>
                     <li><a href="#"><i class="fas fa-users"></i> 关于我们</a></li>
                 </ul>
@@ -470,7 +470,8 @@
         <section class="year-summary">
             <h2><i class="fas fa-calendar-alt"></i> 2023-2024学年总结报告</h2>
             <p>回顾本学年数学数据分析课程的学习成果，查看个人学习进度、成绩分析和知识掌握情况。通过交互式报告，全面了解自己在数学与数据分析领域的成长轨迹。</p>
-            <a href="年终总结.html" class="btn summary-btn">进入年终总结 <i class="fas fa-chart-pie"></i></a>
+            <!-- 修正链接：从 year-summary.html 改为 年终统计.html -->
+            <a href="年终统计.html" class="btn summary-btn">进入年终总结 <i class="fas fa-chart-pie"></i></a>
             
             <div class="floating-math math-1">α</div>
             <div class="floating-math math-2">β</div>
@@ -557,11 +558,25 @@
                 setTimeout(() => {
                     document.body.removeChild(effect);
                     document.head.removeChild(style);
+                    
+                    // 实际跳转
+                    window.location.href = '年终统计.html';
                 }, 600);
-                
-                // 在实际应用中，这里应该跳转到年终总结页面
-                // window.location.href = 'year-summary.html';
-                alert('即将跳转到年终总结页面！');
+            });
+            
+            // 其他按钮点击效果
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(btn => {
+                if (btn !== summaryBtn) {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        // 添加点击效果
+                        this.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            this.style.transform = '';
+                        }, 200);
+                    });
+                }
             });
         });
     </script>

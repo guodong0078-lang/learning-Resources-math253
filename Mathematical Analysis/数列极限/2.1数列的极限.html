@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>河北工业大学数学班级学习情况统计</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Microsoft YaHei", "SimHei", "PingFang SC", sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .report-container {
+            width: 900px;
+            max-width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #003366 0%, #0066cc 100%);
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        
+        .header h2 {
+            font-size: 20px;
+            font-weight: 400;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        
+        .header .academic-year {
+            font-size: 16px;
+            opacity: 0.8;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 5%;
+            width: 90%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .main-content {
+            padding: 40px;
+        }
+        
+        .summary-cards {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            gap: 20px;
+        }
+        
+        .card {
+            flex: 1;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .card-title {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .card-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: #003366;
+        }
+        
+        .card-subtitle {
+            font-size: 14px;
+            color: #888;
+            margin-top: 8px;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        
+        .data-table th {
+            background: linear-gradient(135deg, #0066cc 0%, #003366 100%);
+            color: white;
+            text-align: center;
+            padding: 18px 15px;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .data-table td {
+            padding: 20px 15px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            font-size: 16px;
+        }
+        
+        .data-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .data-table tr:hover {
+            background-color: #f0f7ff;
+        }
+        
+        .course-name {
+            text-align: left;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .attendance-rate, .completion-rate {
+            font-weight: 600;
+        }
+        
+        .attendance-rate {
+            color: #0066cc;
+        }
+        
+        .completion-rate {
+            color: #00a65a;
+        }
+        
+        .highlight {
+            background-color: rgba(0, 102, 204, 0.1) !important;
+            border-left: 4px solid #0066cc;
+        }
+        
+        .performance-badges {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        .badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .badge-excellent {
+            background-color: #e6f7ee;
+            color: #00a65a;
+        }
+        
+        .badge-good {
+            background-color: #e6f2ff;
+            color: #0066cc;
+        }
+        
+        .analysis-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        
+        .analysis-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #003366;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .analysis-title i {
+            margin-right: 10px;
+        }
+        
+        .analysis-points {
+            list-style-type: none;
+        }
+        
+        .analysis-points li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.5;
+        }
+        
+        .analysis-points li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #0066cc;
+            font-weight: bold;
+        }
+        
+        .footer {
+            padding: 20px 40px;
+            background-color: #f8f9fa;
+            text-align: center;
+            border-top: 1px solid #eee;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .footer .signature {
+            margin-top: 10px;
+            font-weight: 600;
+            color: #003366;
+        }
+        
+        .logo {
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        
+        @media (max-width: 768px) {
+            .summary-cards {
+                flex-direction: column;
+            }
+            
+            .header h1 {
+                font-size: 22px;
+            }
+            
+            .header h2 {
+                font-size: 16px;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .data-table th, .data-table td {
+                padding: 12px 8px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="report-container">
+        <div class="header">
+            <div class="logo">数</div>
+            <h1>河北工业大学数学班级学习情况统计</h1>
+            <h2>2023-2024学年 年度总结报告</h2>
+            <div class="academic-year">汇报日期：2024年12月</div>
+        </div>
+        
+        <div class="main-content">
+            <div class="summary-cards">
+                <div class="card">
+                    <div class="card-title">平均出勤率</div>
+                    <div class="card-value">97.85%</div>
+                    <div class="card-subtitle">四门核心课程平均</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">平均作业完成率</div>
+                    <div class="card-value">96.38%</div>
+                    <div class="card-subtitle">四门核心课程平均</div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">班级人数</div>
+                    <div class="card-value">36人</div>
+                    <div class="card-subtitle">数学专业2023级</div>
+                </div>
+            </div>
+            
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th width="30%">课程名称</th>
+                        <th width="30%">出勤率</th>
+                        <th width="30%">作业平均完成率</th>
+                        <th width="10%">表现</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="course-name">数学分析</td>
+                        <td class="attendance-rate">97.0%</td>
+                        <td class="completion-rate">94.5%</td>
+                        <td>
+                            <div class="performance-badges">
+                                <span class="badge badge-good">良好</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="highlight">
+                        <td class="course-name">高等代数</td>
+                        <td class="attendance-rate">98.0%</td>
+                        <td class="completion-rate">96.0%</td>
+                        <td>
+                            <div class="performance-badges">
+                                <span class="badge badge-excellent">优秀</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="course-name">解析几何</td>
+                        <td class="attendance-rate">97.9%</td>
+                        <td class="completion-rate">99.0%</td>
+                        <td>
+                            <div class="performance-badges">
+                                <span class="badge badge-excellent">优秀</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="course-name">英语</td>
+                        <td class="attendance-rate">98.5%</td>
+                        <td class="completion-rate">96.0%</td>
+                        <td>
+                            <div class="performance-badges">
+                                <span class="badge badge-excellent">优秀</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="analysis-section">
+                <div class="analysis-title">📊 班级学习情况分析</div>
+                <ul class="analysis-points">
+                    <li><strong>出勤表现优秀：</strong>四门核心课程平均出勤率达到97.85%，体现了班级同学端正的学习态度和良好的纪律性。</li>
+                    <li><strong>作业完成质量高：</strong>平均作业完成率96.38%，其中解析几何完成率最高（99%），展现了同学们对专业课程的重视程度。</li>
+                    <li><strong>学习态度积极：</strong>高等代数、解析几何和英语三门课程在出勤率和作业完成率上均表现优异，获得"优秀"评价。</li>
+                    <li><strong>持续进步空间：</strong>数学分析课程的作业完成率（94.5%）相对较低，建议下学期加强督促和辅导，争取全面提升。</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer">
+            河北工业大学 理学院 数学系
+            <div class="signature">2023级数学班级 学习委员会 制</div>
+        </div>
+    </div>
+</body>
+</html>

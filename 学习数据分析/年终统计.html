@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>河北工业大学数学班级学习情况报告</title>
+    <title>河北工业大学数学班级学习情况年度报告</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -12,62 +13,220 @@
             box-sizing: border-box;
         }
         
+        :root {
+            --primary: #0066cc;
+            --secondary: #00b894;
+            --accent: #fd79a8;
+            --dark: #0c1a2d;
+            --light: #ffffff;
+            --card-bg: rgba(20, 30, 48, 0.85);
+            --chart-blue: #4dabf7;
+            --chart-green: #69db7c;
+        }
+        
         body {
             font-family: "Microsoft YaHei", "SimHei", "PingFang SC", sans-serif;
-            background: linear-gradient(135deg, #0c1a2d 0%, #152642 100%);
+            background: linear-gradient(135deg, #0c1a2d 0%, #152642 50%, #1e3a5f 100%);
             color: #ffffff;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* 数学背景元素 */
+        .math-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.05;
+            pointer-events: none;
+        }
+        
+        .math-symbol {
+            position: absolute;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: bold;
+        }
+        
+        .math-symbol:nth-child(1) { top: 10%; left: 5%; animation: float 15s infinite linear; }
+        .math-symbol:nth-child(2) { top: 20%; right: 10%; animation: float 18s infinite linear 2s; }
+        .math-symbol:nth-child(3) { top: 40%; left: 15%; animation: float 20s infinite linear 4s; }
+        .math-symbol:nth-child(4) { bottom: 30%; right: 5%; animation: float 16s infinite linear 1s; }
+        .math-symbol:nth-child(5) { bottom: 10%; left: 20%; animation: float 14s infinite linear 3s; }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        
+        /* 粒子背景 */
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(77, 171, 247, 0.5);
+            border-radius: 50%;
         }
         
         .container {
             width: 100%;
             max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
         
-        /* 头部样式 */
+        /* 头部样式 - 增强 */
         .header {
             text-align: center;
-            margin-bottom: 40px;
-            padding-top: 20px;
+            margin-bottom: 50px;
+            padding-top: 30px;
+            position: relative;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 5px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            border-radius: 5px;
         }
         
         .school-name {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
             color: #4dabf7;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(77, 171, 247, 0.5);
         }
         
         .report-title {
-            font-size: 36px;
-            font-weight: 800;
-            background: linear-gradient(90deg, #4dabf7, #74c0fc, #a5d8ff);
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, #4dabf7, #74c0fc, #a5d8ff, #4dabf7);
+            background-size: 300% 100%;
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            animation: gradient 8s ease infinite;
+            letter-spacing: 1px;
+        }
+        
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
         
         .academic-year {
-            font-size: 18px;
+            font-size: 20px;
             color: #a5d8ff;
             opacity: 0.9;
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(20, 30, 48, 0.6);
+            border-radius: 20px;
+            border: 1px solid rgba(77, 171, 247, 0.3);
+        }
+        
+        /* 汇总数据卡片 - 增强 */
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .summary-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(77, 171, 247, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .summary-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--chart-blue), var(--chart-green));
+        }
+        
+        .summary-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(77, 171, 247, 0.5);
+        }
+        
+        .summary-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--chart-blue);
+        }
+        
+        .summary-value {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin: 15px 0;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        
+        .attendance-summary {
+            color: var(--chart-blue);
+            background: linear-gradient(90deg, var(--chart-blue), #a5d8ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .homework-summary {
+            color: var(--chart-green);
+            background: linear-gradient(90deg, var(--chart-green), #b2f2bb);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .summary-label {
+            font-size: 18px;
+            color: #a5d8ff;
         }
         
         /* 主要内容区域 */
         .main-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 40px;
+            gap: 40px;
+            margin-bottom: 60px;
         }
         
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
             .main-content {
                 grid-template-columns: 1fr;
             }
@@ -75,25 +234,45 @@
         
         /* 数据卡片样式 */
         .data-card {
-            background: rgba(20, 30, 48, 0.8);
+            background: var(--card-bg);
             border-radius: 20px;
-            padding: 30px;
+            padding: 35px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(77, 171, 247, 0.2);
             backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .data-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--chart-blue), var(--chart-green));
+        }
+        
+        .data-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
         }
         
         .card-title {
-            font-size: 24px;
-            font-weight: 600;
+            font-size: 28px;
+            font-weight: 700;
             color: #4dabf7;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             display: flex;
             align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(77, 171, 247, 0.3);
         }
         
         .card-title i {
-            margin-right: 10px;
+            margin-right: 15px;
             font-size: 28px;
         }
         
@@ -108,119 +287,182 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
+            padding: 20px 25px;
             background: rgba(30, 40, 60, 0.7);
-            border-radius: 12px;
-            transition: transform 0.3s, background 0.3s;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .course-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--chart-blue), var(--chart-green));
         }
         
         .course-item:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px);
             background: rgba(40, 50, 80, 0.9);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-color: rgba(77, 171, 247, 0.3);
         }
         
         .course-name {
-            font-size: 18px;
-            font-weight: 600;
+            font-size: 20px;
+            font-weight: 700;
             color: #69db7c;
+            display: flex;
+            align-items: center;
+        }
+        
+        .course-name i {
+            margin-right: 10px;
+            font-size: 20px;
         }
         
         .course-stats {
             display: flex;
-            gap: 30px;
+            gap: 40px;
         }
         
         .stat-item {
-            text-align: right;
+            text-align: center;
         }
         
         .stat-label {
-            font-size: 14px;
+            font-size: 16px;
             color: #a5d8ff;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            display: block;
         }
         
         .stat-value {
-            font-size: 24px;
-            font-weight: 700;
+            font-size: 28px;
+            font-weight: 800;
+            display: block;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
         }
         
         .attendance-value {
-            color: #4dabf7;
+            color: var(--chart-blue);
         }
         
         .homework-value {
-            color: #69db7c;
+            color: var(--chart-green);
         }
         
         /* 图表容器 */
         .chart-container {
             position: relative;
-            height: 350px;
+            height: 320px;
             margin-top: 20px;
         }
         
-        /* 汇总数据卡片 */
-        .summary-cards {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-        
-        .summary-card {
-            background: rgba(20, 30, 48, 0.8);
-            border-radius: 20px;
-            padding: 25px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(77, 171, 247, 0.2);
-            backdrop-filter: blur(10px);
-        }
-        
-        .summary-value {
-            font-size: 42px;
-            font-weight: 800;
-            margin: 15px 0;
-        }
-        
-        .summary-label {
-            font-size: 16px;
-            color: #a5d8ff;
-        }
-        
-        .attendance-summary {
+        .chart-title {
+            font-size: 20px;
+            font-weight: 600;
             color: #4dabf7;
-        }
-        
-        .homework-summary {
-            color: #69db7c;
+            margin-bottom: 20px;
+            text-align: center;
         }
         
         /* 底部信息 */
         .footer {
             text-align: center;
-            padding: 20px 0;
+            padding: 40px 0;
             color: #a5d8ff;
             border-top: 1px solid rgba(77, 171, 247, 0.2);
             width: 100%;
             margin-top: 20px;
+            position: relative;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            border-radius: 5px;
         }
         
         .class-info {
-            font-size: 16px;
-            margin-bottom: 8px;
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: 600;
         }
         
         .date-info {
-            font-size: 14px;
+            font-size: 16px;
             opacity: 0.8;
+        }
+        
+        /* 进度条样式 */
+        .progress-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .progress-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .progress-label {
+            width: 150px;
+            font-size: 16px;
+            color: #a5d8ff;
+        }
+        
+        .progress-bar {
+            flex: 1;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .attendance-progress {
+            background: linear-gradient(90deg, var(--chart-blue), #74c0fc);
+        }
+        
+        .homework-progress {
+            background: linear-gradient(90deg, var(--chart-green), #b2f2bb);
+        }
+        
+        .progress-value {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
         }
         
         /* 响应式调整 */
         @media (max-width: 768px) {
             .report-title {
-                font-size: 28px;
+                font-size: 2.2rem;
             }
             
             .summary-cards {
@@ -232,97 +474,260 @@
                 gap: 10px;
             }
             
+            .chart-container {
+                height: 250px;
+            }
+            
             .stat-item {
                 text-align: left;
             }
             
-            .chart-container {
-                height: 300px;
+            .main-content {
+                gap: 25px;
             }
+            
+            .data-card {
+                padding: 25px;
+            }
+        }
+        
+        /* 3D卡片效果 */
+        .card-3d {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        .card-3d:hover {
+            transform: rotateY(5deg) rotateX(5deg);
+        }
+        
+        /* 光泽效果 */
+        .glossy {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .glossy::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.1) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            transition: all 0.5s ease;
+        }
+        
+        .glossy:hover::after {
+            left: 100%;
+        }
+        
+        /* 数据卡片动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+        
+        /* 数据闪烁动画 */
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* 返回按钮 */
+        .back-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--chart-blue), var(--chart-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            text-decoration: none;
+        }
+        
+        .back-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
         }
     </style>
 </head>
 <body>
+    <!-- 数学背景符号 -->
+    <div class="math-bg">
+        <div class="math-symbol">∑</div>
+        <div class="math-symbol">∫</div>
+        <div class="math-symbol">π</div>
+        <div class="math-symbol">Δ</div>
+        <div class="math-symbol">∂</div>
+    </div>
+    
+    <!-- 粒子背景 -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- 返回按钮 -->
+    <a href="index.html" class="back-btn">
+        <i class="fas fa-home"></i>
+    </a>
+    
     <div class="container">
         <!-- 头部标题 -->
         <div class="header">
             <div class="school-name">河北工业大学</div>
             <h1 class="report-title">数学班级学习情况年度报告</h1>
-            <div class="academic-year">2025学年下半年 数据统计与可视化</div>
+            <div class="academic-year">2023-2024学年 数据统计与可视化</div>
         </div>
         
         <!-- 汇总数据卡片 -->
         <div class="summary-cards">
-            <div class="summary-card">
-                <div class="summary-label">平均出勤率</div>
+            <div class="summary-card glossy fade-in">
+                <i class="fas fa-user-check summary-icon"></i>
                 <div class="summary-value attendance-summary">97.85%</div>
+                <div class="summary-label">平均出勤率</div>
                 <div class="summary-label">四门核心课程平均</div>
+                
+                <!-- 进度条 -->
+                <div class="progress-container">
+                    <div class="progress-item">
+                        <div class="progress-label">数学分析</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill attendance-progress" style="width: 97%">
+                                <div class="progress-value">97%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-label">高等代数</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill attendance-progress" style="width: 98%">
+                                <div class="progress-value">98%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="summary-card">
-                <div class="summary-label">平均作业完成率</div>
+            
+            <div class="summary-card glossy fade-in delay-1">
+                <i class="fas fa-tasks summary-icon"></i>
                 <div class="summary-value homework-summary">96.38%</div>
+                <div class="summary-label">平均作业完成率</div>
                 <div class="summary-label">四门核心课程平均</div>
+                
+                <!-- 进度条 -->
+                <div class="progress-container">
+                    <div class="progress-item">
+                        <div class="progress-label">解析几何</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill homework-progress" style="width: 99%">
+                                <div class="progress-value">99%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-label">英语</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill homework-progress" style="width: 96%">
+                                <div class="progress-value">96%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
         <!-- 主要内容区域 -->
         <div class="main-content">
             <!-- 左侧：课程数据列表 -->
-            <div class="data-card">
-                <div class="card-title">📊 课程学习数据明细</div>
+            <div class="data-card glossy card-3d fade-in delay-2">
+                <div class="card-title"><i class="fas fa-chart-bar"></i> 课程学习数据明细</div>
                 <div class="course-list">
                     <div class="course-item">
-                        <div class="course-name">数学分析</div>
+                        <div class="course-name"><i class="fas fa-calculator"></i> 数学分析</div>
                         <div class="course-stats">
                             <div class="stat-item">
                                 <div class="stat-label">出勤率</div>
-                                <div class="stat-value attendance-value">97%</div>
+                                <div class="stat-value attendance-value pulse">97%</div>
                             </div>
                             <div class="stat-item">
                                 <div class="stat-label">作业完成率</div>
-                                <div class="stat-value homework-value">94.5%</div>
+                                <div class="stat-value homework-value pulse">94.5%</div>
                             </div>
                         </div>
                     </div>
                     
                     <div class="course-item">
-                        <div class="course-name">高等代数</div>
+                        <div class="course-name"><i class="fas fa-superscript"></i> 高等代数</div>
                         <div class="course-stats">
                             <div class="stat-item">
                                 <div class="stat-label">出勤率</div>
-                                <div class="stat-value attendance-value">98%</div>
+                                <div class="stat-value attendance-value pulse">98%</div>
                             </div>
                             <div class="stat-item">
                                 <div class="stat-label">作业完成率</div>
-                                <div class="stat-value homework-value">96%</div>
+                                <div class="stat-value homework-value pulse">96%</div>
                             </div>
                         </div>
                     </div>
                     
                     <div class="course-item">
-                        <div class="course-name">解析几何</div>
+                        <div class="course-name"><i class="fas fa-drafting-compass"></i> 解析几何</div>
                         <div class="course-stats">
                             <div class="stat-item">
                                 <div class="stat-label">出勤率</div>
-                                <div class="stat-value attendance-value">97.9%</div>
+                                <div class="stat-value attendance-value pulse">97.9%</div>
                             </div>
                             <div class="stat-item">
                                 <div class="stat-label">作业完成率</div>
-                                <div class="stat-value homework-value">99%</div>
+                                <div class="stat-value homework-value pulse">99%</div>
                             </div>
                         </div>
                     </div>
                     
                     <div class="course-item">
-                        <div class="course-name">英语</div>
+                        <div class="course-name"><i class="fas fa-language"></i> 英语</div>
                         <div class="course-stats">
                             <div class="stat-item">
                                 <div class="stat-label">出勤率</div>
-                                <div class="stat-value attendance-value">98.5%</div>
+                                <div class="stat-value attendance-value pulse">98.5%</div>
                             </div>
                             <div class="stat-item">
                                 <div class="stat-label">作业完成率</div>
-                                <div class="stat-value homework-value">96%</div>
+                                <div class="stat-value homework-value pulse">96%</div>
                             </div>
                         </div>
                     </div>
@@ -330,11 +735,15 @@
             </div>
             
             <!-- 右侧：柱形图 -->
-            <div class="data-card">
-                <div class="card-title">📈 数据可视化分析</div>
+            <div class="data-card glossy card-3d fade-in delay-3">
+                <div class="card-title"><i class="fas fa-chart-line"></i> 数据可视化分析</div>
+                
+                <div class="chart-title">各课程出勤率对比</div>
                 <div class="chart-container">
                     <canvas id="attendanceChart"></canvas>
                 </div>
+                
+                <div class="chart-title">各课程作业完成率对比</div>
                 <div class="chart-container">
                     <canvas id="homeworkChart"></canvas>
                 </div>
@@ -342,17 +751,51 @@
         </div>
         
         <!-- 底部信息 -->
-        <div class="footer">
+        <div class="footer fade-in delay-4">
             <div class="class-info">理学院 · 2023级数学专业 · 班级学习委员会</div>
             <div class="date-info">数据统计日期：2024年12月 · 年终汇报展示</div>
         </div>
     </div>
     
     <script>
+        // 生成粒子背景
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // 随机位置
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const size = Math.random() * 3 + 1;
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.animation = `float ${duration}s linear ${delay}s infinite`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
         // 准备数据
         const courses = ['数学分析', '高等代数', '解析几何', '英语'];
         const attendanceData = [97, 98, 97.9, 98.5];
         const homeworkData = [94.5, 96, 99, 96];
+        
+        // 创建渐变色
+        function createGradient(ctx, color1, color2) {
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, color1);
+            gradient.addColorStop(1, color2);
+            return gradient;
+        }
         
         // 出勤率柱形图
         const attendanceCtx = document.getElementById('attendanceChart').getContext('2d');
@@ -363,20 +806,10 @@
                 datasets: [{
                     label: '出勤率 (%)',
                     data: attendanceData,
-                    backgroundColor: [
-                        'rgba(77, 171, 247, 0.7)',
-                        'rgba(77, 171, 247, 0.7)',
-                        'rgba(77, 171, 247, 0.7)',
-                        'rgba(77, 171, 247, 0.7)'
-                    ],
-                    borderColor: [
-                        'rgba(77, 171, 247, 1)',
-                        'rgba(77, 171, 247, 1)',
-                        'rgba(77, 171, 247, 1)',
-                        'rgba(77, 171, 247, 1)'
-                    ],
+                    backgroundColor: createGradient(attendanceCtx, 'rgba(77, 171, 247, 0.9)', 'rgba(77, 171, 247, 0.4)'),
+                    borderColor: 'rgba(77, 171, 247, 1)',
                     borderWidth: 1,
-                    borderRadius: 8,
+                    borderRadius: 10,
                     borderSkipped: false,
                 }]
             },
@@ -385,21 +818,22 @@
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        labels: {
-                            color: '#ffffff',
-                            font: {
-                                size: 14
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(20, 30, 48, 0.9)',
+                        titleColor: '#a5d8ff',
+                        bodyColor: '#ffffff',
+                        borderColor: 'rgba(77, 171, 247, 0.5)',
+                        borderWidth: 1,
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.parsed.y}%`;
                             }
                         }
                     },
-                    title: {
-                        display: true,
-                        text: '各课程出勤率对比',
-                        color: '#4dabf7',
-                        font: {
-                            size: 16,
-                            weight: 'bold'
-                        }
+                    datalabels: {
+                        display: false
                     }
                 },
                 scales: {
@@ -408,26 +842,35 @@
                         min: 94,
                         max: 100,
                         grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
+                            color: 'rgba(255, 255, 255, 0.1)',
+                            drawBorder: false
                         },
                         ticks: {
                             color: '#a5d8ff',
                             callback: function(value) {
                                 return value + '%';
+                            },
+                            font: {
+                                size: 12
                             }
                         }
                     },
                     x: {
                         grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
+                            display: false
                         },
                         ticks: {
                             color: '#ffffff',
                             font: {
-                                size: 13
+                                size: 13,
+                                weight: 'bold'
                             }
                         }
                     }
+                },
+                animation: {
+                    duration: 1500,
+                    easing: 'easeOutQuart'
                 }
             }
         });
@@ -441,20 +884,10 @@
                 datasets: [{
                     label: '作业完成率 (%)',
                     data: homeworkData,
-                    backgroundColor: [
-                        'rgba(105, 219, 124, 0.7)',
-                        'rgba(105, 219, 124, 0.7)',
-                        'rgba(105, 219, 124, 0.7)',
-                        'rgba(105, 219, 124, 0.7)'
-                    ],
-                    borderColor: [
-                        'rgba(105, 219, 124, 1)',
-                        'rgba(105, 219, 124, 1)',
-                        'rgba(105, 219, 124, 1)',
-                        'rgba(105, 219, 124, 1)'
-                    ],
+                    backgroundColor: createGradient(homeworkCtx, 'rgba(105, 219, 124, 0.9)', 'rgba(105, 219, 124, 0.4)'),
+                    borderColor: 'rgba(105, 219, 124, 1)',
                     borderWidth: 1,
-                    borderRadius: 8,
+                    borderRadius: 10,
                     borderSkipped: false,
                 }]
             },
@@ -463,21 +896,22 @@
                 maintainAspectRatio: false,
                 plugins: {
                     legend: {
-                        labels: {
-                            color: '#ffffff',
-                            font: {
-                                size: 14
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(20, 30, 48, 0.9)',
+                        titleColor: '#a5d8ff',
+                        bodyColor: '#ffffff',
+                        borderColor: 'rgba(105, 219, 124, 0.5)',
+                        borderWidth: 1,
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.parsed.y}%`;
                             }
                         }
                     },
-                    title: {
-                        display: true,
-                        text: '各课程作业完成率对比',
-                        color: '#69db7c',
-                        font: {
-                            size: 16,
-                            weight: 'bold'
-                        }
+                    datalabels: {
+                        display: false
                     }
                 },
                 scales: {
@@ -486,26 +920,36 @@
                         min: 90,
                         max: 100,
                         grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
+                            color: 'rgba(255, 255, 255, 0.1)',
+                            drawBorder: false
                         },
                         ticks: {
                             color: '#a5d8ff',
                             callback: function(value) {
                                 return value + '%';
+                            },
+                            font: {
+                                size: 12
                             }
                         }
                     },
                     x: {
                         grid: {
-                            color: 'rgba(255, 255, 255, 0.1)'
+                            display: false
                         },
                         ticks: {
                             color: '#ffffff',
                             font: {
-                                size: 13
+                                size: 13,
+                                weight: 'bold'
                             }
                         }
                     }
+                },
+                animation: {
+                    duration: 1500,
+                    easing: 'easeOutQuart',
+                    delay: 300
                 }
             }
         });
@@ -514,6 +958,60 @@
         window.addEventListener('resize', function() {
             attendanceChart.resize();
             homeworkChart.resize();
+        });
+        
+        // 初始化粒子背景
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // 为课程项添加点击效果
+            const courseItems = document.querySelectorAll('.course-item');
+            courseItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                });
+            });
+            
+            // 为卡片添加鼠标移动效果
+            const cards = document.querySelectorAll('.data-card, .summary-card');
+            cards.forEach(card => {
+                card.addEventListener('mousemove', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateY = (x - centerX) / 25;
+                    const rotateX = (centerY - y) / 25;
+                    
+                    this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+                });
+            });
+            
+            // 数据值动画
+            const statValues = document.querySelectorAll('.stat-value');
+            statValues.forEach(value => {
+                const finalValue = parseFloat(value.textContent);
+                let currentValue = 0;
+                const increment = finalValue / 20;
+                const interval = setInterval(() => {
+                    currentValue += increment;
+                    if (currentValue >= finalValue) {
+                        currentValue = finalValue;
+                        clearInterval(interval);
+                    }
+                    value.textContent = currentValue.toFixed(currentValue % 1 === 0 ? 0 : 1) + '%';
+                }, 50);
+            });
         });
     </script>
 </body>

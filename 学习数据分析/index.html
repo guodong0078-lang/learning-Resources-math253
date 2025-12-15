@@ -1,1 +1,569 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数学数据分析学习平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --accent: #fd79a8;
+            --dark: #2d3436;
+            --light: #dfe6e9;
+            --math-blue: #0984e3;
+            --math-purple: #6c5ce7;
+            --math-pink: #e84393;
+            --math-green: #00b894;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0c0e27 0%, #1a1c3a 50%, #2d194d 100%);
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-attachment: fixed;
+        }
+        
+        .math-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            z-index: -1;
+            background-image: 
+                radial-gradient(circle at 20% 30%, var(--math-blue) 1px, transparent 1px),
+                radial-gradient(circle at 80% 70%, var(--math-pink) 1px, transparent 1px),
+                radial-gradient(circle at 40% 80%, var(--math-green) 1px, transparent 1px);
+            background-size: 50px 50px, 70px 70px, 90px 90px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 30px 0;
+            position: relative;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--math-purple);
+            margin-right: 15px;
+            text-shadow: 0 0 10px rgba(108, 92, 231, 0.5);
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--math-purple), var(--math-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 25px;
+        }
+        
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        nav a:hover {
+            background: rgba(108, 92, 231, 0.2);
+            color: var(--secondary);
+        }
+        
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        nav a:hover::before {
+            left: 100%;
+        }
+        
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 60px 0;
+            position: relative;
+        }
+        
+        .hero-content {
+            flex: 1;
+            padding-right: 40px;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(90deg, #a29bfe, #fd79a8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            color: #dfe6e9;
+            max-width: 90%;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--math-purple), var(--math-pink));
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.6);
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s;
+        }
+        
+        .btn:hover::after {
+            transform: translateX(100%);
+        }
+        
+        .hero-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .math-viz {
+            width: 100%;
+            height: 400px;
+            background: rgba(30, 32, 65, 0.7);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .graphic-element {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.7;
+            filter: blur(10px);
+        }
+        
+        .element-1 {
+            width: 200px;
+            height: 200px;
+            background: var(--math-purple);
+            top: 10%;
+            left: 10%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .element-2 {
+            width: 150px;
+            height: 150px;
+            background: var(--math-pink);
+            bottom: 15%;
+            right: 10%;
+            animation: float 8s ease-in-out infinite 1s;
+        }
+        
+        .element-3 {
+            width: 100px;
+            height: 100px;
+            background: var(--math-green);
+            top: 50%;
+            left: 20%;
+            animation: float 5s ease-in-out infinite 0.5s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 80px 0;
+        }
+        
+        .feature-card {
+            background: rgba(30, 32, 65, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(108, 92, 231, 0.3);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            border-color: rgba(108, 92, 231, 0.6);
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--math-purple), var(--math-pink));
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--math-purple);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+        
+        .feature-card p {
+            color: #b2bec3;
+            line-height: 1.6;
+        }
+        
+        .year-summary {
+            background: linear-gradient(135deg, rgba(44, 44, 84, 0.8), rgba(73, 27, 95, 0.8));
+            border-radius: 20px;
+            padding: 50px;
+            margin: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .year-summary::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(253, 121, 168, 0.1) 0%, transparent 70%);
+            animation: pulse 10s infinite linear;
+        }
+        
+        @keyframes pulse {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .year-summary h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .year-summary p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: #dfe6e9;
+        }
+        
+        .summary-btn {
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+            font-size: 1.1rem;
+            padding: 15px 40px;
+        }
+        
+        .floating-math {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.7;
+            color: var(--math-purple);
+        }
+        
+        .math-1 { top: 20px; left: 30px; animation: float-math 15s infinite linear; }
+        .math-2 { top: 60px; right: 40px; animation: float-math 18s infinite linear 2s; }
+        .math-3 { bottom: 40px; left: 50px; animation: float-math 20s infinite linear 4s; }
+        .math-4 { bottom: 80px; right: 60px; animation: float-math 16s infinite linear 1s; }
+        
+        @keyframes float-math {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 60px;
+            border-top: 1px solid rgba(108, 92, 231, 0.3);
+            color: #b2bec3;
+        }
+        
+        @media (max-width: 968px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-content {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav li {
+                margin: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="math-bg"></div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-infinity"></i>
+                </div>
+                <div class="logo-text">MathData Analytics</div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#"><i class="fas fa-home"></i> 首页</a></li>
+                    <li><a href="#"><i class="fas fa-book"></i> 学习资源</a></li>
+                    <li><a href="#"><i class="fas fa-chart-bar"></i> 数据分析</a></li>
+                    <li><a href="#"><i class="fas fa-project-diagram"></i> 项目实战</a></li>
+                    <li><a href="#"><i class="fas fa-users"></i> 关于我们</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <section class="hero">
+            <div class="hero-content">
+                <h1>探索数学与数据分析的无限可能</h1>
+                <p>本平台整合数学理论与现代数据分析技术，提供从基础统计到机器学习算法的完整学习路径。通过实际案例和交互式可视化，让复杂的数学概念变得直观易懂。</p>
+                <a href="#" class="btn">开始学习之旅 <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="hero-visual">
+                <div class="math-viz">
+                    <div class="graphic-element element-1"></div>
+                    <div class="graphic-element element-2"></div>
+                    <div class="graphic-element element-3"></div>
+                    <div class="floating-math math-1">∫</div>
+                    <div class="floating-math math-2">∑</div>
+                    <div class="floating-math math-3">π</div>
+                    <div class="floating-math math-4">∂</div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h3>数学基础强化</h3>
+                <p>从线性代数、微积分到概率论与数理统计，建立扎实的数学基础，为数据分析打下坚实理论根基。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3>数据处理技术</h3>
+                <p>学习使用Python、R、SQL等工具进行数据清洗、整理和转换，掌握处理实际数据问题的核心技能。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>统计分析与可视化</h3>
+                <p>运用统计方法分析数据，通过Tableau、Matplotlib等工具创建直观的数据可视化报告。</p>
+            </div>
+        </section>
+        
+        <section class="year-summary">
+            <h2><i class="fas fa-calendar-alt"></i> 2023-2024学年总结报告</h2>
+            <p>回顾本学年数学数据分析课程的学习成果，查看个人学习进度、成绩分析和知识掌握情况。通过交互式报告，全面了解自己在数学与数据分析领域的成长轨迹。</p>
+            <a href="year-summary.html" class="btn summary-btn">进入年终总结 <i class="fas fa-chart-pie"></i></a>
+            
+            <div class="floating-math math-1">α</div>
+            <div class="floating-math math-2">β</div>
+            <div class="floating-math math-3">γ</div>
+            <div class="floating-math math-4">δ</div>
+        </section>
+        
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>机器学习算法</h3>
+                <p>从回归分析到深度学习，探索各类机器学习算法的数学原理和应用场景，实现预测建模。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+                <h3>实战项目</h3>
+                <p>通过真实数据集的项目实践，将数学理论与数据分析技术应用于解决实际问题。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <h3>学习社区</h3>
+                <p>加入数学数据分析学习社区，与同行交流经验，参与讨论，共同进步。</p>
+            </div>
+        </section>
+        
+        <footer>
+            <p>数学数据分析学习平台 &copy; 2024 | 河北工业大学数学科学学院</p>
+            <p>结合数学理论与现代数据科学技术，培养未来的数据分析专家</p>
+        </footer>
+    </div>
 
+    <script>
+        // 添加动态效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为特性卡片添加鼠标悬停效果
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+            
+            // 年终总结按钮的点击效果
+            const summaryBtn = document.querySelector('.summary-btn');
+            summaryBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // 创建点击效果
+                const effect = document.createElement('div');
+                effect.style.position = 'fixed';
+                effect.style.top = e.clientY + 'px';
+                effect.style.left = e.clientX + 'px';
+                effect.style.width = '5px';
+                effect.style.height = '5px';
+                effect.style.borderRadius = '50%';
+                effect.style.background = 'radial-gradient(circle, #fd79a8, transparent)';
+                effect.style.pointerEvents = 'none';
+                effect.style.zIndex = '1000';
+                effect.style.animation = 'ripple 0.6s linear forwards';
+                
+                document.body.appendChild(effect);
+                
+                // 添加涟漪动画
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes ripple {
+                        0% { transform: scale(1); opacity: 1; }
+                        100% { transform: scale(20); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                // 移除动画元素
+                setTimeout(() => {
+                    document.body.removeChild(effect);
+                    document.head.removeChild(style);
+                }, 600);
+                
+                // 在实际应用中，这里应该跳转到年终总结页面
+                // window.location.href = 'year-summary.html';
+                alert('即将跳转到年终总结页面！');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -3,481 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>数学分析 - 河北工业大学</title>
+    <title>数学分析 | 学术资源库</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 加载 MathJax 渲染数学公式 -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <style>
-        :root {
-            --primary-color: #3498db;
-            --secondary-color: #2c3e50;
-            --accent-color: #e74c3c;
-            --light-color: #ecf0f1;
-            --dark-color: #34495e;
+        body { font-family: 'Inter', system-ui, sans-serif; background-color: #0b0f1a; color: #ffffff; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        .item-hover:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: rgba(99, 102, 241, 0.4);
+            transform: translateX(10px);
         }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* 导航栏样式 */
-        header {
-            background: var(--secondary-color);
-            color: white;
-            padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .logo i {
-            font-size: 2rem;
-            color: var(--primary-color);
-        }
-        
-        .logo h1 {
-            font-size: 1.8rem;
-        }
-        
-        .logo span {
-            color: var(--primary-color);
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav li {
-            margin-left: 1.5rem;
-        }
-        
-        nav a {
-            color: white;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-        
-        nav a:hover, nav a.active {
-            background: var(--primary-color);
-        }
-        
-        /* 主要内容区域 */
-        main {
-            padding: 2rem 0;
-        }
-        
-        .page-header {
-            text-align: center;
-            margin-bottom: 2rem;
-            padding: 2rem;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        
-        .page-header h2 {
-            color: var(--secondary-color);
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .page-header p {
-            font-size: 1.2rem;
-            color: #666;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        /* 章节网格布局 */
-        .chapters-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .chapter-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .chapter-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-        }
-        
-        .card-header {
-            background: var(--primary-color);
-            color: white;
-            padding: 1.5rem;
-            text-align: center;
-        }
-        
-        .card-header h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .card-body {
-            padding: 1.5rem;
-        }
-        
-        .card-body ul {
-            list-style: none;
-            margin: 0;
-        }
-        
-        .card-body li {
-            margin-bottom: 0.8rem;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-        
-        .card-body li:before {
-            content: "•";
-            color: var(--primary-color);
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-        }
-        
-        .card-body a {
-            color: var(--secondary-color);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            display: block;
-            padding: 0.5rem 0;
-        }
-        
-        .card-body a:hover {
-            color: var(--primary-color);
-        }
-        
-        .card-footer {
-            padding: 1rem 1.5rem;
-            background: #f8f9fa;
-            text-align: center;
-        }
-        
-        .btn {
-            display: inline-block;
-            background: var(--primary-color);
-            color: white;
-            padding: 0.7rem 1.5rem;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-        
-        .btn:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
-        }
-        
-        /* 页脚样式 */
-        footer {
-            background: var(--secondary-color);
-            color: white;
-            padding: 2rem 0;
-            margin-top: 3rem;
-        }
-        
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-        
-        .footer-section {
-            flex: 1;
-            min-width: 250px;
-            margin-bottom: 1.5rem;
-        }
-        
-        .footer-section h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-        }
-        
-        .footer-section ul {
-            list-style: none;
-        }
-        
-        .footer-section li {
-            margin-bottom: 0.5rem;
-        }
-        
-        .footer-section a {
-            color: #ddd;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-section a:hover {
-            color: var(--primary-color);
-        }
-        
-        .copyright {
-            text-align: center;
-            margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 1px solid #4a5f7a;
-            color: #bdc3c7;
-        }
-        
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .logo {
-                margin-bottom: 1rem;
-            }
-            
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            nav li {
-                margin: 0.5rem;
-            }
-            
-            .chapters-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .footer-content {
-                flex-direction: column;
-            }
+        .gradient-border {
+            border-left: 4px solid #6366f1;
         }
     </style>
 </head>
-<body>
-    <!-- 导航栏 -->
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-square-root-alt"></i>
-                    <h1>数学<span>分析</span></h1>
-                </div>
-                <nav>
-                    <ul>
-                        <li><a href="index.html" class="active">首页</a></li>
-                        <li><a href="chapters.html">章节列表</a></li>
-                        <li><a href="exercises.html">习题练习</a></li>
-                        <li><a href="resources.html">学习资源</a></li>
-                        <li><a href="about.html">关于我们</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
+<body class="antialiased">
 
-    <!-- 主要内容 -->
-    <main class="container">
-        <div class="page-header">
-            <h2>数学分析课程主页</h2>
-            <p>河北工业大学数学253班 - 程渤栋</p>
+    <!-- 顶部导航 -->
+    <nav class="fixed w-full z-50 border-b border-white/5 bg-slate-950/80 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="index.html" class="flex items-center text-slate-400 hover:text-white transition">
+                <i class="fa-solid fa-arrow-left mr-2"></i>
+                <span class="text-sm font-bold uppercase tracking-widest">返回主页</span>
+            </a>
+            <div class="text-indigo-500 font-mono text-xs italic">
+                \[ \lim_{n \to \infty} (1 + \frac{1}{n})^n = e \]
+            </div>
         </div>
-        
-        <div class="chapters-grid">
-            <!-- 第一章：集合与实数理论 -->
-            <div class="chapter-card">
-                <div class="card-header">
-                    <h3>第一章：集合与实数理论</h3>
-                    <p>基础概念与实数性质</p>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <!-- 这里添加指向集合和映射页面的链接 -->
-                        <li><a href="集合与实数理论/集合和映射.html">1.1 集合和映射</a></li>
-                        <li><a href="集合与实数理论/实数系统.html">1.2 实数系统</a></li>
-                        <li><a href="集合与实数理论/确界原理.html">1.3 确界原理</a></li>
-                        <li><a href="集合与实数理论/不等式.html">1.4 不等式</a></li>
-                        <li><a href="集合与实数理论/戴德金连续性公理的证明以及连续性公理和确界原理的互证.html">戴德金连续性公理的证明以及连续性公理和确界原理的互证</a></li>
-                        <li><a href="集合与实数理论/良序定理.html">良序定理</a></li>
-                        <li><a href="集合与实数理论/实数完备性七大定理循环证明.html">实数完备性七大定理循环证明</a></li>
-                       <li><a href="集合与实数理论/佐恩引理.html">佐恩引理</a></li>
-                        <li><a href="论文.html">论文>lu></li>
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <a href="1-集合与实数理论/index.html" class="btn">进入第一章</a>
-                </div>
-            </div>
-            
-            <!-- 第二章：数列极限 -->
-            <div class="chapter-card">
-                <div class="card-header">
-                    <h3>第二章：数列极限</h3>
-                    <p>极限理论与收敛性</p>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li><a href="数列极限/2.1数列的极限.html">2.1 数列的极限</a></li>
-                        <li><a href="2-数列极限/数列极限的性质.html">2.2 数列极限的性质</a></li>
-                        <li><a href="2-数列极限/极限运算与无穷小数列.html">2.3 极限运算与无穷小数列</a></li>
-                        <li><a href="2-数列极限/无穷大量与Stolz定理.html">2.4 无穷大量与Stolz定理</a></li>
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <a href="2-数列极限/index.html" class="btn">进入第二章</a>
-                </div>
-            </div>
-            
-            <!-- 第三章：函数极限与连续 -->
-            <div class="chapter-card">
-                <div class="card-header">
-                    <h3>第三章：函数极限与连续</h3>
-                    <p>函数性质与连续性</p>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li><a href="3-函数极限与连续/函数极限.html">3.1 函数极限</a></li>
-                        <li><a href="3-函数极限与连续/两个重要极限.html">3.2 两个重要极限</a></li>
-                        <li><a href="3-函数极限与连续/函数连续性.html">3.3 函数连续性</a></li>
-                        <li><a href="3-函数极限与连续/闭区间上连续函数性质.html">3.4 闭区间上连续函数性质</a></li>
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <a href="3-函数极限与连续/index.html" class="btn">进入第三章</a>
-                </div>
-            </div>
-            
-            <!-- 第四章：导数与微分 -->
-            <div class="chapter-card">
-                <div class="card-header">
-                    <h3>第四章：导数与微分</h3>
-                    <p>微分学基础</p>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li><a href="4-导数与微分/导数概念.html">4.1 导数概念</a></li>
-                        <li><a href="4-导数与微分/求导法则.html">4.2 求导法则</a></li>
-                        <li><a href="4-导数与微分/微分中值定理.html">4.3 微分中值定理</a></li>
-                        <li><a href="4-导数与微分/泰勒公式.html">4.4 泰勒公式</a></li>
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <a href="4-导数与微分/index.html" class="btn">进入第四章</a>
-                </div>
-            </div>
-            
-            <!-- 第五章：积分学 -->
-            <div class="chapter-card">
-                <div class="card-header">
-                    <h3>第五章：积分学</h3>
-                    <p>定积分与不定积分</p>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li><a href="5-积分学/定积分概念.html">5.1 定积分概念</a></li>
-                        <li><a href="5-积分学/微积分基本定理.html">5.2 微积分基本定理</a></li>
-                        <li><a href="5-积分学/不定积分.html">5.3 不定积分</a></li>
-                        <li><a href="5-积分学/积分应用.html">5.4 积分应用</a></li>
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <a href="5-积分学/index.html" class="btn">进入第五章</a>
-                </div>
-            </div>
-            
-            <!-- 第六章：级数理论 -->
-            <div class="chapter-card">
-                <div class="card-header">
-                    <h3>第六章：级数理论</h3>
-                    <p>无穷级数与幂级数</p>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li><a href="6-级数理论/数项级数.html">6.1 数项级数</a></li>
-                        <li><a href="6-级数理论/正项级数.html">6.2 正项级数</a></li>
-                        <li><a href="6-级数理论/幂级数.html">6.3 幂级数</a></li>
-                        <li><a href="6-级数理论/傅里叶级数.html">6.4 傅里叶级数</a></li>
-                    </ul>
-                </div>
-                <div class="card-footer">
-                    <a href="6-级数理论/index.html" class="btn">进入第六章</a>
-                </div>
+    </nav>
+
+    <main class="pt-32 pb-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <!-- 标题区 -->
+            <header class="mb-16" data-aos="fade-down">
+                <h1 class="text-5xl font-black mb-4">数学分析 <span class="text-indigo-500">.</span></h1>
+                <p class="text-slate-400 max-w-2xl">Mathematical Analysis: 包含极限理论、一元及多元微积分、级数理论等核心讲义与习题。所有的力量都源于对 $\epsilon-\delta$ 定义的深刻理解。</p>
+            </header>
+
+            <!-- 三板块网格 -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- 板块 1: 章节笔记 -->
+                <section class="space-y-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center space-x-3 mb-8">
+                        <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                            <i class="fa-solid fa-book-open text-white"></i>
+                        </div>
+                        <h2 class="text-xl font-bold">章节笔记</h2>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- 笔记条目 -->
+                        <div class="glass-panel p-5 item-hover transition-all cursor-pointer group">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="font-bold text-slate-200 group-hover:text-indigo-400 transition">第一章：实数理论与数列极限</h4>
+                                    <p class="text-xs text-slate-500 mt-1 uppercase tracking-tighter">Updated: 2024.03.01</p>
+                                </div>
+                                <i class="fa-solid fa-file-pdf text-red-500"></i>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel p-5 item-hover transition-all cursor-pointer group">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="font-bold text-slate-200 group-hover:text-indigo-400 transition">第二章：函数的连续性</h4>
+                                    <p class="text-xs text-slate-500 mt-1 tracking-tighter">PDF | 4.2 MB</p>
+                                </div>
+                                <i class="fa-solid fa-file-pdf text-red-500"></i>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel p-5 item-hover transition-all cursor-pointer group">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h4 class="font-bold text-slate-200 group-hover:text-indigo-400 transition">第三章：微分中值定理</h4>
+                                    <p class="text-xs text-slate-500 mt-1 tracking-tighter">PDF | 5.1 MB</p>
+                                </div>
+                                <i class="fa-solid fa-file-pdf text-red-500"></i>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 板块 2: 练习题 -->
+                <section class="space-y-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center space-x-3 mb-8">
+                        <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/30">
+                            <i class="fa-solid fa-pen-nib text-white"></i>
+                        </div>
+                        <h2 class="text-xl font-bold">练习题</h2>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="glass-panel p-5 item-hover transition-all cursor-pointer border-l-4 border-blue-500">
+                            <h4 class="font-bold text-slate-200">每周一练 (Week 1-4)</h4>
+                            <p class="text-sm text-slate-500 mt-2 italic">重点：确界存在定理、Stolz定理的应用。</p>
+                            <div class="mt-4 flex space-x-2">
+                                <span class="text-[10px] bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded">HARD</span>
+                                <span class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded">12 Problems</span>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel p-5 item-hover transition-all cursor-pointer">
+                            <h4 class="font-bold text-slate-200">期中模拟卷 (A)</h4>
+                            <p class="text-sm text-slate-500 mt-2">涵盖前三章内容，由学委整理。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 板块 3: 答案 -->
+                <section class="space-y-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center space-x-3 mb-8">
+                        <div class="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center shadow-lg shadow-emerald-500/30">
+                            <i class="fa-solid fa-circle-check text-white"></i>
+                        </div>
+                        <h2 class="text-xl font-bold">参考答案</h2>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="glass-panel p-5 flex items-center justify-between group cursor-pointer hover:bg-emerald-500/10 transition">
+                            <div class="flex items-center space-x-4">
+                                <div class="text-emerald-500 font-mono font-bold text-lg">01.</div>
+                                <span class="text-slate-300 text-sm font-medium">课后习题第一章详尽解答</span>
+                            </div>
+                            <i class="fa-solid fa-cloud-arrow-down text-slate-600 group-hover:text-emerald-500 transition"></i>
+                        </div>
+
+                        <div class="glass-panel p-5 flex items-center justify-between group cursor-pointer hover:bg-emerald-500/10 transition">
+                            <div class="flex items-center space-x-4">
+                                <div class="text-emerald-500 font-mono font-bold text-lg">02.</div>
+                                <span class="text-slate-300 text-sm font-medium">期中模拟卷标准答案</span>
+                            </div>
+                            <i class="fa-solid fa-cloud-arrow-down text-slate-600 group-hover:text-emerald-500 transition"></i>
+                        </div>
+
+                        <!-- 提示性卡片 -->
+                        <div class="p-6 bg-emerald-500/5 rounded-3xl border border-emerald-500/20 mt-10">
+                            <h5 class="text-emerald-500 font-bold text-sm mb-2">💡 学委提醒</h5>
+                            <p class="text-slate-500 text-xs leading-relaxed">
+                                建议先独立完成习题再查看答案。数学的学习在于思维过程而非结论。
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
             </div>
         </div>
     </main>
 
     <!-- 页脚 -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>课程信息</h3>
-                    <ul>
-                        <li><a href="syllabus.html">教学大纲</a></li>
-                        <li><a href="schedule.html">课程安排</a></li>
-                        <li><a href="teachers.html">教师介绍</a></li>
-                        <li><a href="materials.html">教材与参考书</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>学习资源</h3>
-                    <ul>
-                        <li><a href="exercises.html">习题集</a></li>
-                        <li><a href="solutions.html">习题解答</a></li>
-                        <li><a href="videos.html">教学视频</a></li>
-                        <li><a href="downloads.html">资料下载</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>联系我们</h3>
-                    <ul>
-                        <li><a href="mailto:math@hebut.edu.cn">邮箱: math@hebut.edu.cn</a></li>
-                        <li><a href="tel:+861234567890">电话: +86 123 4567 890</a></li>
-                        <li><a href="location.html">地址: 河北工业大学数学系</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2023 河北工业大学数学253班 - 程渤栋. 保留所有权利。</p>
-            </div>
-        </div>
+    <footer class="py-12 border-t border-white/5 text-center">
+        <p class="text-slate-600 text-xs font-mono tracking-widest uppercase">Mathematics & Applied Math | Class Portal</p>
     </footer>
+
+    <script>
+        AOS.init({ duration: 800 });
+    </script>
 </body>
 </html>

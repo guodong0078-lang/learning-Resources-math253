@@ -1,414 +1,245 @@
+
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>河工大数学253班 - 学习资料中心</title>
+    <title>Mathematics & Applied Math | 班级学术门户</title>
+    
+    <!-- 引入 Tailwind CSS & 动画库 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- 图标与字体 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --primary-color: #3498db;
-            --secondary-color: #2c3e50;
-            --accent-color: #e74c3c;
-            --english-color: #e67e22;
-            --light-color: #ecf0f1;
-            --dark-color: #2c3e50;
-            --success-color: #2ecc71;
-            --warning-color: #f39c12;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
+            --brand-color: #6366f1;
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        body { font-family: 'Inter', sans-serif; background-color: #0b0f1a; color: #ffffff; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        /* 头部样式 */
-        header {
-            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
-            color: white;
-            padding: 30px 0;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: var(--shadow);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        header::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: rgba(255, 255, 255, 0.1);
-            transform: rotate(30deg);
-            z-index: 1;
-        }
-        
-        .header-content {
-            position: relative;
-            z-index: 2;
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 20px;
-        }
-        
-        .stats {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .stat-item {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 10px 20px;
-            border-radius: 50px;
-            backdrop-filter: blur(5px);
-        }
-        
-        /* 导航卡片样式 */
-        .nav-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-        
-        .nav-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            position: relative;
-        }
-        
-        .nav-card:hover {
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: var(--brand-color);
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
-        
-        .card-icon {
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: white;
+        .text-gradient {
+            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        
-        .card-content {
-            padding: 20px;
-        }
-        
-        .card-content h3 {
-            margin-bottom: 10px;
-            color: var(--dark-color);
-        }
-        
-        .card-content p {
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
-        
-        .btn {
-            display: inline-block;
-            background: var(--primary-color);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-        
-        .btn:hover {
-            background: var(--secondary-color);
-        }
-        
-        /* 特色区域样式 */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-        
-        .feature-card {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-        }
-        
-        .feature-icon {
-            background: var(--primary-color);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-        
-        /* 页脚样式 */
-        footer {
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            border-top: 1px solid #ddd;
-            color: #666;
-            font-size: 0.9rem;
-        }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 10px;
-        }
-        
-        .footer-links a {
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-        
-        /* 响应式设计 */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .nav-cards {
-                grid-template-columns: 1fr;
-            }
-            
-            .features {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-        
-        /* 动画效果 */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .nav-card, .feature-card {
-            animation: fadeIn 0.5s ease forwards;
-        }
-        
-        .nav-card:nth-child(2) { animation-delay: 0.1s; }
-        .nav-card:nth-child(3) { animation-delay: 0.2s; }
-        .nav-card:nth-child(4) { animation-delay: 0.3s; }
-        .nav-card:nth-child(5) { animation-delay: 0.4s; }
-        .nav-card:nth-child(6) { animation-delay: 0.5s; }
+        /* 隐藏滚动条但保持功能 */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0b0f1a; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
     </style>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <div class="header-content">
-                <h1><i class="fas fa-graduation-cap"></i> 河北工业大学 数学253班</h1>
-                <p class="subtitle">学习资料共享与分析中心 | 2025级</p>
-                <div class="stats">
-                    <div class="stat-item"><i class="fas fa-book"></i> 6个学科资料库</div>
-                    <div class="stat-item"><i class="fas fa-file-alt"></i> 132份学习资料</div>
-                    <div class="stat-item"><i class="fas fa-users"></i> 35位班级成员</div>
+<body class="antialiased">
+
+    <!-- 导航栏 (企业级简约) -->
+    <nav class="fixed w-full z-50 transition-all duration-300 border-b border-white/5 bg-slate-950/80 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3 group cursor-pointer">
+                <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center rotate-3 group-hover:rotate-12 transition-transform">
+                    <i class="fa-solid fa-sigma text-white"></i>
+                </div>
+                <span class="text-xl font-extrabold tracking-tighter uppercase">Math <span class="text-indigo-500">Class</span></span>
+            </div>
+            <div class="hidden md:flex items-center space-x-10 text-sm font-medium tracking-wide text-slate-400">
+                <a href="#subjects" class="hover:text-white transition-colors">核心课程</a>
+                <a href="#statistics" class="hover:text-white transition-colors">数据洞察</a>
+                <a href="#community" class="hover:text-white transition-colors">班级生态</a>
+                <a href="#" class="px-5 py-2.5 bg-white text-black rounded-full font-bold hover:bg-indigo-500 hover:text-white transition-all">加入研讨</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section (首屏 - 模拟顶级科技公司) -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- 背景装饰 -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-[120px]"></div>
+        
+        <div class="relative z-10 text-center px-6" data-aos="fade-up" data-aos-duration="1000">
+            <span class="px-4 py-1.5 rounded-full border border-indigo-500/30 text-indigo-400 text-xs font-bold uppercase tracking-[0.2em] mb-8 inline-block bg-indigo-500/5">
+                Mathematics & Applied Mathematics
+            </span>
+            <h1 class="text-6xl md:text-8xl font-black mb-8 leading-tight tracking-tighter">
+                探索 <span class="text-gradient">逻辑的终极</span><br>
+                记录 <span class="text-indigo-500">青春的共振</span>
+            </h1>
+            <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light leading-relaxed">
+                这里是 35 位数学极客的学术港湾。我们用代码解析世界，用公式定义未来。
+            </p>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+                <a href="#subjects" class="w-full md:w-auto px-8 py-4 bg-indigo-600 rounded-full font-bold hover:shadow-[0_0_30px_rgba(79,70,229,0.5)] transition-all">
+                    开始学习之旅
+                </a>
+                <a href="#community" class="w-full md:w-auto px-8 py-4 bg-white/5 rounded-full font-bold border border-white/10 hover:bg-white/10 transition-all">
+                    查看班级成员
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 统计数字 (Data section) -->
+    <section id="statistics" class="py-20 bg-white/5 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center" data-aos="fade-up">
+                    <div class="text-4xl font-black text-indigo-500 mb-2">35</div>
+                    <div class="text-slate-500 text-xs uppercase tracking-widest font-bold">精英成员</div>
+                </div>
+                <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-4xl font-black text-indigo-500 mb-2">5+</div>
+                    <div class="text-slate-500 text-xs uppercase tracking-widest font-bold">核心课程</div>
+                </div>
+                <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-4xl font-black text-indigo-500 mb-2">1,200+</div>
+                    <div class="text-slate-500 text-xs uppercase tracking-widest font-bold">代码提交</div>
+                </div>
+                <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-4xl font-black text-indigo-500 mb-2">∞</div>
+                    <div class="text-slate-500 text-xs uppercase tracking-widest font-bold">探索精神</div>
                 </div>
             </div>
-        </header>
+        </div>
+    </section>
+
+    <!-- 课程板块 (Services Style) -->
+    <section id="subjects" class="py-32 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-20" data-aos="fade-right">
+                <h2 class="text-4xl font-extrabold mb-4 italic">The Curriculum</h2>
+                <div class="h-1 w-20 bg-indigo-600"></div>
+                <p class="mt-6 text-slate-400">我们深入研究最严苛的学术领域，构建最坚实的理论基础。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- 数学分析 -->
+                <div class="glass-card p-10 rounded-[2rem]" data-aos="fade-up">
+                    <i class="fa-solid fa-wave-square text-3xl text-indigo-500 mb-6"></i>
+                    <h3 class="text-2xl font-bold mb-4">数学分析</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-8">深入理解无穷小过程、收敛性与微积分的精密定义。它是我们分析世界的首选工具。</p>
+                    <ul class="text-xs text-slate-500 space-y-2">
+                        <li><i class="fa-solid fa-check text-indigo-500 mr-2"></i> 实数完备性</li>
+                        <li><i class="fa-solid fa-check text-indigo-500 mr-2"></i> 多元微积分</li>
+                    </ul>
+                </div>
+
+                <!-- 高等代数 -->
+                <div class="glass-card p-10 rounded-[2rem]" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fa-solid fa-border-all text-3xl text-blue-500 mb-6"></i>
+                    <h3 class="text-2xl font-bold mb-4">高等代数</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-8">从向量空间到线性变换，我们探索高维结构的代数本质与对偶性。</p>
+                    <ul class="text-xs text-slate-500 space-y-2">
+                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> 线性空间与基</li>
+                        <li><i class="fa-solid fa-check text-blue-500 mr-2"></i> 特征值分解</li>
+                    </ul>
+                </div>
+
+                <!-- Python -->
+                <div class="glass-card p-10 rounded-[2rem]" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fa-brands fa-python text-3xl text-green-500 mb-6"></i>
+                    <h3 class="text-2xl font-bold mb-4">Python 科学计算</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-8">利用 NumPy, Pandas 与 Matplotlib 将抽象模型转化为可视化的洞察力。</p>
+                    <ul class="text-xs text-slate-500 space-y-2">
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i> 数据处理</li>
+                        <li><i class="fa-solid fa-check text-green-500 mr-2"></i> 数值计算</li>
+                    </ul>
+                </div>
+                
+                <!-- 底部还有大学物理和英语可按此格式继续添加 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 班级社区板块 (Company Team Style) -->
+    <section id="community" class="py-32 bg-indigo-600 rounded-[4rem] mx-4 my-10 overflow-hidden relative">
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 40px 40px;"></div>
         
-        <main>
-            <div class="nav-cards">
-                <div class="nav-card">
-                    <div class="card-icon" style="background: #3498db;">
-                        <i class="fas fa-calculator"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>数学分析资料</h3>
-                        <p>包含课程讲义、习题解答、重点难点解析等完整学习资料</p>
-                        <a href="./Mathematical%20Analysis/" class="btn">查看资料</a>
-                    </div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
+            <h2 class="text-4xl md:text-5xl font-black mb-16">我们的集体意识</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 text-left">
+                <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20" data-aos="fade-right">
+                    <h4 class="text-xl font-bold mb-6 flex items-center">
+                        <i class="fa-solid fa-users-viewfinder mr-3"></i> 35 位核心成员
+                    </h4>
+                    <p class="text-white/80 leading-relaxed mb-8">
+                        从天南海北汇聚于此，我们不仅是同学，更是共同攻克难题的战友。在这里，每个人都有自己的专属页面，记录着他们的研究方向与个人格言。
+                    </p>
+                    <button class="bg-white text-indigo-600 px-6 py-3 rounded-xl font-bold text-sm hover:scale-105 transition-transform">浏览通讯录</button>
                 </div>
-                
-                <div class="nav-card">
-                    <div class="card-icon" style="background: #2ecc71;">
-                        <i class="fas fa-project-diagram"></i>
+
+                <div class="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20" data-aos="fade-left">
+                    <h4 class="text-xl font-bold mb-6 flex items-center">
+                        <i class="fa-solid fa-camera-retro mr-3"></i> 瞬间与记忆
+                    </h4>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="h-20 bg-white/20 rounded-lg"></div>
+                        <div class="h-20 bg-white/20 rounded-lg"></div>
+                        <div class="h-20 bg-white/20 rounded-lg"></div>
+                        <div class="h-20 bg-white/20 rounded-lg"></div>
+                        <div class="h-20 bg-white/20 rounded-lg"></div>
+                        <div class="h-20 bg-white/20 rounded-lg flex items-center justify-center font-bold text-xs cursor-pointer hover:bg-white/30 transition">MORE</div>
                     </div>
-                    <div class="card-content">
-                        <h3>高等代数资料</h3>
-                        <p>多项式，行列式，线性方程组，矩阵等核心内容详解与练习题</p>
-                        <a href="./Linear%20Algebra/" class="btn">查看资料</a>
-                    </div>
+                    <p class="text-white/70 text-sm mt-4 italic">记录从图书馆凌晨三点的灯火，到球场上挥洒的汗水。</p>
                 </div>
-                
-                <div class="nav-card">
-                    <div class="card-icon" style="background: #e74c3c;">
-                        <i class="fas fa-sticky-note"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 (Footer - Professional) -->
+    <footer class="py-20 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-10">
+            <div>
+                <div class="flex items-center space-x-3 mb-6">
+                    <div class="w-8 h-8 bg-indigo-600 rounded flex items-center justify-center">
+                        <i class="fa-solid fa-sigma text-white text-xs"></i>
                     </div>
-                    <div class="card-content">
-                        <h3>课程笔记汇总</h3>
-                        <p>精选课堂笔记、知识梳理图、易错点总结等高效学习资源</p>
-                        <a href="./Course%20Notes/" class="btn">查看资料</a>
-                    </div>
+                    <span class="text-lg font-extrabold uppercase tracking-tighter">Math <span class="text-indigo-500">Class</span></span>
                 </div>
-                
-                <div class="nav-card">
-                    <div class="card-icon" style="background: #f39c12;">
-                        <i class="fas fa-file-contract"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>历年试卷与解析</h3>
-                        <p>近五年考试真题、模拟试题及详细解析，助力备考复习</p>
-                        <a href="./Past%20Exams/" class="btn">查看资料</a>
-                    </div>
-                </div>
-                
-                <!-- 新增的四六级资料版块 -->
-                <div class="nav-card">
-                    <div class="card-icon" style="background: #e67e22;">
-                        <i class="fas fa-language"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>英语四六级资料</h3>
-                        <p>四六级考试报名流程、备考资料、考试注意事项等全套材料</p>
-                        <a href="./46%E7%BA%A7/" class="btn">查看资料</a>
-                    </div>
-                </div>
-                
-                <div class="nav-card">
-                    <div class="card-icon" style="background: #9b59b6;">
-                        <i class="fas fa-chart-bar"></i>
-                    </div>
-                    <div class="card-content">
-                        <h3>学习数据分析</h3>
-                        <p>学习进度统计、成绩分布、资源热度等可视化数据分析</p>
-                        <a href="./学习数据分析/" class="btn">查看分析</a>
-                    </div>
-                </div>
+                <p class="text-slate-500 text-sm">追求真理，严谨治学。数学与应用数学班级官方门户。</p>
             </div>
             
-            <div class="features">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-sync-alt"></i>
-                    </div>
-                    <div>
-                        <h3>实时更新</h3>
-                        <p>学习资料与课程进度同步更新，确保您获取最新资源</p>
-                    </div>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <div>
-                        <h3>多端适配</h3>
-                        <p>完美支持电脑、平板和手机访问，随时随地学习</p>
-                    </div>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-download"></i>
-                    </div>
-                    <div>
-                        <h3>一键下载</h3>
-                        <p>所有资料支持快速下载，方便离线学习与打印</p>
-                    </div>
-                </div>
+            <div class="flex space-x-8 text-slate-500 text-sm">
+                <a href="#" class="hover:text-white transition">GitHub</a>
+                <a href="#" class="hover:text-white transition">学习资源</a>
+                <a href="#" class="hover:text-white transition">隐私条款</a>
             </div>
-        </main>
-        
-        <footer>
-            <p>本网站基于 GitHub Pages 构建 | 最后更新: 2025年10月</p>
-            <p>制作人：程渤栋</p>
-      </div>
-            <div class="footer-links">
-                <a href="https://github.com/guodong0078-lang/learning-Resources-math253"><i class="fab fa-github"></i> 访问项目仓库</a>
-                <a href="mailto:example@example.com"><i class="fas fa-envelope"></i> 联系管理员</a>
-                <a href="#"><i class="fas fa-question-circle"></i> 使用帮助</a>
+            
+            <div class="text-slate-500 text-xs">
+                © 2024 MathClass Hub. Crafted by 学习委员.
             </div>
-        </footer>
-    </div>
+        </div>
+    </footer>
 
     <script>
-        // 添加简单的交互效果
-        document.addEventListener('DOMContentLoaded', function() {
-            // 为统计数字添加动画效果
-            const statItems = document.querySelectorAll('.stat-item');
-            statItems.forEach(item => {
-                item.style.opacity = '0';
-                item.style.transform = 'translateY(20px)';
-            });
-            
-            // 延迟显示统计项
-            setTimeout(() => {
-                statItems.forEach((item, index) => {
-                    setTimeout(() => {
-                        item.style.transition = 'all 0.5s ease';
-                        item.style.opacity = '1';
-                        item.style.transform = 'translateY(0)';
-                    }, index * 200);
-                });
-            }, 500);
-            
-            // 添加卡片点击效果
-            const cards = document.querySelectorAll('.nav-card');
-            cards.forEach(card => {
-                card.addEventListener('click', function(e) {
-                    if (e.target.tagName !== 'A') {
-                        const link = this.querySelector('a');
-                        if (link) {
-                            window.location.href = link.href;
-                        }
-                    }
-                });
-            });
+        // 初始化动画库
+        AOS.init({
+            once: true,
+            duration: 800,
+            easing: 'ease-out-quad'
+        });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('bg-slate-950/90', 'h-16');
+                nav.classList.remove('h-20');
+            } else {
+                nav.classList.remove('bg-slate-950/90', 'h-16');
+                nav.classList.add('h-20');
+            }
         });
     </script>
 </body>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>练习册深度解析 | 数学分析精进库</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 加载 MathJax 3.0 -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; background-color: #030712; color: #ffffff; }
+        
+        /* 炫酷：深空背景纹理 */
+        .cyber-bg {
+            background-image: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 80%);
+            background-attachment: fixed;
+        }
+
+        /* 炫酷：流光卡片 */
+        .cyber-card {
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 32px;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .cyber-card:hover {
+            border-color: rgba(34, 211, 238, 0.5);
+            background: rgba(59, 130, 246, 0.05);
+            transform: translateY(-12px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 20px rgba(59, 130, 246, 0.2);
+        }
+
+        /* 悬浮时的光标跟随感 */
+        .cyber-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(59, 130, 246, 0.15) 0%, transparent 60%);
+            opacity: 0; transition: opacity 0.5s;
+        }
+        .cyber-card:hover::before { opacity: 1; }
+
+        .text-cyan-glow {
+            text-shadow: 0 0 15px rgba(34, 211, 238, 0.4);
+        }
+
+        .math-watermark {
+            position: absolute;
+            right: -10px;
+            bottom: -10px;
+            font-size: 5rem;
+            font-weight: 900;
+            opacity: 0.03;
+            transform: rotate(-15deg);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="antialiased cyber-bg">
+
+    <!-- 导航栏 -->
+    <nav class="fixed w-full z-50 border-b border-white/5 bg-slate-950/80 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <!-- 使用绝对路径防止 404 -->
+            <a href="/learning-Resources-math253/math-analysis/index.html" class="flex items-center text-slate-400 hover:text-cyan-400 transition group">
+                <i class="fa-solid fa-arrow-left-long mr-2 group-hover:-translate-x-2 transition-transform"></i>
+                <span class="text-xs font-bold uppercase tracking-[0.2em]">Analysis Hub</span>
+            </a>
+            <div class="hidden md:flex items-center space-x-2">
+                <span class="w-2 h-2 bg-cyan-500 rounded-full animate-pulse"></span>
+                <span class="text-[10px] font-mono text-cyan-500/60 uppercase">System Status: Workbook_Online</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            
+            <!-- Hero 区域 -->
+            <header class="mb-24" data-aos="fade-up">
+                <div class="inline-flex items-center px-4 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-widest mb-8">
+                    Advanced Problem Solving
+                </div>
+                <h1 class="text-6xl md:text-8xl font-black mb-8 tracking-tighter">
+                    练习册 <span class="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent text-cyan-glow">解析.</span>
+                </h1>
+                <p class="text-slate-400 max-w-2xl text-lg font-light leading-relaxed">
+                    针对《数学分析练习册》第 06-10 章。侧重于解题套路总结、易错点标注及考研真题级别的深度推导。
+                </p>
+            </header>
+
+            <!-- 章节列表 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- CH.06 -->
+                <a href="答案/练习册-第六章.pdf" target="_blank" class="cyber-card p-10 group" data-aos="fade-up">
+                    <div class="math-watermark">∫</div>
+                    <div class="flex justify-between items-start mb-12">
+                        <div class="w-12 h-12 rounded-2xl bg-blue-600/20 flex items-center justify-center text-blue-400 border border-blue-500/20">
+                            <i class="fa-solid fa-pen-fancy text-xl"></i>
+                        </div>
+                        <div class="text-right">
+                            <span class="block text-[10px] mono text-blue-500/40 uppercase">Chapter</span>
+                            <span class="block text-xl font-black text-blue-500/60">06</span>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 group-hover:text-cyan-400 transition">定积分应用技巧</h3>
+                    <p class="text-xs text-slate-500 mb-8 leading-relaxed">包含旋转体体积、弧长计算及变限积分函数求导套路。</p>
+                    <div class="flex items-center text-[10px] font-bold text-cyan-500/80 uppercase tracking-widest">
+                        Access Analysis <i class="fa-solid fa-chevron-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </a>
+
+                <!-- CH.07 -->
+                <a href="答案/练习册-第七章.pdf" target="_blank" class="cyber-card p-10 group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="math-watermark">∞</div>
+                    <div class="flex justify-between items-start mb-12">
+                        <div class="w-12 h-12 rounded-2xl bg-blue-600/20 flex items-center justify-center text-blue-400 border border-blue-500/20">
+                            <i class="fa-solid fa-glasses text-xl"></i>
+                        </div>
+                        <div class="text-right">
+                            <span class="block text-[10px] mono text-blue-500/40 uppercase">Chapter</span>
+                            <span class="block text-xl font-black text-blue-500/60">07</span>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 group-hover:text-cyan-400 transition">广义积分判别法</h3>
+                    <p class="text-xs text-slate-500 mb-8 leading-relaxed">详解 Dirichlet 与 Abel 判别法在复杂震荡积分中的应用。</p>
+                    <div class="flex items-center text-[10px] font-bold text-cyan-500/80 uppercase tracking-widest">
+                        Access Analysis <i class="fa-solid fa-chevron-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </a>
+
+                <!-- CH.08 -->
+                <a href="答案/练习册-第八章.pdf" target="_blank" class="cyber-card p-10 group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="math-watermark">∑</div>
+                    <div class="flex justify-between items-start mb-12">
+                        <div class="w-12 h-12 rounded-2xl bg-blue-600/20 flex items-center justify-center text-blue-400 border border-blue-500/20">
+                            <i class="fa-solid fa-list-ol text-xl"></i>
+                        </div>
+                        <div class="text-right">
+                            <span class="block text-[10px] mono text-blue-500/40 uppercase">Chapter</span>
+                            <span class="block text-xl font-black text-blue-500/60">08</span>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 group-hover:text-cyan-400 transition">数项级数结论汇总</h3>
+                    <p class="text-xs text-slate-500 mb-8 leading-relaxed">正项级数判别比值、根值及积分判别法的选择策略。</p>
+                    <div class="flex items-center text-[10px] font-bold text-cyan-500/80 uppercase tracking-widest">
+                        Access Analysis <i class="fa-solid fa-chevron-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </a>
+
+                <!-- CH.09 -->
+                <a href="答案/练习册-第九章.pdf" target="_blank" class="cyber-card p-10 group" data-aos="fade-up">
+                    <div class="math-watermark">f</div>
+                    <div class="flex justify-between items-start mb-12">
+                        <div class="w-12 h-12 rounded-2xl bg-blue-600/20 flex items-center justify-center text-blue-400 border border-blue-500/20">
+                            <i class="fa-solid fa-staircase text-xl"></i>
+                        </div>
+                        <div class="text-right">
+                            <span class="block text-[10px] mono text-blue-500/40 uppercase">Chapter</span>
+                            <span class="block text-xl font-black text-blue-500/60">09</span>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 group-hover:text-cyan-400 transition">一致收敛性判定</h3>
+                    <p class="text-xs text-slate-500 mb-8 leading-relaxed">Weierstrass M-判别法与连续性、可积性、可微性定理切换。</p>
+                    <div class="flex items-center text-[10px] font-bold text-cyan-500/80 uppercase tracking-widest">
+                        Access Analysis <i class="fa-solid fa-chevron-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </a>
+
+                <!-- CH.10 -->
+                <a href="答案/练习册-第十章.pdf" target="_blank" class="cyber-card p-10 group border-b-4 border-cyan-500/50" data-aos="fade-up" data-aos-delay="100">
+                    <div class="math-watermark">∇</div>
+                    <div class="flex justify-between items-start mb-12">
+                        <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 border border-cyan-500/30 shadow-[0_0_15px_rgba(34,211,238,0.2)]">
+                            <i class="fa-solid fa-mountain-sun text-xl"></i>
+                        </div>
+                        <div class="text-right">
+                            <span class="block text-[10px] mono text-cyan-400 uppercase font-bold">Latest</span>
+                            <span class="block text-xl font-black text-cyan-400">10</span>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-cyan-400">多元复合函数求导</h3>
+                    <p class="text-xs text-slate-400 mb-8 leading-relaxed">全微分、链式法则及高阶偏导数的矩阵表示方法。</p>
+                    <div class="flex items-center text-[10px] font-bold text-cyan-400 uppercase tracking-widest">
+                        Unlock Advanced <i class="fa-solid fa-unlock-keyhole ml-2 animate-pulse"></i>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- 底部页脚 -->
+    <footer class="py-12 border-t border-white/5 text-center">
+        <div class="inline-flex items-center space-x-2 text-slate-700 font-mono text-[10px] tracking-[0.5em] uppercase">
+            <span>Mathematical Analysis</span>
+            <span class="w-1 h-1 bg-slate-800 rounded-full"></span>
+            <span>Strategic Solutions</span>
+        </div>
+    </footer>
+
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // 炫酷：卡片鼠标跟随光晕效果
+        document.querySelectorAll('.cyber-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / card.clientWidth) * 100;
+                const y = ((e.clientY - rect.top) / card.clientHeight) * 100;
+                card.style.setProperty('--x', x + '%');
+                card.style.setProperty('--y', y + '%');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大学物理 | 物质世界运行律</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 加载 MathJax 渲染物理公式 -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; background-color: #0b0f1a; color: #ffffff; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+        }
+        .item-hover:hover {
+            background: rgba(245, 158, 11, 0.08); /* 琥珀橙背景增强 */
+            border-color: rgba(245, 158, 11, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.1);
+        }
+        .text-gradient-orange {
+            background: linear-gradient(135deg, #fff 0%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        /* 物理常数点缀 */
+        .phys-constant {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: rgba(245, 158, 11, 0.3);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- 顶部导航 -->
+    <nav class="fixed w-full z-50 border-b border-white/5 bg-slate-950/80 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <!-- 绝对路径返回主页 -->
+            <a href="/learning-Resources-math253/index.html" class="flex items-center text-slate-400 hover:text-orange-400 transition">
+                <i class="fa-solid fa-arrow-left mr-2"></i>
+                <span class="text-sm font-bold uppercase tracking-widest">返回主页</span>
+            </a>
+            <div class="text-orange-500 font-mono text-xs italic hidden md:block">
+                \[ i\hbar \frac{\partial}{\partial t}\psi = \hat{H}\psi \]
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <!-- 标题区 -->
+            <header class="mb-16" data-aos="fade-down">
+                <div class="flex items-center space-x-4 mb-4">
+                    <span class="h-1 w-12 bg-orange-500"></span>
+                    <span class="text-orange-500 uppercase tracking-[0.3em] text-xs font-bold">Physics Department</span>
+                </div>
+                <h1 class="text-5xl md:text-6xl font-black mb-6 italic">大学物理 <span class="text-orange-500">.</span></h1>
+                <p class="text-slate-400 max-w-2xl text-lg leading-relaxed">
+                    格物致知，探索宇宙最根本的交互作用。从牛顿的经典决定论，到麦克斯韦的波澜壮阔，再到量子的概率奇迹。
+                </p>
+                <div class="mt-4 flex space-x-6">
+                    <span class="phys-constant">c ≈ 2.99792458 × 10⁸ m/s</span>
+                    <span class="phys-constant">h ≈ 6.62607015 × 10⁻³⁴ J·s</span>
+                    <span class="phys-constant">G ≈ 6.67430 × 10⁻¹¹ m³/kg·s²</span>
+                </div>
+            </header>
+
+            <!-- 核心布局 -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                
+                <!-- 板块 1: 物理讲义 -->
+                <div class="lg:col-span-2 space-y-8">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 bg-orange-600 rounded-lg flex items-center justify-center shadow-lg shadow-orange-500/30">
+                            <i class="fa-solid fa-atom text-white"></i>
+                        </div>
+                        <h2 class="text-xl font-bold tracking-tight">理论物理资源库</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- 章节 01-10 -->
+                        <div class="glass-panel p-6 item-hover transition-all cursor-pointer group flex items-start space-x-4">
+                            <div class="text-orange-500/30 font-mono text-xs mt-1">01</div>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-slate-200 group-hover:text-orange-400 transition text-sm">质点运动学与动力学</h4>
+                                <p class="text-[10px] text-slate-500 uppercase mt-1">Mechanics</p>
+                            </div>
+                            <i class="fa-solid fa-compass text-slate-800 group-hover:text-orange-500 transition"></i>
+                        </div>
+
+                        <div class="glass-panel p-6 item-hover transition-all cursor-pointer group flex items-start space-x-4">
+                            <div class="text-orange-500/30 font-mono text-xs mt-1">02</div>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-slate-200 group-hover:text-orange-400 transition text-sm">功、能与动量守恒</h4>
+                                <p class="text-[10px] text-slate-500 uppercase mt-1">Energy & Momentum</p>
+                            </div>
+                            <i class="fa-solid fa-bolt-lightning text-slate-800 group-hover:text-orange-500 transition"></i>
+                        </div>
+
+                        <div class="glass-panel p-6 item-hover transition-all cursor-pointer group flex items-start space-x-4">
+                            <div class="text-orange-500/30 font-mono text-xs mt-1">03</div>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-slate-200 group-hover:text-orange-400 transition text-sm">刚体的转动与平衡</h4>
+                                <p class="text-[10px] text-slate-500 uppercase mt-1">Rigid Body</p>
+                            </div>
+                            <i class="fa-solid fa-dharmachakra text-slate-800 group-hover:text-orange-500 transition"></i>
+                        </div>
+
+                        <div class="glass-panel p-6 item-hover transition-all cursor-pointer group flex items-start space-x-4">
+                            <div class="text-orange-500/30 font-mono text-xs mt-1">04</div>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-slate-200 group-hover:text-orange-400 transition text-sm">机械振动与机械波</h4>
+                                <p class="text-[10px] text-slate-500 uppercase mt-1">Oscillations & Waves</p>
+                            </div>
+                            <i class="fa-solid fa-wave-square text-slate-800 group-hover:text-orange-500 transition"></i>
+                        </div>
+
+                        <div class="glass-panel p-6 item-hover transition-all cursor-pointer group flex items-start space-x-4 border-l-2 border-orange-500/30">
+                            <div class="text-orange-500/30 font-mono text-xs mt-1">05</div>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-slate-200 group-hover:text-orange-400 transition text-sm">气体动理论与热力学</h4>
+                                <p class="text-[10px] text-slate-500 uppercase mt-1">Thermodynamics</p>
+                            </div>
+                            <i class="fa-solid fa-temperature-three-quarters text-slate-800 group-hover:text-orange-500 transition"></i>
+                        </div>
+
+                        <div class="glass-panel p-6 item-hover transition-all cursor-pointer group flex items-start space-x-4">
+                            <div class="text-orange-500/30 font-mono text-xs mt-1">06</div>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-slate-200 group-hover:text-orange-400 transition text-sm">静电场与导体</h4>
+                                <p class="text-[10px] text-slate-500 uppercase mt-1">Electrostatics</p>
+                            </div>
+                            <i class="fa-solid fa-magnet text-slate-800 group-hover:text-orange-500 transition"></i>
+                        </div>
+
+                        <div class="glass-panel p-6 item-hover transition-all cursor-pointer group flex items-start space-x-4">
+                            <div class="text-orange-500/30 font-mono text-xs mt-1">07</div>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-slate-200 group-hover:text-orange-400 transition text-sm">恒定磁场与电磁感应</h4>
+                                <p class="text-[10px] text-slate-500 uppercase mt-1">Magnetism</p>
+                            </div>
+                            <i class="fa-solid fa-clapperboard text-slate-800 group-hover:text-orange-500 transition"></i>
+                        </div>
+
+                        <div class="glass-panel p-6 item-hover transition-all cursor-pointer group flex items-start space-x-4">
+                            <div class="text-orange-500/30 font-mono text-xs mt-1">08</div>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-slate-200 group-hover:text-orange-400 transition text-sm">波动光学: 干涉、衍射与偏振</h4>
+                                <p class="text-[10px] text-slate-500 uppercase mt-1">Wave Optics</p>
+                            </div>
+                            <i class="fa-solid fa-sun text-slate-800 group-hover:text-orange-500 transition"></i>
+                        </div>
+
+                        <div class="glass-panel p-6 item-hover transition-all cursor-pointer group flex items-start space-x-4">
+                            <div class="text-orange-500/30 font-mono text-xs mt-1">09</div>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-slate-200 group-hover:text-orange-400 transition text-sm">狭义相对论基础</h4>
+                                <p class="text-[10px] text-slate-500 uppercase mt-1">Relativity</p>
+                            </div>
+                            <i class="fa-solid fa-rocket text-slate-800 group-hover:text-orange-500 transition"></i>
+                        </div>
+
+                        <div class="glass-panel p-6 item-hover transition-all cursor-pointer group flex items-start space-x-4 border border-orange-500/30">
+                            <div class="text-orange-400 font-mono text-xs mt-1 font-bold">10</div>
+                            <div class="flex-1">
+                                <h4 class="font-bold text-slate-100 group-hover:text-orange-400 transition text-sm underline decoration-orange-500/50">量子物理初步</h4>
+                                <p class="text-[10px] text-orange-500 uppercase mt-1">Quantum Physics</p>
+                            </div>
+                            <i class="fa-solid fa-microchip text-orange-500 animate-pulse"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右侧：实验与习题 -->
+                <div class="space-y-12">
+                    <!-- 实验中心 -->
+                    <section data-aos="fade-left">
+                        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-6">Laboratory Hub</h3>
+                        <div class="bg-orange-600/5 rounded-3xl p-6 border border-orange-500/10">
+                            <p class="text-sm text-slate-400 leading-relaxed italic mb-6">
+                                “物理学是一门实验科学。”
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between group cursor-pointer">
+                                    <span class="text-xs text-slate-300 group-hover:text-orange-400">实验数据处理指南</span>
+                                    <i class="fa-solid fa-file-pdf text-slate-700 group-hover:text-orange-500 transition"></i>
+                                </div>
+                                <div class="flex items-center justify-between group cursor-pointer">
+                                    <span class="text-xs text-slate-300 group-hover:text-orange-400">虚拟仿真实验平台</span>
+                                    <i class="fa-solid fa-link text-slate-700 group-hover:text-orange-500 transition"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 习题与答案 -->
+                    <section data-aos="fade-left" data-aos-delay="100">
+                        <h3 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-6">Practice Sets</h3>
+                        <div class="space-y-4">
+                            <div class="glass-panel p-5 item-hover transition-all cursor-pointer">
+                                <div class="text-orange-500 font-bold text-xs mb-1">MID-TERM PREP</div>
+                                <div class="text-sm">电磁学期中复习重点提纲</div>
+                            </div>
+                            <div class="glass-panel p-5 item-hover transition-all cursor-pointer">
+                                <div class="text-slate-500 font-bold text-xs mb-1">CHAPTER SOLUTIONS</div>
+                                <div class="text-sm">课后习题详细解答全集</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="py-12 border-t border-white/5 text-center">
+        <p class="text-slate-700 text-[10px] font-mono tracking-[0.4em] uppercase">Physics & Universe | Class 35 Academic Portal</p>
+    </footer>
+
+    <script>
+        AOS.init({ duration: 800, once: true });
+    </script>
+</body>
+</html>

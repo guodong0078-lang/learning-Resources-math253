@@ -25,6 +25,7 @@
         align-items: center;
         justify-content: space-between;
         margin-bottom: 12px;
+        gap: 10px; /* 新增这一行 */
       }
       .title {
         font-size: 20px;
@@ -92,6 +93,19 @@
         cursor: pointer;
       }
       .btn:hover { filter: brightness(1.1); }
+      .header .btn-back {
+        text-decoration: none;
+        font-size: 14px;
+        padding: 6px 12px;
+        white-space: nowrap;
+        transition: all 0.3s ease;
+        border-color: rgba(99, 102, 241, 0.3);
+      }
+      .header .btn-back:hover {
+        background: #6366f1;
+        color: white;
+        box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+      }
       .mobileControls {
         display: grid;
         grid-template-columns: repeat(3, 64px);
@@ -190,7 +204,10 @@
   <body>
     <div class="container">
       <div class="header">
-        <div class="title">贪吃蛇（React）</div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <a href="index.html" class="btn btn-back">← 返回</a>
+          <div class="title">贪吃蛇</div>
+        </div>
         <div class="score" id="score">分数：0</div>
       </div>
       <div id="root"></div>

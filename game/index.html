@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logic Lab | 逻辑实验室</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root { --neon-purple: #a855f7; --neon-cyan: #22d3ee; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #030617; 
+            color: #ffffff; 
+            overflow-x: hidden;
+        }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        
+        /* 炫酷扫描线背景 */
+        .scanline {
+            width: 100%; height: 100px; z-index: 10;
+            background: linear-gradient(0deg, transparent 0%, rgba(168, 85, 247, 0.05) 50%, transparent 100%);
+            opacity: 0.1; position: absolute; bottom: 100%;
+            animation: scanline 8s linear infinite;
+        }
+        @keyframes scanline { 0% { bottom: 100%; } 100% { bottom: -100%; } }
+
+        /* 霓虹边框卡片 */
+        .game-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(168, 85, 247, 0.1);
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            position: relative;
+        }
+        .game-card:hover {
+            border-color: var(--neon-purple);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.2);
+            transform: translateY(-10px) rotateX(5deg);
+        }
+        .game-card.locked {
+            opacity: 0.4; filter: grayscale(1); cursor: not-allowed;
+        }
+        
+        .title-glow {
+            text-shadow: 0 0 20px rgba(168, 85, 247, 0.8);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="scanline"></div>
+
+    <!-- 导航 -->
+    <nav class="fixed w-full z-50 bg-slate-950/80 backdrop-blur-xl border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="../index.html" class="flex items-center text-slate-400 hover:text-purple-400 transition group">
+                <i class="fa-solid fa-arrow-left-long mr-2 group-hover:-translate-x-2 transition"></i>
+                <span class="text-xs font-bold mono uppercase tracking-widest">Exit Terminal</span>
+            </a>
+            <div class="text-[10px] font-mono text-purple-500/50 uppercase tracking-widest italic">
+                System_Node: playground_01
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-20 px-6 relative">
+        <div class="max-w-7xl mx-auto">
+            
+            <!-- 头部 -->
+            <header class="mb-24 text-center" data-aos="zoom-in">
+                <div class="inline-block px-4 py-1 rounded bg-purple-500/10 border border-purple-500/20 text-purple-400 text-[10px] font-mono mb-6 uppercase tracking-[0.3em]">
+                    Logic Execution Unit
+                </div>
+                <h1 class="text-6xl md:text-9xl font-black mb-8 italic tracking-tighter title-glow">
+                    THE <span class="text-purple-500">ARCADE.</span>
+                </h1>
+                <p class="text-slate-500 max-w-2xl mx-auto mono text-sm leading-relaxed">
+                    > 正在初始化逻辑博弈协议...<br>
+                    > 建议在 CPU 空闲时进行高维度思维对抗。
+                </p>
+            </header>
+
+            <!-- 游戏矩阵 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                
+                <!-- 游戏 1: 贪吃蛇 (当前唯一激活) -->
+                <div class="game-card p-10 rounded-[2.5rem] group" data-aos="fade-up">
+                    <div class="absolute top-0 right-0 p-6 opacity-5 font-black text-6xl italic">01</div>
+                    <div class="w-16 h-16 bg-purple-600/20 rounded-2xl flex items-center justify-center text-purple-500 mb-12 shadow-[0_0_20px_rgba(168,85,247,0.2)]">
+                        <i class="fa-solid fa-snake text-3xl"></i>
+                    </div>
+                    <h3 class="text-3xl font-black mb-4 italic uppercase">Greedy Snake</h3>
+                    <p class="text-slate-500 text-sm mb-10 leading-relaxed font-light">
+                        PROJECT_SERPENT: 基于平面坐标系的路径搜索实验。通过简单的递归逻辑增长长度。
+                    </p>
+                    <a href="snake.html" class="inline-flex items-center px-8 py-3 bg-purple-600 text-white rounded-xl font-bold hover:bg-white hover:text-purple-600 transition-all duration-300">
+                        INITIALIZE <i class="fa-solid fa-play ml-3"></i>
+                    </a>
+                </div>
+
+                <!-- 游戏 2: 占位 (锁定状态) -->
+                <div class="game-card p-10 rounded-[2.5rem] locked" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-slate-800 rounded-2xl flex items-center justify-center text-slate-600 mb-12">
+                        <i class="fa-solid fa-lock text-3xl"></i>
+                    </div>
+                    <h3 class="text-3xl font-black mb-4 italic uppercase">Minesweeper</h3>
+                    <p class="text-slate-500 text-sm mb-10 leading-relaxed">
+                        PROJECT_SCAN: 概率分布与逻辑排查实验。正在编译内核代码...
+                    </p>
+                    <div class="text-[10px] font-mono text-slate-600 uppercase tracking-widest">
+                        Status: Encrypting...
+                    </div>
+                </div>
+
+                <!-- 游戏 3: 占位 (锁定状态) -->
+                <div class="game-card p-10 rounded-[2.5rem] locked" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-slate-800 rounded-2xl flex items-center justify-center text-slate-600 mb-12">
+                        <i class="fa-solid fa-microchip text-3xl"></i>
+                    </div>
+                    <h3 class="text-3xl font-black mb-4 italic uppercase">Sudoku</h3>
+                    <p class="text-slate-500 text-sm mb-10 leading-relaxed">
+                        PROJECT_MATRIX: 约束满足问题的暴力搜索练习。版本 V2.0 待发布。
+                    </p>
+                    <div class="text-[10px] font-mono text-slate-600 uppercase tracking-widest">
+                        Status: Under Dev
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="py-20 border-t border-white/5 text-center">
+        <p class="text-slate-800 text-[10px] font-mono tracking-[0.6em] uppercase">
+            Binary Logic & Creativity | Class 35 Arcade
+        </p>
+    </footer>
+
+    <script>
+        AOS.init({ duration: 1000, once: true });
+    </script>
+</body>
+</html>
